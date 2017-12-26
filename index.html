@@ -20,6 +20,13 @@
 				width:100%;
 				display:block;
 			}
+			#cancel {
+				visibility: hidden;
+			}
+
+			#corrAns {
+				width: 20px;
+			}
 
 		</style>
 	</head>
@@ -27,6 +34,7 @@
 		<h1>Cloze Creation Page</h1>
 		<button type="button" id="addLineBtn" onclick="addtl()">add text line</button>
 		<button type="button" id="addChoice" onclick="addch()">add choise and feedbacks</button>
+		<button type="button" id="cancel" class="cancel" onclick="cancel()">cancel</button>
 
 		<div id="workingArea"></div>
 		<h2>Preview</h2>
