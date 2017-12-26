@@ -9,6 +9,13 @@ function addToPreview() {
 }
 function addch() {
 	$("#workingArea").append('choice '+tempnumber+'<input type="text" id="c'+tempnumber+'">');
-	$("#workingArea").append('feedback <input type="text" id="feedback'+number+''+tempnumber+'"><BR>')
+	$("#workingArea").append('feedback <input type="text" id="f'+tempnumber+'"><BR>');
 	tempnumber++;
+	if ($("#addChoises").length ==0) {
+		$("#workingArea").append('<button type="button" id="addChoises">add Choice</button>');
+	}
+	else {
+		$("#addChoises").remove();
+		$("#workingArea").append('<button type="button" id="addChoises">add Choice</button>');
+	}
 }
