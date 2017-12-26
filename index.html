@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="js/functions.js"></script>
+		<style type="text/css">
+			h1 {
+				color: red;
+			}
+			h2 {
+				color: green;
+			}
+			#clozeData {
+				border: 1px solid black;
+				width: 50%;
+				height: 100px;
+			}
+			#workingArea {
+				border: 1px solid red;
+				width:100%;
+				display:block;
+			}
+
+		</style>
+	</head>
+	<body>
+		<h1>Cloze Creation Page</h1>
+		<button type="button" id="addLineBtn" onclick="addtl()">add text line</button>
+		<button type="button" id="addChoice" onclick="addch()">add choise and feedbacks</button>
+
+		<div id="workingArea"></div>
+		<h2>Preview</h2>
+		<div id="clozeData" class="clozeClass" ></div>
+	</body>
+</html>
