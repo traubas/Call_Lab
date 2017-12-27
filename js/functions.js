@@ -1,5 +1,7 @@
 var number=1;
 var tempnumber=1;
+var Feedbacks = new Array(50);
+var CorrectAnswers = new Array(50);
 function addtl() {
 	$("#workingArea").append('<input type="text" id="textInput"><button type="button" onclick=addTextToPreview()>add</button>');
 	$("#addLineBtn").prop('disabled', true);
@@ -53,7 +55,7 @@ function addOptionsToPreview() {
 		feedback[i] = $("#"+id).val();
 	}
 	var x="s"+number;
-	$("#clozeData").append('<select id='+x+'></select>');
+	$("#clozeData").append('<select id='+x+'></select> ');
 	for (i=0;i<tempnumber;i++) {
 		console.log($('#c'+(i+1)).val());
 		if (i==0)
@@ -62,5 +64,10 @@ function addOptionsToPreview() {
 			$("#"+x).append('<option>'+$('#c'+(i)).val()+'</option>');
 	}
 	correct_answer = $("#corrAns").val();
+	CorrectAnswers[number-1]=correct_answer;
+	Feedbacks[number-1]=feedback;
+	console.log(Feedbacks);
+	console.log(CorrectAnswers);
 	cancel();
+	number++;
 }
