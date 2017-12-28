@@ -63,6 +63,7 @@ function addOptionsToPreview() {
 		else
 			$("#"+x).append('<option>'+$('#c'+(i)).val()+'</option>');
 	}
+	$("clozeData").append('<button type="button" id=check'+number+' onclick="checkOneAnswer('+number+')');
 	correct_answer = $("#corrAns").val();
 	CorrectAnswers[number-1]=correct_answer;
 	Feedbacks[number-1]=feedback;
