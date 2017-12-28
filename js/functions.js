@@ -78,14 +78,39 @@ function checkOneAnswer(qnumber) {
 	if (answer==0) {
 		console.log("You must choose an answer");
 	}
-	else if (answer == CorrectAnswers[qnumber-1]) {
-		console.log(Feedbacks[qnumber-1][answer-1]);
-	}
-	else 
-		console.log("WRONG");
+	else
+		showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200);
 
 }
 
 function deleteLastAddition() {
-	$("#clozeData").children().last().remove();
+	var s = $("#clozeData").children().last().prop("tagName");
+	if (s == "BUTTON") {
+		$("#clozeData").children().last().remove();
+		$("#clozeData").children().last().remove();
+		number--;
+	}
+	else
+		$("#clozeData").children().last().remove();
+}
+
+function showFeedback(feedback,position1,position2,size1,size2)
+{
+	var modal = document.getElementById('myModal');
+	var span = document.getElementsByClassName("close")[0];
+	modal.style.display = "block";
+	fb = document.getElementById('feedback_content');
+	feedback_content.innerHTML=
+	"<br><center><table cellpadding=15><tr><td>"+feedback+"</tr></td></table></center><br>";
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	    modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
 }
