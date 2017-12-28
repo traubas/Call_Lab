@@ -72,3 +72,16 @@ function addOptionsToPreview() {
 	cancel();
 	number++;
 }
+
+function checkOneAnswer(qnumber) {
+	var answer = $("#s"+qnumber).prop('selectedIndex');
+	if (answer==0) {
+		console.log("You must choose an answer");
+	}
+	else if (answer == CorrectAnswers[qnumber-1]) {
+		console.log(Feedbacks[qnumber-1][answer-1]);
+	}
+	else 
+		console.log("WRONG");
+
+}
