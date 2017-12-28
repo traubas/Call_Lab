@@ -85,3 +85,7 @@ function checkOneAnswer(qnumber) {
 		console.log("WRONG");
 
 }
+
+function deleteLastAddition() {
+	$("#clozeData").children().last().remove();
+}
