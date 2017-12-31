@@ -67,19 +67,25 @@ function addOptionsToPreview() {
 	correct_answer = $("#corrAns").val();
 	CorrectAnswers[number-1]=correct_answer;
 	Feedbacks[number-1]=feedback;
-	console.log(Feedbacks);
-	console.log(CorrectAnswers);
 	cancel();
 	number++;
 }
-
+/*needs to be part of the output script*/
 function checkOneAnswer(qnumber) {
 	var answer = $("#s"+qnumber).prop('selectedIndex');
 	if (answer==0) {
-		console.log("You must choose an answer");
+		showFeedback("You must choose an answer",300,300,400,200,0);
 	}
-	else
-		showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200);
+	else if (answer==CorrectAnswers[qnumber-1]){
+		showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,1);
+		var answer = $("#s"+qnumber+ " option:selected").text();
+		$('<span class="correct">'+answer+'</span>').insertAfter("#check"+qnumber);
+		$("#check"+qnumber).remove();
+		$("#s"+qnumber).remove();
+	}
+	else {
+		showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,0);
+	}
 
 }
 
@@ -93,8 +99,8 @@ function deleteLastAddition() {
 	else
 		$("#clozeData").children().last().remove();
 }
-
-function showFeedback(feedback,position1,position2,size1,size2)
+/*needs to be part of the output script*/
+function showFeedback(feedback,position1,position2,size1,size2,flag)
 {
 	var modal = document.getElementById('myModal');
 	var span = document.getElementsByClassName("close")[0];
@@ -102,6 +108,11 @@ function showFeedback(feedback,position1,position2,size1,size2)
 	fb = document.getElementById('feedback_content');
 	feedback_content.innerHTML=
 	"<br><center><table cellpadding=15><tr><td>"+feedback+"</tr></td></table></center><br>";
+	if (flag==1) {
+		$(".modal-content").css({'background-color': 'green'});
+	}
+	else
+		$(".modal-content").css({'background-color': 'yellow'});
 	// When the user clicks on <span> (x), close the modal
 	span.onclick = function() {
 	    modal.style.display = "none";
