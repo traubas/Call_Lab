@@ -125,3 +125,12 @@ function showFeedback(feedback,position1,position2,size1,size2,flag)
 	    }
 	}
 }
+
+function sendData() {
+	var html = $("#clozeData").html();
+	var data = { 
+        html: html
+    };
+    console.log(html);
+	$.post("http://127.0.0.1:4444", data);
+}
