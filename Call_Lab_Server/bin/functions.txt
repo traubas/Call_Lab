@@ -1,18 +1,25 @@
 
 function checkOneAnswer(qnumber) {
 	var answer = $("#s"+qnumber).prop('selectedIndex');
+	if (answer==null)
+		return;
 	if (answer==0) {
-		showFeedback("You must choose an answer",300,300,400,200,0);
+		if (!checkingAll)
+			showFeedback("You must choose an answer",300,300,400,200,0);
+		notAllCorrect = true;
 	}
 	else if (answer==CorrectAnswers[qnumber-1]){
-		showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,1);
+		if (!checkingAll)
+			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,1);
 		var answer = $("#s"+qnumber+ " option:selected").text();
 		$('<span class="correct">'+answer+'</span>').insertAfter("#check"+qnumber);
 		$("#check"+qnumber).remove();
 		$("#s"+qnumber).remove();
 	}
 	else {
-		showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,0);
+		if (!checkingAll)
+			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,0);
+		notAllCorrect = true;
 	}
 
 }
@@ -41,4 +48,21 @@ function showFeedback(feedback,position1,position2,size1,size2,flag)
 	        modal.style.display = "none";
 	    }
 	}
+}
+
+function checkAll() {
+
+	checkingAll = true;
+	for (i=0;i<numberOfQuestions-1;i++) {
+
+		checkOneAnswer(i+1);
+	}
+	checkingAll=false;
+	if (notAllCorrect) {
+		showFeedback("Some of your answers are not correct. Try again.",300,300,400,200,0);
+	}
+	else {
+		showFeedback("Good job. You finished this exercise!",300,300,400,200,1)
+	}
+	notAllCorrect = false;
 }

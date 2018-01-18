@@ -2,7 +2,6 @@
 import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -79,6 +78,7 @@ public class Handlers {
 			String theanswers="";
 			String thetitle="";
 			String numberOfQuestions = "";
+			String fileName = "";
 			he.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
 		    if (he.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
@@ -108,9 +108,11 @@ public class Handlers {
 					thetitle+=parameters.get(key);
 				else if (key.equals("numOfQuestions"))
 					numberOfQuestions+= parameters.get(key);
-					
+				else if (key.equals("fileName"))
+					fileName+= parameters.get(key);
 				System.out.println(parameters.get(key));
 			}
+			System.out.println("file name is: "+fileName);
 			thefunctions =readFile("src/functions.txt");
 			File htmlTemplateFile = new File("src/template.html");
 			String htmlString = FileUtils.readFileToString(htmlTemplateFile,"UTF-8");
@@ -119,11 +121,11 @@ public class Handlers {
 			htmlString = htmlString.replace("$feedbackarray", thefeedbacks);
 			htmlString = htmlString.replace("$thescript", thefunctions);
 			htmlString = htmlString.replace("$theTitle", thetitle);
-			htmlString = htmlString.replace("numOfQuestions", numberOfQuestions);
+			htmlString = htmlString.replace("$numOfQuestions", numberOfQuestions);
 			System.out.println(thetitle);
-			File newHtmlFile = new File("path/new.html");
+			File newHtmlFile = new File("path/"+fileName+".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
-			Desktop.getDesktop().open(new File("/home/ofir/eclipse-workspace/Call_Lab_Server/path"));
+			Desktop.getDesktop().open(new File("/home/ofir/projects/Call_Lab/Call_Lab_Server/path"));
 			he.sendResponseHeaders(200, response.length());
 			OutputStream os = he.getResponseBody();
 			os.write(response.toString().getBytes());

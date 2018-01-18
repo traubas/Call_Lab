@@ -83,6 +83,7 @@
 			var Feedbacks = new Array(50);
 			var CorrectAnswers = new Array(50);
 			var checkingAll = false;
+			var notAllCorrect = false;
 			$(document).ready(function() {
 				Feedbacks = $feedbackarray;
 				CorrectAnswers = $correctanswersarray;
@@ -94,7 +95,8 @@
 		<center><h1><div id="clozeTitle">$theTitle</div></h1><BR></center>
 		<center><div id="clozeData">
 			$thebody
-		</div></center>
+		</div>
+		<button type="button" id="checlAllButton" onclick="checkAll()">Check All Answers</button></center>
 		<!-- The Modal -->
 		<div id="myModal" class="modal">
 

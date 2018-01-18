@@ -4,6 +4,7 @@ var Feedbacks = new Array(50);
 var CorrectAnswers = new Array(50);
 var title = "";
 var checkingAll = false;
+var notAllCorrect = false;
 function addtl() {
 	$("#workingArea").append('<input type="text" id="textInput"><button type="button" onclick=addTextToPreview()>add</button>');
 	$("#addLineBtn").prop('disabled', true);
@@ -93,9 +94,12 @@ function addOptionsToPreview() {
 /*needs to be part of the output script*/
 function checkOneAnswer(qnumber) {
 	var answer = $("#s"+qnumber).prop('selectedIndex');
+	if (answer==null)
+		return;
 	if (answer==0) {
 		if (!checkingAll)
 			showFeedback("You must choose an answer",300,300,400,200,0);
+		notAllCorrect = true;
 	}
 	else if (answer==CorrectAnswers[qnumber-1]){
 		if (!checkingAll)
@@ -106,8 +110,9 @@ function checkOneAnswer(qnumber) {
 		$("#s"+qnumber).remove();
 	}
 	else {
-		if (!checkingAll)
+		if (!checkingAll) 
 			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,0);
+		notAllCorrect = true;
 	}
 
 }
@@ -145,7 +150,8 @@ function sendData() {
         "feedbacks": JSON.stringify(Feedbacks),
         "correctanswers": JSON.stringify(CorrectAnswers),
         "title" : $("#theTitle").text(),
-        "numOfQuestions": number
+        "numOfQuestions": number,
+        "fileName": $("#fileName").val()
     };
     js = JSON.stringify(CorrectAnswers);
     console.log($("#theTitle").text());
@@ -170,4 +176,11 @@ function checkAll() {
 		checkOneAnswer(i+1);
 	}
 	checkingAll=false;
+	if (notAllCorrect) {
+		showFeedback("Some of your answers are not correct. Try again.",300,300,400,200,0);
+	}
+	else {
+		showFeedback("Good job. You finished this exercise!",300,300,400,200,1)
+	}
+	notAllCorrect = false;
 }

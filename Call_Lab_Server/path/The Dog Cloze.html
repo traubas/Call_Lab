@@ -85,8 +85,8 @@
 			var checkingAll = false;
 			var notAllCorrect = false;
 			$(document).ready(function() {
-				Feedbacks = [["oh no!","cool!","oh boy! :<",null],["great!","what?","run!",null],null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
-				CorrectAnswers = ["2","1",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+				Feedbacks = [["yes","no",null],["no","yay",null],null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+				CorrectAnswers = ["1","2",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
 			});	
 			
 function checkOneAnswer(qnumber) {
@@ -160,9 +160,9 @@ function checkAll() {
 		</script>	
 	</head>
 	<body>
-		<center><h1><div id="clozeTitle">The Dog Clzoe</div></h1><BR></center>
+		<center><h1><div id="clozeTitle">doggo</div></h1><BR></center>
 		<center><div id="clozeData">
-			<span>the dog ran into the </span><select id="s1"><option></option><option>fire</option><option>house</option><option>glass door</option></select> <button type="button" id="check1" onclick="checkOneAnswer(1)">check</button><span>. and found his </span><select id="s2"><option></option><option>bone</option><option>sex toy</option><option>dinosaur</option></select> <button type="button" id="check2" onclick="checkOneAnswer(2)">check</button><span>. </span>
+			<span>the dog ran into the </span><select id="s1"><option></option><option>house</option><option>fire</option></select> <button type="button" id="check1" onclick="checkOneAnswer(1)">check</button><span>. and found his </span><select id="s2"><option></option><option>sword</option><option>toy</option></select> <button type="button" id="check2" onclick="checkOneAnswer(2)">check</button>
 		</div>
 		<button type="button" id="checlAllButton" onclick="checkAll()">Check All Answers</button></center>
 		<!-- The Modal -->
