@@ -1,0 +1,155 @@
+<html>
+	<head>
+		<style type="text/css">
+			h1 {
+				color: red;
+			}
+			h2 {
+				color: green;
+			}
+			#clozeTitle {
+
+    			
+			}
+			#clozeData {
+				align-content: center;
+				border: 1px solid black;
+				width: 50%;
+				height: 100px;
+			}
+			#workingArea {
+				border: 1px solid red;
+				width:100%;
+				display:block;
+			}
+			#cancel {
+				visibility: hidden;
+			}
+
+			#corrAns {
+				width: 20px;
+			}
+
+			.modal {
+			    display: none; /* Hidden by default */
+			    position: fixed; /* Stay in place */
+			    z-index: 1; /* Sit on top */
+			    padding-top: 100px; /* Location of the box */
+			    top: 0;
+				left: 0;
+			    width: 100%; /* Full width */
+			    height: 100%; /* Full height */
+			    overflow: auto; /* Enable scroll if needed */
+			    background-color: rgb(0,0,0); /* Fallback color */
+			    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+			}
+
+			/* Modal Content */
+			.modal-content {
+			    background-color: yellow;
+			    position: absolute;
+			    top:50%;
+			    left: 8%;
+			    margin: auto;
+			    padding: 20px;
+			    border: ridge 7px;
+			    width: 80%;
+			    font-weight: bold;
+			}
+
+			/* The Close Button */
+			.close {
+			    color: #aaaaaa;
+			    float: right;
+			    font-size: 28px;
+			    font-weight: bold;
+			}
+
+			.close:hover,
+			.close:focus {
+			    color: #000;
+			    text-decoration: none;
+			    cursor: pointer;
+			}
+
+			.correct {
+				color: green;
+				font-weight: bold;
+			}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script>
+			var Feedbacks = new Array(50);
+			var CorrectAnswers = new Array(50);
+			$(document).ready(function() {
+				Feedbacks = [["correct","wrong",null],["shut","good answer","the","fuck up",null],null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+				CorrectAnswers = ["1","2",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+			});	
+			
+function checkOneAnswer(qnumber) {
+	var answer = $("#s"+qnumber).prop('selectedIndex');
+	if (answer==0) {
+		showFeedback("You must choose an answer",300,300,400,200,0);
+	}
+	else if (answer==CorrectAnswers[qnumber-1]){
+		showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,1);
+		var answer = $("#s"+qnumber+ " option:selected").text();
+		$('<span class="correct">'+answer+'</span>').insertAfter("#check"+qnumber);
+		$("#check"+qnumber).remove();
+		$("#s"+qnumber).remove();
+	}
+	else {
+		showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,0);
+	}
+
+}
+
+function showFeedback(feedback,position1,position2,size1,size2,flag)
+{
+	var modal = document.getElementById('myModal');
+	var span = document.getElementsByClassName("close")[0];
+	modal.style.display = "block";
+	fb = document.getElementById('feedback_content');
+	feedback_content.innerHTML=
+	"<br><center><table cellpadding=15><tr><td>"+feedback+"</tr></td></table></center><br>";
+	if (flag==1) {
+		$(".modal-content").css({'background-color': 'green'});
+	}
+	else
+		$(".modal-content").css({'background-color': 'yellow'});
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	    modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
+}
+
+		</script>	
+	</head>
+	<body>
+		<center><h1><div id="clozeTitle">The Ksenia Cloze</div></h1><BR></center>
+		<center><div id="clozeData">
+			<span>Can money be used to spread messages? At first Alexei Navalny,a Russian opposition activist and noted blogger, was </span><select id="s1"><option></option><option>sceptical</option><option>sceptically</option></select> <button type="button" id="check1" onclick="checkOneAnswer(1)">check</button><span>. But then he </span><select id="s2"><option></option><option>has done</option><option>did</option><option>has made</option><option>made</option></select> <button type="button" id="check2" onclick="checkOneAnswer(2)">check</button>
+		</div></center>
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+
+		  <!-- Modal content -->
+		  <div class="modal-content">
+		    <span class="close">&times;</span>
+		    <p id="feedback_content">
+		    	
+		    </div>
+		  </div>
+
+		</div>
+	</body>
+</html>
+
+

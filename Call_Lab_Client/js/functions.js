@@ -2,6 +2,8 @@ var number=1;
 var tempnumber=1;
 var Feedbacks = new Array(50);
 var CorrectAnswers = new Array(50);
+var title = "";
+var checkingAll = false;
 function addtl() {
 	$("#workingArea").append('<input type="text" id="textInput"><button type="button" onclick=addTextToPreview()>add</button>');
 	$("#addLineBtn").prop('disabled', true);
@@ -9,7 +11,7 @@ function addtl() {
 	$(".cancel").css('visibility', 'visible');
 }
 function addTextToPreview() {
-	$("#clozeData").append('<span>'+ $("#textInput").val()+' <span>');
+	$("#clozeData").append('<span>'+ $("#textInput").val()+' </span>');
 	$("#addLineBtn").prop('disabled', false);
 	$("#addChoice").prop('disabled', false);
 	$(".cancel").css('visibility', 'hidden');
@@ -24,6 +26,24 @@ function cancel() {
 	if (tempnumber>1)
 		tempnumber=1;
 
+}
+
+function addEditTitle() {
+	$("#workingArea").append('<input type=text id="tempTitle"><button type="button" id="finishTitle" onclick="finishTitle()">Change Title</button>')
+	$("#addLineBtn").prop('disabled', true);
+	$("#addChoice").prop('disabled', true);
+	$("#addEditTitle").prop('disabled', true);
+	$(".cancel").css('visibility', 'visible');
+}
+
+function finishTitle() {
+	title = $("#tempTitle").val();
+	$("#theTitle").append(title);
+	$("#workingArea").empty();
+	$("#addLineBtn").prop('disabled', false);
+	$("#addChoice").prop('disabled', false);
+	$("#addEditTitle").prop('disabled', false);
+	$(".cancel").css('visibility', 'hidden');
 }
 function addch() {
 	$("#addLineBtn").prop('disabled', true);
@@ -57,7 +77,6 @@ function addOptionsToPreview() {
 	var x="s"+number;
 	$("#clozeData").append('<select id='+x+'></select> ');
 	for (i=0;i<tempnumber;i++) {
-		console.log($('#c'+(i+1)).val());
 		if (i==0)
 			$("#"+x).append('<option></option>');
 		else
@@ -69,35 +88,28 @@ function addOptionsToPreview() {
 	Feedbacks[number-1]=feedback;
 	cancel();
 	number++;
+	console.log(number);
 }
 /*needs to be part of the output script*/
 function checkOneAnswer(qnumber) {
 	var answer = $("#s"+qnumber).prop('selectedIndex');
 	if (answer==0) {
-		showFeedback("You must choose an answer",300,300,400,200,0);
+		if (!checkingAll)
+			showFeedback("You must choose an answer",300,300,400,200,0);
 	}
 	else if (answer==CorrectAnswers[qnumber-1]){
-		showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,1);
+		if (!checkingAll)
+			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,1);
 		var answer = $("#s"+qnumber+ " option:selected").text();
-		$('<span class="correct">'+answer+'</span>').insertAfter("#check"+qnumber);
+		$('<span class="correct">'+answer+" "+'</span>').insertAfter("#check"+qnumber);
 		$("#check"+qnumber).remove();
 		$("#s"+qnumber).remove();
 	}
 	else {
-		showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,0);
+		if (!checkingAll)
+			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,0);
 	}
 
-}
-
-function deleteLastAddition() {
-	var s = $("#clozeData").children().last().prop("tagName");
-	if (s == "BUTTON") {
-		$("#clozeData").children().last().remove();
-		$("#clozeData").children().last().remove();
-		number--;
-	}
-	else
-		$("#clozeData").children().last().remove();
 }
 /*needs to be part of the output script*/
 function showFeedback(feedback,position1,position2,size1,size2,flag)
@@ -129,8 +141,33 @@ function showFeedback(feedback,position1,position2,size1,size2,flag)
 function sendData() {
 	var html = $("#clozeData").html();
 	var data = { 
-        html: html
+        "html": html,
+        "feedbacks": JSON.stringify(Feedbacks),
+        "correctanswers": JSON.stringify(CorrectAnswers),
+        "title" : $("#theTitle").text(),
+        "numOfQuestions": number
     };
-    console.log(html);
-	$.post("http://127.0.0.1:4444", data);
+    js = JSON.stringify(CorrectAnswers);
+    console.log($("#theTitle").text());
+	$.post("http://0.0.0.0:4444/echoPost", data);
+}
+function deleteLastAddition() {
+	var s = $("#clozeData").children().last().prop("tagName");
+	if (s == "BUTTON") {
+		$("#clozeData").children().last().remove();
+		$("#clozeData").children().last().remove();
+		number--;
+	}
+	else
+		$("#clozeData").children().last().remove();
+}
+
+function checkAll() {
+
+	checkingAll = true;
+	for (i=0;i<number-1;i++) {
+
+		checkOneAnswer(i+1);
+	}
+	checkingAll=false;
 }
