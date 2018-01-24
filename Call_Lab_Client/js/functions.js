@@ -2,6 +2,8 @@ var number=1;
 var tempnumber=1;
 var Feedbacks = new Array(50);
 var CorrectAnswers = new Array(50);
+var answered_grade=new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+var number_try=    new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)	
 var title = "";
 var checkingAll = false;
 var notAllCorrect = false;
@@ -89,10 +91,10 @@ function addOptionsToPreview() {
 	Feedbacks[number-1]=feedback;
 	cancel();
 	number++;
-	console.log(number);
 }
 /*needs to be part of the output script*/
 function checkOneAnswer(qnumber) {
+	number_try[qnumber-1]=number_try[qnumber-1]+1;
 	var answer = $("#s"+qnumber).prop('selectedIndex');
 	if (answer==null)
 		return;
@@ -108,6 +110,10 @@ function checkOneAnswer(qnumber) {
 		$('<span class="correct">'+answer+" "+'</span>').insertAfter("#check"+qnumber);
 		$("#check"+qnumber).remove();
 		$("#s"+qnumber).remove();
+		if (number_try[qnumber-1]>Feedbacks[qnumber-1]) {
+			number_try[qnumber-1]=1/(Feedback[qnumber-1]-1);
+		}
+		answered_grade[qnumber-1]=(Feedbacks[qnumber-1].length-number_try[qnumber-1])/(Feedbacks[qnumber-1].length-1);
 	}
 	else {
 		if (!checkingAll) 
@@ -115,6 +121,15 @@ function checkOneAnswer(qnumber) {
 		notAllCorrect = true;
 	}
 
+}
+
+function grade(msg,flag) {
+	var gr_per_question=100/(number-1);
+	var grade=0;
+	for (i=0;i<number;i++) {
+		grade=grade+gr_per_question*answered_grade[i];
+	}
+	showFeedback(msg+"<BR>"+"Your grade is: "+Math.round(grade)+"%",300,300,300,300,flag);
 }
 /*needs to be part of the output script*/
 function showFeedback(feedback,position1,position2,size1,size2,flag)
@@ -154,7 +169,6 @@ function sendData() {
         "fileName": $("#fileName").val()
     };
     js = JSON.stringify(CorrectAnswers);
-    console.log($("#theTitle").text());
 	$.post("http://0.0.0.0:4444/echoPost", data);
 }
 function deleteLastAddition() {
@@ -177,10 +191,13 @@ function checkAll() {
 	}
 	checkingAll=false;
 	if (notAllCorrect) {
-		showFeedback("Some of your answers are not correct. Try again.",300,300,400,200,0);
+		var msg = "Some of your answers are not correct. Try again.";
+		grade(msg,0);
 	}
 	else {
-		showFeedback("Good job. You finished this exercise!",300,300,400,200,1)
+		var msg = "Good job. You finished this exercise!";
+		grade(msg,1);
 	}
+	
 	notAllCorrect = false;
 }
