@@ -41,6 +41,7 @@ function addEditTitle() {
 
 function finishTitle() {
 	title = $("#tempTitle").val();
+	$("#theTitle").empty();
 	$("#theTitle").append(title);
 	$("#workingArea").empty();
 	$("#addLineBtn").prop('disabled', false);
