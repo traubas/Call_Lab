@@ -12,6 +12,7 @@ function addtl() {
 	$("#addLineBtn").prop('disabled', true);
 	$("#addChoice").prop('disabled', true);
 	$("#addEditTitle").prop('disabled', true);
+	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addEditTitle");
 	$(".cancel").css('visibility', 'visible');
 }
 function addTextToPreview() {
@@ -29,6 +30,7 @@ function cancel() {
 	$("#addChoice").prop('disabled', false);
 	$("#addEditTitle").prop('disabled', false);
 	$(".cancel").css('visibility', 'hidden');
+	$(".cancel").remove();
 	if (tempnumber>1)
 		tempnumber=1;
 
@@ -39,6 +41,7 @@ function addEditTitle() {
 	$("#addLineBtn").prop('disabled', true);
 	$("#addChoice").prop('disabled', true);
 	$("#addEditTitle").prop('disabled', true);
+	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addEditTitle");
 	$(".cancel").css('visibility', 'visible');
 }
 
@@ -50,12 +53,15 @@ function finishTitle() {
 	$("#addLineBtn").prop('disabled', false);
 	$("#addChoice").prop('disabled', false);
 	$("#addEditTitle").prop('disabled', false);
-	$(".cancel").css('visibility', 'hidden');
+	$(".cancel").remove();
+
 }
 function addch() {
 	$("#addLineBtn").prop('disabled', true);
 	$("#addChoice").prop('disabled', true);
 	$("#addEditTitle").prop('disabled', true);
+	if ($("#cancel").length == 0)
+		$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addEditTitle");
 	$("#workingArea").append('choice '+tempnumber+'<input type="text" id="c'+tempnumber+'">');
 	$("#workingArea").append('feedback <input type="text" id="f'+tempnumber+'"><BR>');
 	tempnumber++;
@@ -90,7 +96,7 @@ function addOptionsToPreview() {
 		else
 			$("#"+x).append('<option>'+$('#c'+(i)).val()+'</option>');
 	}
-	$("#clozeData").append('<button type="button" id="check'+number+'" onclick=checkOneAnswer('+number+') >check</button>');
+	$("#clozeData").append('<button type="button" id="check'+number+'" class="check" onclick=checkOneAnswer('+number+') ><i class="glyphicon glyphicon-search"></i></button> ');
 	correct_answer = $("#corrAns").val();
 	CorrectAnswers[number-1]=correct_answer;
 	Feedbacks[number-1]=feedback;
@@ -173,6 +179,7 @@ function sendData() {
         "numOfQuestions": number,
         "fileName": $("#fileName").val()
     };
+    console.log($("#theTitle").text());
     js = JSON.stringify(CorrectAnswers);
 	$.post("http://0.0.0.0:4444/echoPost", data);
 }
