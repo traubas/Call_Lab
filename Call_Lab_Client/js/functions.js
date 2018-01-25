@@ -11,12 +11,14 @@ function addtl() {
 	$("#workingArea").append('<input type="text" id="textInput"><button type="button" onclick=addTextToPreview()>add</button>');
 	$("#addLineBtn").prop('disabled', true);
 	$("#addChoice").prop('disabled', true);
+	$("#addEditTitle").prop('disabled', true);
 	$(".cancel").css('visibility', 'visible');
 }
 function addTextToPreview() {
 	$("#clozeData").append('<span>'+ $("#textInput").val()+' </span>');
 	$("#addLineBtn").prop('disabled', false);
 	$("#addChoice").prop('disabled', false);
+	$("#addEditTitle").prop('disabled', false);
 	$(".cancel").css('visibility', 'hidden');
 	$("#workingArea").empty();
 	
@@ -25,6 +27,7 @@ function cancel() {
 	$("#workingArea").empty();
 	$("#addLineBtn").prop('disabled', false);
 	$("#addChoice").prop('disabled', false);
+	$("#addEditTitle").prop('disabled', false);
 	$(".cancel").css('visibility', 'hidden');
 	if (tempnumber>1)
 		tempnumber=1;
@@ -52,6 +55,7 @@ function finishTitle() {
 function addch() {
 	$("#addLineBtn").prop('disabled', true);
 	$("#addChoice").prop('disabled', true);
+	$("#addEditTitle").prop('disabled', true);
 	$("#workingArea").append('choice '+tempnumber+'<input type="text" id="c'+tempnumber+'">');
 	$("#workingArea").append('feedback <input type="text" id="f'+tempnumber+'"><BR>');
 	tempnumber++;

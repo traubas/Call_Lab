@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="js/functions.js"></script>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<script src="js/bootstrap.min.js"></script>
 		<style type="text/css">
 			h1 {
 				color: red;
@@ -16,7 +21,6 @@
 				height: 100px;
 			}
 			#workingArea {
-				border: 1px solid red;
 				width:100%;
 				display:block;
 			}
@@ -27,7 +31,6 @@
 			#corrAns {
 				width: 20px;
 			}
-
 			.modal {
 			    display: none; /* Hidden by default */
 			    position: fixed; /* Stay in place */
@@ -76,12 +79,12 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body><center>
 		<h1>Cloze Creation Page</h1>
-		<button type="button" id="addLineBtn" onclick="addtl()">add text line</button>
-		<button type="button" id="addChoice" onclick="addch()">add choise and feedbacks</button>
-		<button tyoe="button" id="addEditTitle" onclick="addEditTitle()">Add/Edit Title</button>
-		<button type="button" id="cancel" class="cancel" onclick="cancel()">cancel</button>
+		<button type="button" id="addLineBtn" class="btn btn-primary Call_Button" onclick="addtl()">Add Text <i class="glyphicon glyphicon-pencil"></i></button>
+		<button type="button" id="addChoice" class="btn btn-primary Call_Button"  onclick="addch()">Add Choise And Feedbacks <i class="glyphicon glyphicon-unchecked"></i></button>
+		<button tyoe="button" id="addEditTitle" class="btn btn-primary Call_Button"  onclick="addEditTitle()">Add/Edit Title <i class="glyphicon glyphicon-text-background"></i></button>
+		<button type="button" id="cancel" class="cancel btn btn-primary Call_Button" onclick="cancel()">cancel</button>
 
 		<div id="workingArea"></div>
 		<h2>Preview</h2>
@@ -92,7 +95,7 @@
 		<input type="text" id="fileName" /><BR>
 		<button type="button" id="checkAllButton" onclick="checkAll()">Check All Answers</button>
 		<button type="button" id="sendData" onclick="sendData()">send data</button>
-
+		</center>
 
 		<!-- The Modal -->
 		<div id="myModal" class="modal">
