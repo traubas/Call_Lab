@@ -7,8 +7,9 @@ var number_try=    new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 var title = "";
 var checkingAll = false;
 var notAllCorrect = false;
+var selectedString="";
 function addtl() {
-	$("#workingArea").append('<input type="text" id="textInput"><button type="button" onclick=addTextToPreview()>add</button>');
+	$("#workingArea").append('<textarea type="text" id="textInput"></textarea><br><button type="button" onclick=addTextToPreview()>add</button>');
 	$("#addLineBtn").prop('disabled', true);
 	$("#addChoice").prop('disabled', true);
 	$("#addEditTitle").prop('disabled', true);
@@ -69,7 +70,7 @@ function addch() {
 	/*will enter if only once*/
 	if ($("#addMoreChoises").length ==0) {
 		$("#workingArea").append('<div id="correctAnswerNumber">Correct answer number <input type="text" id="corrAns"><BR></div>');
-		$("#workingArea").append('<button type="button" id="addMoreChoises" onclick="addch()">add More Choice</button>');
+		$("#workingArea").append('<button type="button" id="addMoreChoises" onclick="addChoices()">add More Choice</button>');
 		$("#workingArea").append('<button type="button" id="aotp" onclick="addOptionsToPreview()">submit</button>');
 	}
 	else {
@@ -81,6 +82,31 @@ function addch() {
 		$("#workingArea").append('<button type="button" id="aotp" onclick="addOptionsToPreview()">submit</button>');
 
 	}
+	
+}
+
+function addChoices() {
+	
+	selectedString = document.getSelection()+'';
+	var s = selectedString.split(/[^a-zA-Z]\s/);
+	s.shift();
+	var s2 = s[s.length-1];
+	s2 = s2.substring(0,(s2.length)-1);
+	s[s.length-1]=s2;
+	for (var i = 0; i < s.length;i++) {
+		s[i] = s[i].trim();
+	}
+	var word;
+	for (i=0;i<s.length;i++) {
+		addch();
+		word = s[i];	
+		if (i<s.length) {
+			word = word.substring(1);
+			$("#c"+(tempnumber-1)).val(word);
+		}
+		console.log(word);
+	}
+
 }
 function addOptionsToPreview() {
 	var feedback = new Array(tempnumber);
@@ -89,14 +115,26 @@ function addOptionsToPreview() {
 		feedback[i] = $("#"+id).val();
 	}
 	var x="s"+number;
-	$("#clozeData").append('<select id='+x+'></select> ');
+	var string="";
+	$("#tempdiv").append('<select id='+x+'></select> ');
+	string+='<select id='+x+'></select> ';
 	for (i=0;i<tempnumber;i++) {
-		if (i==0)
+		if (i==0) {
 			$("#"+x).append('<option></option>');
-		else
+			string+='<option></option>';
+		}
+		else {
 			$("#"+x).append('<option>'+$('#c'+(i)).val()+'</option>');
+			string+='<option>'+$('#c'+(i)).val()+'</option>';
+		}
 	}
-	$("#clozeData").append('<button type="button" id="check'+number+'" class="check" onclick=checkOneAnswer('+number+') ><i class="glyphicon glyphicon-search"></i></button> ');
+	var realtemp = $("#tempdiv").html();
+	$("#tempdiv").empty();
+	var temp2 = $("#clozeData").html();
+	var temp = realtemp+'<button type="button" id="check'+number+'" class="check" onclick=checkOneAnswer('+number+') ><i class="glyphicon glyphicon-search"></i></button> ';
+	temp2 = temp2.replace(selectedString,temp);
+	$("#clozeData").empty();
+	$("#clozeData").append(temp2);
 	correct_answer = $("#corrAns").val();
 	CorrectAnswers[number-1]=correct_answer;
 	Feedbacks[number-1]=feedback;

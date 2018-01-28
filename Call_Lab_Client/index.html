@@ -8,135 +8,7 @@
 		<script type="text/javascript" src="js/functions.js"></script>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<script src="js/bootstrap.min.js"></script>
-		<style type="text/css">
-			.sandbox-correct-pronounciation {
-				}
-				.heading-correct-pronounciation {
-				  margin: auto;
-				  text-align: center;
-				  position: relative;
-				}
-				h1 {
-				  color: #fff;
-				  font-family: 'Cardo', serif;
-				  font-size: 1.5em;
-				  font-weight: normal;
-				  font-style: italic;
-				  letter-spacing: 0.1em;
-				  line-height: 2.2em;
-				}
-				em {
-				  font-family: 'EB Garamond', serif;
-				  font-size: 3.5em;
-				  text-transform: uppercase;
-				  letter-spacing: 0.1em;
-				  display: block;
-				  font-style: normal;
-				  padding-top: 0.1em;
-				  text-shadow: 0.07em 0.07em 0 rgba(0, 0, 0, 0.1);
-				}
-				em::before,
-				em::after {
-				  content: "§";
-				  display: inline-block;
-				  -webkit-transform: rotate(90deg);
-				  -moz-transform: rotate(90deg);
-				  -o-transform: rotate(90deg);
-				  -ms-transform: rotate(90deg);
-				  transform: rotate(90deg);
-				  opacity: 0.2;
-				  margin: 0 0.6em;
-				  font-size: 0.5em;
-				}
-				.bottom {
-				  font-size: 1.5em;
-				  letter-spacing: 0.07em;
-				  font-size: 1em;
-				  display: block;
-				}
-			h2 {
-				color: white;
-				font-family: 'EB Garamond', serif;
-				font-weight: normal;
-				font-style: italic;
-				letter-spacing: 0.1em;
-			}
-			body {
-				background-color: #fac564;
-			}
-			#clozeData {
-				border: 1px solid black;
-				text-align: left;
-				width: 50%;
-				height: 100px;
-			}
-			#workingArea {
-				width:100%;
-				display:block;
-			}
-			#cancel {
-				visibility: hidden;
-			}
-
-			#corrAns {
-				width: 20px;
-			}
-			.modal {
-			    display: none; /* Hidden by default */
-			    position: fixed; /* Stay in place */
-			    z-index: 1; /* Sit on top */
-			    padding-top: 100px; /* Location of the box */
-			    top: 0;
-				left: 0;
-			    width: 100%; /* Full width */
-			    height: 100%; /* Full height */
-			    overflow: auto; /* Enable scroll if needed */
-			    background-color: rgb(0,0,0); /* Fallback color */
-			    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-			}
-
-			/* Modal Content */
-			.modal-content {
-			    background-color: yellow;
-			    position: absolute;
-			    top:50%;
-			    left: 8%;
-			    margin: auto;
-			    padding: 20px;
-			    border: ridge 7px;
-			    width: 80%;
-			    font-weight: bold;
-			}
-
-			/* The Close Button */
-			.close {
-			    color: #aaaaaa;
-			    float: right;
-			    font-size: 28px;
-			    font-weight: bold;
-			}
-
-			.close:hover,
-			.close:focus {
-			    color: #000;
-			    text-decoration: none;
-			    cursor: pointer;
-			}
-
-			.correct {
-				color: green;
-				font-weight: bold;
-			}
-			h1.theTitle1 {
-				color: red;
-			}
-			#textInput {
-				width: 40%;
-			}
-			.check {
-				background-color: #ffceec;
-			}
-		</style>
+		<link href="css/styles.css" rel="stylesheet">
 	</head>
 	<body><center>
 		<div class="sandbox sandbox-correct-pronounciation">
@@ -147,11 +19,12 @@
 		  </h1>
 		</div>
 		<button type="button" id="addLineBtn" class="btn btn-success Call_Button" onclick="addtl()">Add Text <i class="glyphicon glyphicon-pencil"></i></button>
-		<button type="button" id="addChoice" class="btn btn-success Call_Button"  onclick="addch()">Add Choise And Feedbacks <i class="glyphicon glyphicon-unchecked"></i></button>
+		<button type="button" id="addChoice" class="btn btn-success Call_Button"  onclick="addChoices()">Add Choise And Feedbacks <i class="glyphicon glyphicon-unchecked"></i></button>
 		<button tyoe="button" id="addEditTitle" class="btn btn-success Call_Button"  onclick="addEditTitle()">Add/Edit Title <i class="glyphicon glyphicon-text-background"></i></button>
 		
 
 		<div id="workingArea"></div>
+		<div id="tempdiv"></div>
 		<h2><em>Preview</em></h2>
 		<button type="button" id="deleteLastAddition" class="btn btn-danger Call_Button" onclick="deleteLastAddition()">delete last addition <i class="glyphicon glyphicon-remove-circle"></i></button><BR>
 		<h1 class="theTitle1"><span id="theTitle"></span></h1>
