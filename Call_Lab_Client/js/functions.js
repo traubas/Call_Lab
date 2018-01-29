@@ -9,6 +9,7 @@ var checkingAll = false;
 var notAllCorrect = false;
 var selectedString="";
 var imageResult="";
+var paragraph=1;
 function addtl() {
 	$("#workingArea").append('<textarea type="text" id="textInput"></textarea><br><button type="button" onclick=addTextToPreview()>add</button>');
 	$("#addParagraphBtn").prop('disabled', true);
@@ -18,7 +19,15 @@ function addtl() {
 	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
 }
 function addTextToPreview() {
-	$("#clozeData").append('<p>'+ $("#textInput").val()+' </p>');
+	
+	var text = $("#textInput").val();
+	var blanks = text.match(/\([^()]+\)/g);
+	for (var i=0;i<blanks.length;i++) {
+		var s = ""+blanks[i];
+		var btn = '<button id="btn"'+i+" >"+s+'</button>';
+		text = text.replace(s,btn);
+	}
+	$("#clozeData").append('<p>'+ text +' </p>');
 	$("#addParagraphBtn").prop('disabled', false);
 	$("#addChoice").prop('disabled', false);
 	$("#addEditTitle").prop('disabled', false);
