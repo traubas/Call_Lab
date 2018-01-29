@@ -1,36 +1,74 @@
-var number=1;
-var tempnumber=1;
+var number = 1;
+var tempnumber = 1;
 var Feedbacks = new Array(50);
 var CorrectAnswers = new Array(50);
-var answered_grade=new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
-var number_try=    new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)	
+var answered_grade = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+var number_try = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)	
 var title = "";
 var checkingAll = false;
 var notAllCorrect = false;
 var selectedString="";
+var imageResult="";
 function addtl() {
 	$("#workingArea").append('<textarea type="text" id="textInput"></textarea><br><button type="button" onclick=addTextToPreview()>add</button>');
-	$("#addLineBtn").prop('disabled', true);
+	$("#addParagraphBtn").prop('disabled', true);
 	$("#addChoice").prop('disabled', true);
 	$("#addEditTitle").prop('disabled', true);
+	$("#addImage").prop('disabled',true);
 	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addEditTitle");
-	$(".cancel").css('visibility', 'visible');
 }
 function addTextToPreview() {
-	$("#clozeData").append('<span>'+ $("#textInput").val()+' </span>');
-	$("#addLineBtn").prop('disabled', false);
+	$("#clozeData").append('<p>'+ $("#textInput").val()+' </p>');
+	$("#addParagraphBtn").prop('disabled', false);
 	$("#addChoice").prop('disabled', false);
 	$("#addEditTitle").prop('disabled', false);
-	$(".cancel").css('visibility', 'hidden');
+	$("#addImage").prop('disabled',false);
+	$(".cancel").remove();
 	$("#workingArea").empty();
 	
 }
-function cancel() {
+
+function addImage() {
+	$("#workingArea").append('<input type="file" onchange="readURL(this);" /><br><button type="button" id="addImageToCloze" onclick="addImageToCloze()">Add To Preview</button>');
+	$("#addParagraphBtn").prop('disabled', true);
+	$("#addChoice").prop('disabled', true);
+	$("#addEditTitle").prop('disabled', true);
+	$("#addImage").prop('disabled',true);
+	$("#addImageToCloze").prop('disabled',true);
+	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addEditTitle");
+
+}
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function (e) {
+			imageResult = e.target.result;
+		};
+		reader.readAsDataURL(input.files[0]);
+		$("#addImageToCloze").prop('disabled',false);
+	}
+	console.log(typeof imageResult);
+
+}
+function addImageToCloze() {
+	$("#clozeData").append('<center><img id="clozeImage" src="'+imageResult+'" /></center>');
+	$("#clozeImage").width(500);
+	$("#clozeImage").height(400);
 	$("#workingArea").empty();
-	$("#addLineBtn").prop('disabled', false);
+	$("#addParagraphBtn").prop('disabled', false);
 	$("#addChoice").prop('disabled', false);
 	$("#addEditTitle").prop('disabled', false);
-	$(".cancel").css('visibility', 'hidden');
+	$("#addImage").prop('disabled',false);
+	$(".cancel").remove();
+
+}
+function cancel() {
+	$("#workingArea").empty();
+	$("#addParagraphBtn").prop('disabled', false);
+	$("#addChoice").prop('disabled', false);
+	$("#addEditTitle").prop('disabled', false);
+	$("#addImage").prop('disabled',false);
 	$(".cancel").remove();
 	if (tempnumber>1)
 		tempnumber=1;
@@ -39,11 +77,11 @@ function cancel() {
 
 function addEditTitle() {
 	$("#workingArea").append('<input type=text id="tempTitle"><button type="button" id="finishTitle" onclick="finishTitle()">Change Title</button>')
-	$("#addLineBtn").prop('disabled', true);
+	$("#addParagraphBtn").prop('disabled', true);
 	$("#addChoice").prop('disabled', true);
 	$("#addEditTitle").prop('disabled', true);
+	$("#addImage").prop('disabled',true);
 	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addEditTitle");
-	$(".cancel").css('visibility', 'visible');
 }
 
 function finishTitle() {
@@ -51,16 +89,18 @@ function finishTitle() {
 	$("#theTitle").empty();
 	$("#theTitle").append(title);
 	$("#workingArea").empty();
-	$("#addLineBtn").prop('disabled', false);
+	$("#addParagraphBtn").prop('disabled', false);
 	$("#addChoice").prop('disabled', false);
 	$("#addEditTitle").prop('disabled', false);
+	$("#addImage").prop('disabled',false);
 	$(".cancel").remove();
 
 }
 function addch() {
-	$("#addLineBtn").prop('disabled', true);
+	$("#addParagraphBtn").prop('disabled', true);
 	$("#addChoice").prop('disabled', true);
 	$("#addEditTitle").prop('disabled', true);
+	$("#addImage").prop('disabled',true);
 	if ($("#cancel").length == 0)
 		$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addEditTitle");
 	$("#workingArea").append('choice '+tempnumber+'<input type="text" id="c'+tempnumber+'">');
@@ -215,7 +255,8 @@ function sendData() {
         "correctanswers": JSON.stringify(CorrectAnswers),
         "title" : $("#theTitle").text(),
         "numOfQuestions": number,
-        "fileName": $("#fileName").val()
+        "fileName": $("#fileName").val(),
+        "image": imageResult
     };
     console.log($("#theTitle").text());
     js = JSON.stringify(CorrectAnswers);
