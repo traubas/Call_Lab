@@ -15,7 +15,7 @@ function addtl() {
 	$("#addChoice").prop('disabled', true);
 	$("#addEditTitle").prop('disabled', true);
 	$("#addImage").prop('disabled',true);
-	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addEditTitle");
+	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
 }
 function addTextToPreview() {
 	$("#clozeData").append('<p>'+ $("#textInput").val()+' </p>');
@@ -35,7 +35,7 @@ function addImage() {
 	$("#addEditTitle").prop('disabled', true);
 	$("#addImage").prop('disabled',true);
 	$("#addImageToCloze").prop('disabled',true);
-	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addEditTitle");
+	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
 
 }
 function readURL(input) {
@@ -81,7 +81,7 @@ function addEditTitle() {
 	$("#addChoice").prop('disabled', true);
 	$("#addEditTitle").prop('disabled', true);
 	$("#addImage").prop('disabled',true);
-	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addEditTitle");
+	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
 }
 
 function finishTitle() {
@@ -102,7 +102,7 @@ function addch() {
 	$("#addEditTitle").prop('disabled', true);
 	$("#addImage").prop('disabled',true);
 	if ($("#cancel").length == 0)
-		$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addEditTitle");
+		$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
 	$("#workingArea").append('choice '+tempnumber+'<input type="text" id="c'+tempnumber+'">');
 	$("#workingArea").append('feedback <input type="text" id="f'+tempnumber+'"><BR>');
 	tempnumber++;
@@ -226,6 +226,7 @@ function showFeedback(feedback,position1,position2,size1,size2,flag)
 	var modal = document.getElementById('myModal');
 	var span = document.getElementsByClassName("close")[0];
 	modal.style.display = "block";
+	$("#modal").css("display" , "block")
 	fb = document.getElementById('feedback_content');
 	feedback_content.innerHTML=
 	"<br><center><table cellpadding=15><tr><td>"+feedback+"</tr></td></table></center><br>";

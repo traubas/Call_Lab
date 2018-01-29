@@ -10,42 +10,56 @@
 		<script src="js/bootstrap.min.js"></script>
 		<link href="css/styles.css" rel="stylesheet">
 	</head>
-	<body><center>
-		<div class="sandbox sandbox-correct-pronounciation">
-		  <h1 class="heading heading-correct-pronounciation">
-		    The
-		    <em>Cloze Creation</em>
-		   Page
-		  </h1>
-		</div>
-		<button type="button" id="addParagraphBtn" class="btn btn-success Call_Button" onclick="addtl()">Add New Paragraph <i class="glyphicon glyphicon-pencil"></i></button>
-		<button type="button" id="addChoice" class="btn btn-success Call_Button"  onclick="addChoices()">Add Choise And Feedbacks <i class="glyphicon glyphicon-unchecked"></i></button>
-		<button tyoe="button" id="addEditTitle" class="btn btn-success Call_Button"  onclick="addEditTitle()">Add/Edit Title <i class="glyphicon glyphicon-text-background"></i></button>
-		<br>
-		<button type="button" id="addImage" class="btn btn-danger Call_Button" onClick="addImage()">Add Image <i class="glyphicon glyphicon-picture"></i></button>
+	<body>
+		<div class="container">
 
-		<div id="workingArea"></div>
-		<div id="tempdiv"></div>
-		<h2><em>Preview</em></h2>
-		<h1 class="theTitle1"><span id="theTitle"></span></h1>
-		<div id="clozeData" class="clozeClass" ></div><BR>
-		<h2>Choose a file name</h2><BR>
-		<input type="text" id="fileName" /><BR>
-		<button type="button" id="checkAllButton" onclick="checkAll()">Check All Answers</button>
-		<button type="button" id="sendData" onclick="sendData()">send data</button>
-		</center>
-
+			<div class="sidenav">
+				<div class="leftSide">
+				<center>
+				<h1 id="menuTitle" class="menuTitle">Menu</h1>
+				</center>
+				<hr class="seperator">
+				<div class="buttons">
+					<button type="button" id="addParagraphBtn" class="btn btn-success Call_Button" onclick="addtl()">Add New Paragraph <i class="glyphicon glyphicon-pencil"></i></button>
+					<button type="button" id="addChoice" class="btn btn-success Call_Button"  onclick="addChoices()">Add Choise And Feedbacks <i class="glyphicon glyphicon-unchecked"></i></button>
+					<button tyoe="button" id="addEditTitle" class="btn btn-success Call_Button"  onclick="addEditTitle()">Add/Edit Title <i class="glyphicon glyphicon-text-background"></i></button>
+					<br>
+					<button type="button" id="addImage" class="btn btn-danger Call_Button" onClick="addImage()">Add Image <i class="glyphicon glyphicon-picture"></i></button>
+				</div>
+			</div>
+			</div>
+			
+			<div class="rightSide">
+				<center>
+				<div class="sandbox sandbox-correct-pronounciation">
+				  <h1 class="heading heading-correct-pronounciation">
+				    The
+				    <em>Cloze Creation</em>
+				   Page
+				  </h1>
+				</div>
+				<div id="workingArea"></div>
+				<div id="tempdiv"></div>
+				<h2><em>Preview</em></h2>
+				<h1 class="theTitle1"><span id="theTitle"></span></h1>
+				<div id="clozeData" class="clozeClass" ></div><BR>
+				<h2>Choose a file name</h2><BR>
+				<input type="text" id="fileName" /><BR>
+				<button type="button" id="checkAllButton" onclick="checkAll()">Check All Answers</button>
+				<button type="button" id="sendData" onclick="sendData()">send data</button>
+				</center>
+			</div>
 		<!-- The Modal -->
-		<div id="myModal" class="modal">
+		
+	</div>
+	<div id="myModal" class="modal">
 
 		  <!-- Modal content -->
 		  <div class="modal-content">
 		    <span class="close">&times;</span>
 		    <p id="feedback_content">
 		    	
-		    </div>
 		  </div>
-
 		</div>
 	</body>
 </html>
