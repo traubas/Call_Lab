@@ -10,6 +10,7 @@ var notAllCorrect = false;
 var selectedString="";
 var imageResult="";
 var paragraph=1;
+var current_button="";
 function addtl() {
 	$("#workingArea").append('<textarea type="text" id="textInput"></textarea><br><button type="button" onclick=addTextToPreview()>add</button>');
 	$("#addParagraphBtn").prop('disabled', true);
@@ -24,7 +25,10 @@ function addTextToPreview() {
 	var blanks = text.match(/\([^()]+\)/g);
 	for (var i=0;i<blanks.length;i++) {
 		var s = ""+blanks[i];
-		var btn = '<button id="btn"'+i+" >"+s+'</button>';
+		var id = 'p'+paragraph+'btn'+i;
+		var vars = ""+s+","+id;
+		var btn = '<button id="'+id+'" onclick="addChoices('+id+')" class="btn-warning" >'+s+'</button>';
+		paragraph+=1;
 		text = text.replace(s,btn);
 	}
 	$("#clozeData").append('<p>'+ text +' </p>');
@@ -134,9 +138,9 @@ function addch() {
 	
 }
 
-function addChoices() {
-	
-	selectedString = document.getSelection()+'';
+function addChoices(btnId) {
+	selectedString = $("#"+btnId.id).text();
+	current_button=btnId.id;
 	var s = selectedString.split(/[^a-zA-Z]\s/);
 	s.shift();
 	var s2 = s[s.length-1];
@@ -181,9 +185,8 @@ function addOptionsToPreview() {
 	$("#tempdiv").empty();
 	var temp2 = $("#clozeData").html();
 	var temp = realtemp+'<button type="button" id="check'+number+'" class="check" onclick=checkOneAnswer('+number+') ><i class="glyphicon glyphicon-search"></i></button> ';
-	temp2 = temp2.replace(selectedString,temp);
-	$("#clozeData").empty();
-	$("#clozeData").append(temp2);
+	$(temp).insertAfter("#"+current_button);
+	$("#"+current_button).remove();
 	correct_answer = $("#corrAns").val();
 	CorrectAnswers[number-1]=correct_answer;
 	Feedbacks[number-1]=feedback;
