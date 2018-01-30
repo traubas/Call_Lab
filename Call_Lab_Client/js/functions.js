@@ -24,6 +24,7 @@ function addTextToPreview() {
 	
 	var text = $("#textInput").val();
 	var blanks = text.match(/\([^()]+\)/g);
+
 	if (blanks != null) {
 		for (var i=0;i<blanks.length;i++) {
 			var s = ""+blanks[i];
@@ -163,8 +164,14 @@ function openSaveOptions() {
 function addChoices(btnId) {
 	selectedString = $("#"+btnId.id).text();
 	current_button=btnId.id;
+	
 	var s = selectedString.split(/[^a-zA-Z]\s/);
 	s.shift();
+	if (s.length==1) {
+		var word = s[0];
+		word = word.split(/\s[^a-zA-Z]/);
+		s=word;
+	}
 	var s2 = s[s.length-1];
 	s2 = s2.substring(0,(s2.length)-1);
 	s[s.length-1]=s2;
