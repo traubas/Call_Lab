@@ -17,25 +17,29 @@ function addtl() {
 	$("#addChoice").prop('disabled', true);
 	$("#addEditTitle").prop('disabled', true);
 	$("#addImage").prop('disabled',true);
+	$("#initSave").prop('disabled',true);
 	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
 }
 function addTextToPreview() {
 	
 	var text = $("#textInput").val();
 	var blanks = text.match(/\([^()]+\)/g);
-	for (var i=0;i<blanks.length;i++) {
-		var s = ""+blanks[i];
-		var id = 'p'+paragraph+'btn'+i;
-		var vars = ""+s+","+id;
-		var btn = '<button id="'+id+'" onclick="addChoices('+id+')" class="btn-warning" >'+s+'</button>';
-		paragraph+=1;
-		text = text.replace(s,btn);
+	if (blanks != null) {
+		for (var i=0;i<blanks.length;i++) {
+			var s = ""+blanks[i];
+			var id = 'p'+paragraph+'btn'+i;
+			var vars = ""+s+","+id;
+			var btn = '<button id="'+id+'" onclick="addChoices('+id+')" class="btn-warning" >'+s+'</button>';
+			paragraph+=1;
+			text = text.replace(s,btn);
+		}
 	}
 	$("#clozeData").append('<p>'+ text +' </p>');
 	$("#addParagraphBtn").prop('disabled', false);
 	$("#addChoice").prop('disabled', false);
 	$("#addEditTitle").prop('disabled', false);
 	$("#addImage").prop('disabled',false);
+	$("#initSave").prop('disabled',false);
 	$(".cancel").remove();
 	$("#workingArea").empty();
 	
@@ -48,6 +52,8 @@ function addImage() {
 	$("#addEditTitle").prop('disabled', true);
 	$("#addImage").prop('disabled',true);
 	$("#addImageToCloze").prop('disabled',true);
+	$("#initSave").prop('disabled',true);
+
 	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
 
 }
@@ -73,6 +79,7 @@ function addImageToCloze() {
 	$("#addChoice").prop('disabled', false);
 	$("#addEditTitle").prop('disabled', false);
 	$("#addImage").prop('disabled',false);
+	$("#initSave").prop('disabled',false);
 	$(".cancel").remove();
 
 }
@@ -82,6 +89,10 @@ function cancel() {
 	$("#addChoice").prop('disabled', false);
 	$("#addEditTitle").prop('disabled', false);
 	$("#addImage").prop('disabled',false);
+	$("#initSave").prop('disabled',false);
+	$("#chooseName").remove();
+	$("#fileName").remove();
+	$("#sendData").remove();
 	$(".cancel").remove();
 	if (tempnumber>1)
 		tempnumber=1;
@@ -94,6 +105,7 @@ function addEditTitle() {
 	$("#addChoice").prop('disabled', true);
 	$("#addEditTitle").prop('disabled', true);
 	$("#addImage").prop('disabled',true);
+	$("#initSave").prop('disabled',true);
 	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
 }
 
@@ -106,6 +118,7 @@ function finishTitle() {
 	$("#addChoice").prop('disabled', false);
 	$("#addEditTitle").prop('disabled', false);
 	$("#addImage").prop('disabled',false);
+	$("#initSave").prop('disabled',false);
 	$(".cancel").remove();
 
 }
@@ -114,6 +127,7 @@ function addch() {
 	$("#addChoice").prop('disabled', true);
 	$("#addEditTitle").prop('disabled', true);
 	$("#addImage").prop('disabled',true);
+	$("#initSave").prop('disabled',true);
 	if ($("#cancel").length == 0)
 		$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
 	$("#workingArea").append('choice '+tempnumber+'<input type="text" id="c'+tempnumber+'">');
@@ -137,7 +151,15 @@ function addch() {
 	}
 	
 }
-
+function openSaveOptions() {
+	$("#addParagraphBtn").prop('disabled', true);
+	$("#addChoice").prop('disabled', true);
+	$("#addEditTitle").prop('disabled', true);
+	$("#addImage").prop('disabled',true);
+	$("#initSave").prop('disabled',true);
+	$('<h2 id="chooseName" class="savefile">Choose a file name</h2><BR><input type="text" id="fileName" /><BR><button type="button" id="sendData" class="btn btn-danger Call_Button" onclick="sendData()">send data</button>').insertAfter("#initSave");
+	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
+}
 function addChoices(btnId) {
 	selectedString = $("#"+btnId.id).text();
 	current_button=btnId.id;

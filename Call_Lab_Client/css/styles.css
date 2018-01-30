@@ -54,8 +54,12 @@
 			body {
 				background-color: #fac564;
 			}
+			.savefile {
+				font-size:16px;
+				width:100%;
+				text-align: center;
+			}
 			#clozeData {
-				border: 1px solid black;
 				text-align: left;
 				width: 50%;
 				min-height: 100px;
@@ -176,4 +180,10 @@
 			#menuTitle {
 				width:100%;
 				font-size:26px;
+			}
+			#fileName {
+				width:100%;
+			}
+			#sendData {
+				width:100%;
 			}
