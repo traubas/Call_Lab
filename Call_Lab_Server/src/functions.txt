@@ -1,6 +1,5 @@
 
 function checkOneAnswer(qnumber) {
-number_try[qnumber-1]=number_try[qnumber-1]+1;
 	var answer = $("#s"+qnumber).prop('selectedIndex');
 	if (answer==null)
 		return;
@@ -10,6 +9,7 @@ number_try[qnumber-1]=number_try[qnumber-1]+1;
 		notAllCorrect = true;
 	}
 	else if (answer==CorrectAnswers[qnumber-1]){
+		number_try[qnumber-1]=number_try[qnumber-1]+1;
 		if (!checkingAll)
 			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,1);
 		var answer = $("#s"+qnumber+ " option:selected").text();
@@ -19,9 +19,10 @@ number_try[qnumber-1]=number_try[qnumber-1]+1;
 		if (number_try[qnumber-1]>Feedbacks[qnumber-1]) {
 			number_try[qnumber-1]=1/(Feedback[qnumber-1]-1);
 		}
-		answered_grade[qnumber-1]=(Feedbacks[qnumber-1].length-number_try[qnumber-1])/(Feedbacks[qnumber-1].length-1);
+		answered_grade[qnumber-1]=(Feedbacks[qnumber-1].length-1-number_try[qnumber-1])/(Feedbacks[qnumber-1].length-2);
 	}
 	else {
+		number_try[qnumber-1]=number_try[qnumber-1]+1;
 		if (!checkingAll)
 			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,0);
 		notAllCorrect = true;

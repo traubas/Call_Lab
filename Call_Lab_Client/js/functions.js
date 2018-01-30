@@ -28,6 +28,8 @@ function addTextToPreview() {
 	if (blanks != null) {
 		for (var i=0;i<blanks.length;i++) {
 			var s = ""+blanks[i];
+			if (!(s[1].match(/\d/)))
+				continue;
 			var id = 'p'+paragraph+'btn'+i;
 			var vars = ""+s+","+id;
 			var btn = '<button id="'+id+'" onclick="addChoices('+id+')" class="btn-warning" >'+s+'</button>';
@@ -136,17 +138,14 @@ function addch() {
 	tempnumber++;
 	$(".cancel").css('visibility', 'visible');
 	/*will enter if only once*/
-	if ($("#addMoreChoises").length ==0) {
+	if ($("#aotp").length ==0) {
 		$("#workingArea").append('<div id="correctAnswerNumber">Correct answer number <input type="text" id="corrAns"><BR></div>');
-		$("#workingArea").append('<button type="button" id="addMoreChoises" onclick="addChoices()">add More Choice</button>');
 		$("#workingArea").append('<button type="button" id="aotp" onclick="addOptionsToPreview()">submit</button>');
 	}
 	else {
 		$("#aotp").remove();
-		$("#addMoreChoises").remove();
 		$("#correctAnswerNumber").remove();
 		$("#workingArea").append('<div id="correctAnswerNumber">Correct answer number<input type="text" id="corrAns"><BR></div>');
-		$("#workingArea").append('<button type="button" id="addMoreChoises" onclick="addch()">add More Choice</button>');
 		$("#workingArea").append('<button type="button" id="aotp" onclick="addOptionsToPreview()">submit</button>');
 
 	}
@@ -224,7 +223,7 @@ function addOptionsToPreview() {
 }
 /*needs to be part of the output script*/
 function checkOneAnswer(qnumber) {
-	number_try[qnumber-1]=number_try[qnumber-1]+1;
+	
 	var answer = $("#s"+qnumber).prop('selectedIndex');
 	if (answer==null)
 		return;
@@ -234,6 +233,7 @@ function checkOneAnswer(qnumber) {
 		notAllCorrect = true;
 	}
 	else if (answer==CorrectAnswers[qnumber-1]){
+		number_try[qnumber-1]=number_try[qnumber-1]+1;
 		if (!checkingAll)
 			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,1);
 		var answer = $("#s"+qnumber+ " option:selected").text();
@@ -246,6 +246,7 @@ function checkOneAnswer(qnumber) {
 		answered_grade[qnumber-1]=(Feedbacks[qnumber-1].length-number_try[qnumber-1])/(Feedbacks[qnumber-1].length-1);
 	}
 	else {
+		number_try[qnumber-1]=number_try[qnumber-1]+1;
 		if (!checkingAll) 
 			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,0);
 		notAllCorrect = true;
@@ -256,6 +257,9 @@ function checkOneAnswer(qnumber) {
 function grade(msg,flag) {
 	var gr_per_question=100/(number-1);
 	var grade=0;
+	for (var i=0;i<answered_grade.length;i++) {
+		console.log(answered_grade[i]);
+	}
 	for (i=0;i<number;i++) {
 		grade=grade+gr_per_question*answered_grade[i];
 	}
