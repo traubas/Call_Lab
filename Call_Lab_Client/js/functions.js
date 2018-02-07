@@ -310,6 +310,7 @@ function showFeedback(feedback,position1,position2,size1,size2,flag)
 
 function sendData() {
 	var html = $("#clozeData").html();
+	console.log($("body").css("background-color"));
 	var data = { 
         "html": html,
         "feedbacks": JSON.stringify(Feedbacks),
@@ -317,7 +318,8 @@ function sendData() {
         "title" : $("#theTitle").text(),
         "numOfQuestions": number,
         "fileName": $("#fileName").val(),
-        "image": imageResult
+        "image": imageResult,
+        "bgcolor": $("body").css("background-color")
     };
     console.log($("#theTitle").text());
     js = JSON.stringify(CorrectAnswers);
@@ -355,9 +357,12 @@ function checkAll() {
 }
 
 function openColorSpectrum() {
-	$("<h2 class='savefile'>Background Color: </h2><br><input type='color' id='bgColor' value='#fac564' /><br><button type='button' onclick='changeBgColor()'>Apply</button>").insertAfter("#chooseBgColor");
+	$("<div id='backgroundColor'><h2 class='savefile'>Background Color: </h2><br><input type='color' id='bgColor' value='#fac564' /><br><button type='button' onclick='changeBgColor()'>Apply</button><button type='button' onclick='closeColor()'>Close</button></div>").insertAfter("#chooseBgColor");
 }
 function changeBgColor() {
 	var color = $("#bgColor").prop("value");
 	$("body").css("background-color",color);
+}
+function closeColor() {
+	$("#backgroundColor").remove();
 }

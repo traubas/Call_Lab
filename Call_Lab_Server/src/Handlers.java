@@ -80,6 +80,7 @@ public class Handlers {
 			String numberOfQuestions = "";
 			String fileName = "";
 			String imageSrc ="";
+			String bgcolor = "";
 			he.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
 		    if (he.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
@@ -113,6 +114,8 @@ public class Handlers {
 					fileName+= parameters.get(key);
 				else if (key.equals("image"))
 					imageSrc+= parameters.get(key);
+				else if (key.equals("bgcolor")) 
+					bgcolor+=parameters.get(key);
 			}
 			System.out.println("file name is: "+fileName);
 			thefunctions =readFile("src/functions.txt");
@@ -124,7 +127,7 @@ public class Handlers {
 			htmlString = htmlString.replace("$thescript", thefunctions);
 			htmlString = htmlString.replace("$theTitle", thetitle);
 			htmlString = htmlString.replace("$numOfQuestions", numberOfQuestions);
-			
+			htmlString = htmlString.replace("$bgcolor", bgcolor);
 			System.out.println(thetitle);
 			File newHtmlFile = new File("path/"+fileName+".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
