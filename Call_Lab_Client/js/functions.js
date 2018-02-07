@@ -353,3 +353,11 @@ function checkAll() {
 	
 	notAllCorrect = false;
 }
+
+function openColorSpectrum() {
+	$("<h2 class='savefile'>Background Color: </h2><br><input type='color' id='bgColor' value='#fac564' /><br><button type='button' onclick='changeBgColor()'>Apply</button>").insertAfter("#chooseBgColor");
+}
+function changeBgColor() {
+	var color = $("#bgColor").prop("value");
+	$("body").css("background-color",color);
+}
