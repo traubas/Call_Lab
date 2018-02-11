@@ -272,8 +272,6 @@ function addOptionsToPreview() {
 		Feedbacks[blankToEdit-1]=feedback;
 		blankToEdit=-1;
 	}
-	
-	
 	cancel();
 	
 }
@@ -364,8 +362,10 @@ function showFeedback(feedback,position1,position2,size1,size2,flag)
 }
 
 function sendData() {
+	for (i=1;i<50;i++) {
+			$("#check"+i).attr("onclick","checkOneAnswer("+i+")");
+		}
 	var html = $("#clozeData").html();
-	console.log($("body").css("background-color"));
 	var data = { 
         "html": html,
         "feedbacks": JSON.stringify(Feedbacks),
@@ -466,7 +466,6 @@ function uploadFile() {
 		var z = ""+x.match(/Feedbacks.*\]/);
 		z = z.split(/\=\s/);
 		var w = JSON.parse(z[1]);
-		
 		Feedbacks = w;
 		//get corrAns
 		var ca = ""+x.match(/CorrectAnswers.*\]/);
@@ -476,10 +475,10 @@ function uploadFile() {
 		$("#clozeData").append(y);
 		$("#checkAllButton").remove(); //don't need those buttons. they are added in the template.
 		$("#checkAllButton2").remove();
-		console.log(x.Feedbacks);
 		for (i=1;i<50;i++) {
 			$("#check"+i).attr("onclick","editBlank("+i+")");
 		}
+		cancel();
 		
 	}
 	fr.readAsText(myFile);
