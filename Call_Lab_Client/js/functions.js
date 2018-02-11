@@ -24,7 +24,8 @@ function addtl() {
 	$("#addImage").prop('disabled',true);
 	$("#initSave").prop('disabled',true);
 	$("#chooseBgColor").prop('disabled',true);
-	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#chooseBgColor");
+	$("#editExisting").prop('disabled',true);
+	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#editExisting");
 }
 /**
 *Adds the paragraph from the textarea to a "cloze Data" div.<br>
@@ -60,6 +61,7 @@ function addTextToPreview() {
 	$("#addEditTitle").prop('disabled', false);
 	$("#addImage").prop('disabled',false);
 	$("#initSave").prop('disabled',false);
+	$("#editExisting").prop('disabled',false);
 	$("#chooseBgColor").prop('disabled',false);
 	$(".cancel").remove();
 	$("#workingArea").empty();
@@ -75,8 +77,8 @@ function addImage() {
 	$("#addImageToCloze").prop('disabled',true);
 	$("#initSave").prop('disabled',true);
 	$("#chooseBgColor").prop('disabled',true);
-
-	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#chooseBgColor");
+	$("#editExisting").prop('disabled',true);
+	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#editExisting");
 
 }
 function readURL(input) {
@@ -103,6 +105,7 @@ function addImageToCloze() {
 	$("#addImage").prop('disabled',false);
 	$("#initSave").prop('disabled',false);
 	$("#chooseBgColor").prop('disabled',false);
+	$("#editExisting").prop('disabled',false);
 	$(".cancel").remove();
 
 }
@@ -114,7 +117,9 @@ function cancel() {
 	$("#addImage").prop('disabled',false);
 	$("#initSave").prop('disabled',false);
 	$("#chooseBgColor").prop('disabled',false);
+	$("#editExisting").prop('disabled',false);
 	$("#saveDiv").remove();
+	$("#uploadfile").remove();
 	$(".cancel").remove();
 	if (tempnumber>1)
 		tempnumber=1;
@@ -129,7 +134,8 @@ function addEditTitle() {
 	$("#addImage").prop('disabled',true);
 	$("#initSave").prop('disabled',true);
 	$("#chooseBgColor").prop('disabled',true);
-	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#chooseBgColor");
+	$("#editExisting").prop('disabled',true);
+	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#editExisting");
 }
 
 function finishTitle() {
@@ -143,6 +149,7 @@ function finishTitle() {
 	$("#addImage").prop('disabled',false);
 	$("#initSave").prop('disabled',false);
 	$("#chooseBgColor").prop('disabled',false);
+	$("#editExisting").prop('disabled',false);
 	$(".cancel").remove();
 
 }
@@ -153,8 +160,9 @@ function addch() {
 	$("#addImage").prop('disabled',true);
 	$("#initSave").prop('disabled',true);
 	$("#chooseBgColor").prop('disabled',true);
+	$("#editExisting").prop('disabled',true);
 	if ($("#cancel").length == 0)
-		$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#chooseBgColor");
+		$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#editExisting");
 	$("#workingArea").append('choice '+tempnumber+'<input type="text" id="c'+tempnumber+'">');
 	$("#workingArea").append('feedback <input type="text" id="f'+tempnumber+'"><BR>');
 	tempnumber++;
@@ -180,7 +188,8 @@ function openSaveOptions() {
 	$("#addImage").prop('disabled',true);
 	$("#initSave").prop('disabled',true);
 	$("#chooseBgColor").prop('disabled',true);
-	$('<div id="saveDiv"><h2 id="chooseName" class="savefile">Choose a file name</h2><BR><input type="text" id="fileName" /><BR><button type="button" id="sendData" class="btn btn-danger Call_Button" onclick="sendData()">send data</button></div>').insertAfter("#chooseBgColor");
+	$("#editExisting").prop('disabled',true);
+	$('<div id="saveDiv"><h2 id="chooseName" class="savefile">Choose a file name</h2><BR><input type="text" id="fileName" /><BR><button type="button" id="sendData" class="btn btn-danger Call_Button" onclick="sendData()">send data</button></div>').insertAfter("#editExisting");
 	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#saveDiv");
 }
 function addChoices(btnId) {
@@ -403,13 +412,14 @@ function checkAll() {
 }
 
 function openColorSpectrum() {
-	$("<div id='backgroundColor'><h2 class='savefile'>Background Color: </h2><br><input type='color' id='bgColor' value='#fac564' /><br><button type='button' onclick='changeBgColor()'>Apply</button><button type='button' onclick='closeColor()'>Close</button></div>").insertAfter("#chooseBgColor");
+	$("<div id='backgroundColor'><h2 class='savefile'>Background Color: </h2><br><input type='color' id='bgColor' value='#fac564' /><br><button type='button' onclick='changeBgColor()'>Apply</button><button type='button' onclick='closeColor()'>Close</button></div>").insertAfter("#editExisting");
 	$("#chooseBgColor").prop('disabled',true);
 	$("#addParagraphBtn").prop('disabled', true);
 	$("#addChoice").prop('disabled', true);
 	$("#addEditTitle").prop('disabled', true);
 	$("#addImage").prop('disabled',true);
 	$("#initSave").prop('disabled',true);
+	$("#editExisting").prop('disabled',true);
 
 }
 function changeBgColor() {
@@ -424,6 +434,7 @@ function closeColor() {
 	$("#addEditTitle").prop('disabled', false);
 	$("#addImage").prop('disabled',false);
 	$("#initSave").prop('disabled',false);
+	$("#editExisting").prop('disabled',false);
 }
 
 function openExisting() {
@@ -434,7 +445,8 @@ function openExisting() {
 	$("#addImage").prop('disabled',true);
 	$("#initSave").prop('disabled',true);
 	$("#editExisting").prop('disabled',true);
-	$('<input type="file" id="fileToUpload"><br><button type="button" onclick="uploadFile()">Add</button>').insertAfter("#editExisting");
+	$('<div id="uploadfile"><input type="file" id="fileToUpload"><br><button type="button" id="upfile" onclick="uploadFile()">Add</button><div>').insertAfter("#editExisting");
+	$('<button type="button" onclick="cancel()">Close</button>').insertAfter("#upfile");
 }
 /*
 *Creates a FileReader object to read file from the input file field.
@@ -447,8 +459,28 @@ function uploadFile() {
 	fr.onload = function(e) {
 		var x = e.target.result;
 		var y = $('<div />').append(x).find('#clozeData').html();
+		
+		var s = $("#check"+1);
+		console.log(s.length);
+		//get Feedbacks
+		var z = ""+x.match(/Feedbacks.*\]/);
+		z = z.split(/\=\s/);
+		var w = JSON.parse(z[1]);
+		
+		Feedbacks = w;
+		//get corrAns
+		var ca = ""+x.match(/CorrectAnswers.*\]/);
+		ca = ca.split(/\=\s/);
+		w = JSON.parse(ca[1]);
+		CorrectAnswers = w;
 		$("#clozeData").append(y);
+		$("#checkAllButton").remove(); //don't need those buttons. they are added in the template.
+		$("#checkAllButton2").remove();
+		console.log(x.Feedbacks);
+		for (i=1;i<50;i++) {
+			$("#check"+i).attr("onclick","editBlank("+i+")");
+		}
+		
 	}
 	fr.readAsText(myFile);
-	
 }
