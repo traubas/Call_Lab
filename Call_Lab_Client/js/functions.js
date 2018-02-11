@@ -425,3 +425,30 @@ function closeColor() {
 	$("#addImage").prop('disabled',false);
 	$("#initSave").prop('disabled',false);
 }
+
+function openExisting() {
+	$("#chooseBgColor").prop('disabled',true);
+	$("#addParagraphBtn").prop('disabled', true);
+	$("#addChoice").prop('disabled', true);
+	$("#addEditTitle").prop('disabled', true);
+	$("#addImage").prop('disabled',true);
+	$("#initSave").prop('disabled',true);
+	$("#editExisting").prop('disabled',true);
+	$('<input type="file" id="fileToUpload"><br><button type="button" onclick="uploadFile()">Add</button>').insertAfter("#editExisting");
+}
+/*
+*Creates a FileReader object to read file from the input file field.
+*Creates a callback function for the filereader object that is called when the object reads the file and finishes loading it.
+*Searches the clozeData only that we want to edit and adds it to the preview clozeData div.
+*/
+function uploadFile() {
+	var myFile = $('#fileToUpload').prop('files')[0];
+	var fr = new FileReader();
+	fr.onload = function(e) {
+		var x = e.target.result;
+		var y = $('<div />').append(x).find('#clozeData').html();
+		$("#clozeData").append(y);
+	}
+	fr.readAsText(myFile);
+	
+}
