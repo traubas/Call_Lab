@@ -11,6 +11,7 @@ var selectedString="";
 var imageResult="";
 var paragraph=1;
 var current_button="";
+var blankToEdit=-1;
 /**
 *Add a textarea field to the working area with a submit button.<br>
 *Disables all other buttons except cancel and submit.
@@ -22,7 +23,8 @@ function addtl() {
 	$("#addEditTitle").prop('disabled', true);
 	$("#addImage").prop('disabled',true);
 	$("#initSave").prop('disabled',true);
-	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
+	$("#chooseBgColor").prop('disabled',true);
+	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#chooseBgColor");
 }
 /**
 *Adds the paragraph from the textarea to a "cloze Data" div.<br>
@@ -52,12 +54,13 @@ function addTextToPreview() {
 			text = text.replace(s,btn);
 		}
 	}
-	$("#clozeData").append('<p>'+ text +' </p>');
+	$("#clozeData").append('<p contenteditable>'+ text +' </p>');
 	$("#addParagraphBtn").prop('disabled', false);
 	$("#addChoice").prop('disabled', false);
 	$("#addEditTitle").prop('disabled', false);
 	$("#addImage").prop('disabled',false);
 	$("#initSave").prop('disabled',false);
+	$("#chooseBgColor").prop('disabled',false);
 	$(".cancel").remove();
 	$("#workingArea").empty();
 	
@@ -71,8 +74,9 @@ function addImage() {
 	$("#addImage").prop('disabled',true);
 	$("#addImageToCloze").prop('disabled',true);
 	$("#initSave").prop('disabled',true);
+	$("#chooseBgColor").prop('disabled',true);
 
-	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
+	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#chooseBgColor");
 
 }
 function readURL(input) {
@@ -98,6 +102,7 @@ function addImageToCloze() {
 	$("#addEditTitle").prop('disabled', false);
 	$("#addImage").prop('disabled',false);
 	$("#initSave").prop('disabled',false);
+	$("#chooseBgColor").prop('disabled',false);
 	$(".cancel").remove();
 
 }
@@ -108,9 +113,8 @@ function cancel() {
 	$("#addEditTitle").prop('disabled', false);
 	$("#addImage").prop('disabled',false);
 	$("#initSave").prop('disabled',false);
-	$("#chooseName").remove();
-	$("#fileName").remove();
-	$("#sendData").remove();
+	$("#chooseBgColor").prop('disabled',false);
+	$("#saveDiv").remove();
 	$(".cancel").remove();
 	if (tempnumber>1)
 		tempnumber=1;
@@ -124,7 +128,8 @@ function addEditTitle() {
 	$("#addEditTitle").prop('disabled', true);
 	$("#addImage").prop('disabled',true);
 	$("#initSave").prop('disabled',true);
-	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
+	$("#chooseBgColor").prop('disabled',true);
+	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#chooseBgColor");
 }
 
 function finishTitle() {
@@ -137,6 +142,7 @@ function finishTitle() {
 	$("#addEditTitle").prop('disabled', false);
 	$("#addImage").prop('disabled',false);
 	$("#initSave").prop('disabled',false);
+	$("#chooseBgColor").prop('disabled',false);
 	$(".cancel").remove();
 
 }
@@ -146,8 +152,9 @@ function addch() {
 	$("#addEditTitle").prop('disabled', true);
 	$("#addImage").prop('disabled',true);
 	$("#initSave").prop('disabled',true);
+	$("#chooseBgColor").prop('disabled',true);
 	if ($("#cancel").length == 0)
-		$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
+		$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#chooseBgColor");
 	$("#workingArea").append('choice '+tempnumber+'<input type="text" id="c'+tempnumber+'">');
 	$("#workingArea").append('feedback <input type="text" id="f'+tempnumber+'"><BR>');
 	tempnumber++;
@@ -172,8 +179,9 @@ function openSaveOptions() {
 	$("#addEditTitle").prop('disabled', true);
 	$("#addImage").prop('disabled',true);
 	$("#initSave").prop('disabled',true);
-	$('<h2 id="chooseName" class="savefile">Choose a file name</h2><BR><input type="text" id="fileName" /><BR><button type="button" id="sendData" class="btn btn-danger Call_Button" onclick="sendData()">send data</button>').insertAfter("#initSave");
-	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#addImage");
+	$("#chooseBgColor").prop('disabled',true);
+	$('<div id="saveDiv"><h2 id="chooseName" class="savefile">Choose a file name</h2><BR><input type="text" id="fileName" /><BR><button type="button" id="sendData" class="btn btn-danger Call_Button" onclick="sendData()">send data</button></div>').insertAfter("#chooseBgColor");
+	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#saveDiv");
 }
 function addChoices(btnId) {
 	selectedString = $("#"+btnId.id).text();
@@ -202,6 +210,8 @@ function addChoices(btnId) {
 		}
 		console.log(word);
 	}
+	var top = $("body").offset().top;
+    $("html, body").animate({ scrollTop: top }, 1000);
 
 }
 function addOptionsToPreview() {
@@ -211,30 +221,66 @@ function addOptionsToPreview() {
 		feedback[i] = $("#"+id).val();
 	}
 	var x="s"+number;
-	var string="";
-	$("#tempdiv").append('<select id='+x+'></select> ');
-	string+='<select id='+x+'></select> ';
-	for (i=0;i<tempnumber;i++) {
-		if (i==0) {
-			$("#"+x).append('<option></option>');
-			string+='<option></option>';
-		}
-		else {
-			$("#"+x).append('<option>'+$('#c'+(i)).val()+'</option>');
-			string+='<option>'+$('#c'+(i)).val()+'</option>';
-		}
+	if (blankToEdit>-1) {
+		x = "s"+blankToEdit;
 	}
-	var realtemp = $("#tempdiv").html();
-	$("#tempdiv").empty();
-	var temp2 = $("#clozeData").html();
-	var temp = realtemp+'<button type="button" id="check'+number+'" class="check" onclick=checkOneAnswer('+number+') ><i class="glyphicon glyphicon-search"></i></button> ';
-	$(temp).insertAfter("#"+current_button);
-	$("#"+current_button).remove();
+	var string="";
 	correct_answer = $("#corrAns").val();
-	CorrectAnswers[number-1]=correct_answer;
-	Feedbacks[number-1]=feedback;
+	console.log("#"+x+ "is the one");
+	if ($("#"+x).length==0) { //blank does not exist yet
+		$("#tempdiv").append('<select id='+x+'></select> ');
+		string+='<select id='+x+'></select> ';
+		for (i=0;i<tempnumber;i++) {
+			if (i==0) {
+				$("#"+x).append('<option></option>');
+				string+='<option></option>';
+			}
+			else {
+				$("#"+x).append('<option>'+$('#c'+(i)).val()+'</option>');
+				string+='<option>'+$('#c'+(i)).val()+'</option>';
+			}
+		}
+		var realtemp = $("#tempdiv").html();
+		$("#tempdiv").empty();
+		var temp2 = $("#clozeData").html();
+		var temp = realtemp+'<button type="button" id="check'+number+'" class="check" onclick=editBlank('+number+') ><i class="glyphicon glyphicon-search"></i></button> ';
+		$(temp).insertAfter("#"+current_button);
+		$("#"+current_button).remove();
+		CorrectAnswers[number-1]=correct_answer;
+		Feedbacks[number-1]=feedback;
+		number++;
+	} else { //editing exisiting blank
+		var i = 0;
+		console.log("#s"+blankToEdit +" option");
+		$("#s"+blankToEdit +" option").each(function() {
+
+			if (i>0) {
+				 $(this).text($("#c"+i).val()).val($("#c"+i).val());
+			}
+			i++;
+		});
+		CorrectAnswers[blankToEdit-1]=correct_answer;
+		Feedbacks[blankToEdit-1]=feedback;
+		blankToEdit=-1;
+	}
+	
+	
 	cancel();
-	number++;
+	
+}
+function editBlank(blankNumber) {
+	var i=0;
+	blankToEdit=blankNumber;
+	$("#s"+blankNumber +" option").each(function() {
+		if (!($(this).val().length == 0)) {
+			addch();
+			$("#c"+i).val($(this).val());
+			$("#f"+i).val(Feedbacks[blankNumber-1][i-1]);
+			$("#corrAns").val(CorrectAnswers[blankNumber-1]);
+		}
+		i++;
+
+	});
 }
 /*needs to be part of the output script*/
 function checkOneAnswer(qnumber) {
@@ -358,6 +404,13 @@ function checkAll() {
 
 function openColorSpectrum() {
 	$("<div id='backgroundColor'><h2 class='savefile'>Background Color: </h2><br><input type='color' id='bgColor' value='#fac564' /><br><button type='button' onclick='changeBgColor()'>Apply</button><button type='button' onclick='closeColor()'>Close</button></div>").insertAfter("#chooseBgColor");
+	$("#chooseBgColor").prop('disabled',true);
+	$("#addParagraphBtn").prop('disabled', true);
+	$("#addChoice").prop('disabled', true);
+	$("#addEditTitle").prop('disabled', true);
+	$("#addImage").prop('disabled',true);
+	$("#initSave").prop('disabled',true);
+
 }
 function changeBgColor() {
 	var color = $("#bgColor").prop("value");
@@ -365,4 +418,10 @@ function changeBgColor() {
 }
 function closeColor() {
 	$("#backgroundColor").remove();
+	$("#chooseBgColor").prop('disabled',false);
+	$("#addParagraphBtn").prop('disabled', false);
+	$("#addChoice").prop('disabled', false);
+	$("#addEditTitle").prop('disabled', false);
+	$("#addImage").prop('disabled',false);
+	$("#initSave").prop('disabled',false);
 }

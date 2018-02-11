@@ -13,9 +13,6 @@
 			h2 {
 				color: green;
 			}
-			body {
-				color: $bgcolor;
-			}
 			.nav-primary {
 				width: 80%;
 				padding:5px;
@@ -112,7 +109,9 @@
 			var number_try=    new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 			var checkingAll = false;
 			var notAllCorrect = false;
+			var bgc = "$bgcolor";
 			$(document).ready(function() {
+				$("body").css("background-color",bgc);
 				Feedbacks = $feedbackarray;
 				CorrectAnswers = $correctanswersarray;
 			});	
