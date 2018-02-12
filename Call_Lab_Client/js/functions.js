@@ -55,7 +55,7 @@ function addTextToPreview() {
 			text = text.replace(s,btn);
 		}
 	}
-	$("#clozeData").append('<p contenteditable>'+ text +' </p>');
+	$("#clozeData").append('<p class="slide" contenteditable>'+ text +' </p>');
 	$("#addParagraphBtn").prop('disabled', false);
 	$("#addChoice").prop('disabled', false);
 	$("#addEditTitle").prop('disabled', false);
@@ -94,7 +94,7 @@ function readURL(input) {
 
 }
 function addImageToCloze() {
-	$("#clozeData").append('<center><div id="theImage"><img id="clozeImage" src="'+imageResult+'" width="100%" height="100%"></div></center>');
+	$("#clozeData").append('<center><div id="theImage"><img id="clozeImage" class="slide" src="'+imageResult+'" width="100%" height="100%"></div></center>');
 	$("#theImage").css("width","500px");
 	$("#theImage").css("height","400px");
 	$("#theImage").css("border","1px solid black");
@@ -489,3 +489,24 @@ function uploadFile() {
 	}
 	fr.readAsText(myFile);
 }
+
+
+
+
+
+/*
+
+THIS CODE IS FOR MAKING PARAGRAPHS MOVABLE
+
+*/
+$("document").ready(function() {
+	$(".all-slides").sortable({
+  
+	  axis: "y",
+	  revert: true,
+	  scroll: false,
+	  placeholder: "sortable-placeholder",
+	  cursor: "move"
+
+	});
+});

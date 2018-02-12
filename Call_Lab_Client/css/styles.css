@@ -190,3 +190,44 @@
 			#bgColor {
 				width: 100%;
 			}
+
+
+			/*
+				THIS STYLES ARE FOR MOVABLE ITEMS
+			*/
+			.all-slides {
+				counter-reset: slides;
+				overflow: auto;
+			}
+			.slide {
+				user-select: none;
+			}
+			.ui-sortable-helper {
+			  transition: none !important;
+			  animation: pulse 0.4s alternate infinite;
+			}
+
+			.sortable-placeholder {
+			  height: 60px;
+			  width: 5px;
+			  border-left: 2px solid #4999DA;
+			  margin: 0 0 0.75rem 0;
+			  position: relative;
+			  z-index: 6;
+			}
+
+			@keyframes pulse {
+			  100% {
+			    transform: scale(1.1);
+			  }
+			}
+			.cloned-slides .slide {
+			  z-index: 1;
+			}
+			.cloned-slides .slide:before {
+			  content: attr(data-pos);
+			}
+			.slide:before {
+				  counter-increment: slides;
+				  content: counter(slides);
+				}
