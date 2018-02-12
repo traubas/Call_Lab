@@ -91,13 +91,13 @@ function readURL(input) {
 		reader.readAsDataURL(input.files[0]);
 		$("#addImageToCloze").prop('disabled',false);
 	}
-	console.log(typeof imageResult);
 
 }
 function addImageToCloze() {
-	$("#clozeData").append('<center><img id="clozeImage" src="'+imageResult+'" /></center>');
-	$("#clozeImage").width(500);
-	$("#clozeImage").height(400);
+	$("#clozeData").append('<center><div id="theImage"><img id="clozeImage" src="'+imageResult+'" width="100%" height="100%"></div></center>');
+	$("#theImage").css("width","500px");
+	$("#theImage").css("height","400px");
+	$("#theImage").css("border","1px solid black");
 	$("#workingArea").empty();
 	$("#addParagraphBtn").prop('disabled', false);
 	$("#addChoice").prop('disabled', false);
@@ -107,7 +107,7 @@ function addImageToCloze() {
 	$("#chooseBgColor").prop('disabled',false);
 	$("#editExisting").prop('disabled',false);
 	$(".cancel").remove();
-
+	$("#theImage").resizable();
 }
 function cancel() {
 	$("#workingArea").empty();
@@ -459,20 +459,26 @@ function uploadFile() {
 	fr.onload = function(e) {
 		var x = e.target.result;
 		var y = $('<div />').append(x).find('#clozeData').html();
-		
-		var s = $("#check"+1);
-		console.log(s.length);
+		$("#clozeData").append(y);
+
+
 		//get Feedbacks
 		var z = ""+x.match(/Feedbacks.*\]/);
 		z = z.split(/\=\s/);
 		var w = JSON.parse(z[1]);
 		Feedbacks = w;
+
+
 		//get corrAns
 		var ca = ""+x.match(/CorrectAnswers.*\]/);
 		ca = ca.split(/\=\s/);
 		w = JSON.parse(ca[1]);
 		CorrectAnswers = w;
-		$("#clozeData").append(y);
+
+		var h = $('<div />').append(x).find('#clozeTitle').text();
+		console.log(h);
+		$("#theTitle").append(h);
+		
 		$("#checkAllButton").remove(); //don't need those buttons. they are added in the template.
 		$("#checkAllButton2").remove();
 		for (i=1;i<50;i++) {
