@@ -227,7 +227,3 @@
 			.cloned-slides .slide:before {
 			  content: attr(data-pos);
 			}
-			.slide:before {
-				  counter-increment: slides;
-				  content: counter(slides);
-				}
