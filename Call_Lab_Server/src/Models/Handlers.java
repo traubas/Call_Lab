@@ -80,7 +80,6 @@ public class Handlers {
 			String thetitle="";
 			String numberOfQuestions = "";
 			String fileName = "";
-			String imageSrc ="";
 			String bgcolor = "";
 			he.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
@@ -113,8 +112,6 @@ public class Handlers {
 					numberOfQuestions+= parameters.get(key);
 				else if (key.equals("fileName"))
 					fileName+= parameters.get(key);
-				else if (key.equals("image"))
-					imageSrc+= parameters.get(key);
 				else if (key.equals("bgcolor")) 
 					bgcolor+=parameters.get(key);
 			}
