@@ -5,15 +5,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="mainPane" prefHeight="290.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="Controllers.MainController">
+<AnchorPane id="mainPane" prefHeight="290.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
    <children>
       <ImageView fitHeight="500.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../path/English.jpg" />
+            <Image url="@appbg.jpg" />
          </image>
       </ImageView>
-      <Button id="startServerBtn" fx:id="startServerBtn" layoutX="146.0" layoutY="64.0" mnemonicParsing="false" onAction="#startServer" text="Create Cloze" />
-      <Button id="closeServerBtn" fx:id="closeServerBtn" layoutX="389.0" layoutY="64.0" mnemonicParsing="false" onAction="#closeServer" text="Close Server" />
+      <Button id="record-sales" fx:id="startServerBtn" layoutX="140.0" layoutY="155.0" mnemonicParsing="false" onAction="#startServer" text="Create Cloze" />
+      <Button id="record-sales" fx:id="closeServerBtn" layoutX="20.0" layoutY="421.0" mnemonicParsing="false" onAction="#closeServer" text="Close Server" />
    </children>
 </AnchorPane>

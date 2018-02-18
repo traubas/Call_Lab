@@ -21,10 +21,14 @@ public class Main extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Hello World!");
 		Parent root = FXMLLoader.load(getClass().getResource("/FXML/main_page.fxml"));
-		Scene scene = new Scene(root, 600, 390);
+		Scene scene = new Scene(root);
+		String css = getClass().getResource("/FXML/css/styles.css")
+                .toExternalForm();
+        scene.getStylesheets().add(css);
         stage=primaryStage;
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setResizable(false);
 		
 	}
 	@Override
