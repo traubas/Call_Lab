@@ -129,7 +129,7 @@ public class Handlers {
 			System.out.println(thetitle);
 			File newHtmlFile = new File("path/"+fileName+".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
-			Desktop.getDesktop().open(new File("/home/ofir/projects/Call_Lab/Call_Lab_Server/path"));
+			Desktop.getDesktop().open(new File("path"));
 			he.sendResponseHeaders(200, response.length());
 			OutputStream os = he.getResponseBody();
 			os.write(response.toString().getBytes());

@@ -29,7 +29,7 @@ public class MainController {
 		if (Desktop.isDesktopSupported()) {
 			new Thread(() -> {
 				try {
-					File file = new File("../Call_Lab_Client/index.html");
+					File file = new File("src/Call_Lab_Client/index.html");
 					Desktop.getDesktop().browse(file.toURI());
 					}
 				catch (IOException e1) {
