@@ -9,7 +9,14 @@ A server is created when the app opens.
 When Create Cloze is clicked the default browser will open and show an html for creating cloze.  
 Craete a cloze by entering a paragraph.  
   
-Can money be used to spread messages? At first Alexei Navalny, a Russian opposition activist and noted blogger, was (1. asceptical - bsceptically). But then he (2. ahas done - bdid – chas made – dmade) the maths: if 5,000 Russians (3. astamp – bwill stamp - cstamped) 100 bills each, every (4. acitizen – bcitizens) would encounter at least one of the altered notes as they passed from person to person. 
+```
+Can money be used to spread messages? At first Alexei Navalny,  
+a Russian opposition activist and noted blogger,  
+was (1. asceptical - bsceptically). But then he (2. ahas done - bdid – chas made – dmade) the maths:  
+if 5,000 Russians (3. astamp – bwill stamp - cstamped) 100 bills each,  
+every (4. acitizen – bcitizens) would encounter at least one of the  
+altered notes as they passed from person to person.  
+```
   
 when finished, click add.
 The app will change everything in (...) into buttons.
