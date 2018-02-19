@@ -13,7 +13,7 @@ public class SimpleServer {
 	public void Start(int port) {
 		try {
 			this.port = port;
-			server = HttpServer.create(new InetSocketAddress("0.0.0.0",port), 0);
+			server = HttpServer.create(new InetSocketAddress("localhost",port), 0);
 			System.out.println("server started at " + port);
 			server.createContext("/", new Handlers.RootHandler());
 			server.createContext("/echoHeader", new Handlers.EchoHeaderHandler());

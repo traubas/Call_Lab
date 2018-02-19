@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: functions.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: functions.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>var number = 1;
+var tempnumber = 1;
+var Feedbacks = new Array(50);
+var CorrectAnswers = new Array(50);
+var answered_grade = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+var number_try = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)	
+var title = "";
+var checkingAll = false;
+var notAllCorrect = false;
+var selectedString="";
+var imageResult="";
+var paragraph=1;
+var current_button="";
+/**
+*Add a textarea field to the working area with a submit button.&lt;br>
+*Disables all other buttons except cancel and submit.
+**/
+function addtl() {
+	$("#workingArea").append('&lt;textarea type="text" id="textInput">&lt;/textarea>&lt;br>&lt;button type="button" onclick=addTextToPreview()>add&lt;/button>');
+	$("#addParagraphBtn").prop('disabled', true);
+	$("#addChoice").prop('disabled', true);
+	$("#addEditTitle").prop('disabled', true);
+	$("#addImage").prop('disabled',true);
+	$("#initSave").prop('disabled',true);
+	$('&lt;button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel &lt;i class="glyphicon glyphicon-remove-circle">&lt;/button>').insertAfter("#addImage");
+}
+/**
+*Adds the paragraph from the textarea to a "cloze Data" div.&lt;br>
+*Replaces all blanks that are inside a pair of parentheses with buttons with the same text.&lt;br>
+*This is done so that it will be easy to choose the blanks and extract the words out of them.&lt;br>
+*inside the function variables:&lt;br>
+*&lt;ul>
+*	&lt;li>text = the whole paragraph string&lt;/li>
+*	&lt;li>blanks = array of blanks which are strings enclosed with parentheses and starts with a number&lt;/li>
+*&lt;/ul>
+*we extract the blanks from the text by matching with a regex that matchs strings inside parentheses that starts with digit
+**/
+function addTextToPreview() {
+	
+	var text = $("#textInput").val();
+	var blanks = text.match(/\([^()]+\)/g);
+
+	if (blanks != null) {
+		for (var i=0;i&lt;blanks.length;i++) {
+			var s = ""+blanks[i];
+			if (!(s[1].match(/\d/)))
+				continue;
+			var id = 'p'+paragraph+'btn'+i;
+			var vars = ""+s+","+id;
+			var btn = '&lt;button id="'+id+'" onclick="addChoices('+id+')" class="btn-warning" >'+s+'&lt;/button>';
+			paragraph+=1;
+			text = text.replace(s,btn);
+		}
+	}
+	$("#clozeData").append('&lt;p>'+ text +' &lt;/p>');
+	$("#addParagraphBtn").prop('disabled', false);
+	$("#addChoice").prop('disabled', false);
+	$("#addEditTitle").prop('disabled', false);
+	$("#addImage").prop('disabled',false);
+	$("#initSave").prop('disabled',false);
+	$(".cancel").remove();
+	$("#workingArea").empty();
+	
+}
+
+function addImage() {
+	$("#workingArea").append('&lt;input type="file" onchange="readURL(this);" />&lt;br>&lt;button type="button" id="addImageToCloze" onclick="addImageToCloze()">Add To Preview&lt;/button>');
+	$("#addParagraphBtn").prop('disabled', true);
+	$("#addChoice").prop('disabled', true);
+	$("#addEditTitle").prop('disabled', true);
+	$("#addImage").prop('disabled',true);
+	$("#addImageToCloze").prop('disabled',true);
+	$("#initSave").prop('disabled',true);
+
+	$('&lt;button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel &lt;i class="glyphicon glyphicon-remove-circle">&lt;/button>').insertAfter("#addImage");
+
+}
+function readURL(input) {
+	if (input.files &amp;&amp; input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function (e) {
+			imageResult = e.target.result;
+		};
+		reader.readAsDataURL(input.files[0]);
+		$("#addImageToCloze").prop('disabled',false);
+	}
+	console.log(typeof imageResult);
+
+}
+function addImageToCloze() {
+	$("#clozeData").append('&lt;center>&lt;img id="clozeImage" src="'+imageResult+'" />&lt;/center>');
+	$("#clozeImage").width(500);
+	$("#clozeImage").height(400);
+	$("#workingArea").empty();
+	$("#addParagraphBtn").prop('disabled', false);
+	$("#addChoice").prop('disabled', false);
+	$("#addEditTitle").prop('disabled', false);
+	$("#addImage").prop('disabled',false);
+	$("#initSave").prop('disabled',false);
+	$(".cancel").remove();
+
+}
+function cancel() {
+	$("#workingArea").empty();
+	$("#addParagraphBtn").prop('disabled', false);
+	$("#addChoice").prop('disabled', false);
+	$("#addEditTitle").prop('disabled', false);
+	$("#addImage").prop('disabled',false);
+	$("#initSave").prop('disabled',false);
+	$("#chooseName").remove();
+	$("#fileName").remove();
+	$("#sendData").remove();
+	$(".cancel").remove();
+	if (tempnumber>1)
+		tempnumber=1;
+
+}
+
+function addEditTitle() {
+	$("#workingArea").append('&lt;input type=text id="tempTitle">&lt;button type="button" id="finishTitle" onclick="finishTitle()">Change Title&lt;/button>')
+	$("#addParagraphBtn").prop('disabled', true);
+	$("#addChoice").prop('disabled', true);
+	$("#addEditTitle").prop('disabled', true);
+	$("#addImage").prop('disabled',true);
+	$("#initSave").prop('disabled',true);
+	$('&lt;button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel &lt;i class="glyphicon glyphicon-remove-circle">&lt;/button>').insertAfter("#addImage");
+}
+
+function finishTitle() {
+	title = $("#tempTitle").val();
+	$("#theTitle").empty();
+	$("#theTitle").append(title);
+	$("#workingArea").empty();
+	$("#addParagraphBtn").prop('disabled', false);
+	$("#addChoice").prop('disabled', false);
+	$("#addEditTitle").prop('disabled', false);
+	$("#addImage").prop('disabled',false);
+	$("#initSave").prop('disabled',false);
+	$(".cancel").remove();
+
+}
+function addch() {
+	$("#addParagraphBtn").prop('disabled', true);
+	$("#addChoice").prop('disabled', true);
+	$("#addEditTitle").prop('disabled', true);
+	$("#addImage").prop('disabled',true);
+	$("#initSave").prop('disabled',true);
+	if ($("#cancel").length == 0)
+		$('&lt;button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel &lt;i class="glyphicon glyphicon-remove-circle">&lt;/button>').insertAfter("#addImage");
+	$("#workingArea").append('choice '+tempnumber+'&lt;input type="text" id="c'+tempnumber+'">');
+	$("#workingArea").append('feedback &lt;input type="text" id="f'+tempnumber+'">&lt;BR>');
+	tempnumber++;
+	$(".cancel").css('visibility', 'visible');
+	/*will enter if only once*/
+	if ($("#aotp").length ==0) {
+		$("#workingArea").append('&lt;div id="correctAnswerNumber">Correct answer number &lt;input type="text" id="corrAns">&lt;BR>&lt;/div>');
+		$("#workingArea").append('&lt;button type="button" id="aotp" onclick="addOptionsToPreview()">submit&lt;/button>');
+	}
+	else {
+		$("#aotp").remove();
+		$("#correctAnswerNumber").remove();
+		$("#workingArea").append('&lt;div id="correctAnswerNumber">Correct answer number&lt;input type="text" id="corrAns">&lt;BR>&lt;/div>');
+		$("#workingArea").append('&lt;button type="button" id="aotp" onclick="addOptionsToPreview()">submit&lt;/button>');
+
+	}
+	
+}
+function openSaveOptions() {
+	$("#addParagraphBtn").prop('disabled', true);
+	$("#addChoice").prop('disabled', true);
+	$("#addEditTitle").prop('disabled', true);
+	$("#addImage").prop('disabled',true);
+	$("#initSave").prop('disabled',true);
+	$('&lt;h2 id="chooseName" class="savefile">Choose a file name&lt;/h2>&lt;BR>&lt;input type="text" id="fileName" />&lt;BR>&lt;button type="button" id="sendData" class="btn btn-danger Call_Button" onclick="sendData()">send data&lt;/button>').insertAfter("#initSave");
+	$('&lt;button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel &lt;i class="glyphicon glyphicon-remove-circle">&lt;/button>').insertAfter("#addImage");
+}
+function addChoices(btnId) {
+	selectedString = $("#"+btnId.id).text();
+	current_button=btnId.id;
+	
+	var s = selectedString.split(/[^a-zA-Z]\s/);
+	s.shift();
+	if (s.length==1) {
+		var word = s[0];
+		word = word.split(/\s[^a-zA-Z]/);
+		s=word;
+	}
+	var s2 = s[s.length-1];
+	s2 = s2.substring(0,(s2.length)-1);
+	s[s.length-1]=s2;
+	for (var i = 0; i &lt; s.length;i++) {
+		s[i] = s[i].trim();
+	}
+	var word;
+	for (i=0;i&lt;s.length;i++) {
+		addch();
+		word = s[i];	
+		if (i&lt;s.length) {
+			word = word.substring(1);
+			$("#c"+(tempnumber-1)).val(word);
+		}
+		console.log(word);
+	}
+
+}
+function addOptionsToPreview() {
+	var feedback = new Array(tempnumber);
+	for (i=0;i&lt;tempnumber-1;i++) {
+	var id = "f"+(i+1);
+		feedback[i] = $("#"+id).val();
+	}
+	var x="s"+number;
+	var string="";
+	$("#tempdiv").append('&lt;select id='+x+'>&lt;/select> ');
+	string+='&lt;select id='+x+'>&lt;/select> ';
+	for (i=0;i&lt;tempnumber;i++) {
+		if (i==0) {
+			$("#"+x).append('&lt;option>&lt;/option>');
+			string+='&lt;option>&lt;/option>';
+		}
+		else {
+			$("#"+x).append('&lt;option>'+$('#c'+(i)).val()+'&lt;/option>');
+			string+='&lt;option>'+$('#c'+(i)).val()+'&lt;/option>';
+		}
+	}
+	var realtemp = $("#tempdiv").html();
+	$("#tempdiv").empty();
+	var temp2 = $("#clozeData").html();
+	var temp = realtemp+'&lt;button type="button" id="check'+number+'" class="check" onclick=checkOneAnswer('+number+') >&lt;i class="glyphicon glyphicon-search">&lt;/i>&lt;/button> ';
+	$(temp).insertAfter("#"+current_button);
+	$("#"+current_button).remove();
+	correct_answer = $("#corrAns").val();
+	CorrectAnswers[number-1]=correct_answer;
+	Feedbacks[number-1]=feedback;
+	cancel();
+	number++;
+}
+/*needs to be part of the output script*/
+function checkOneAnswer(qnumber) {
+	
+	var answer = $("#s"+qnumber).prop('selectedIndex');
+	if (answer==null)
+		return;
+	if (answer==0) {
+		if (!checkingAll)
+			showFeedback("You must choose an answer",300,300,400,200,0);
+		notAllCorrect = true;
+	}
+	else if (answer==CorrectAnswers[qnumber-1]){
+		number_try[qnumber-1]=number_try[qnumber-1]+1;
+		if (!checkingAll)
+			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,1);
+		var answer = $("#s"+qnumber+ " option:selected").text();
+		$('&lt;span class="correct">'+answer+" "+'&lt;/span>').insertAfter("#check"+qnumber);
+		$("#check"+qnumber).remove();
+		$("#s"+qnumber).remove();
+		if (number_try[qnumber-1]>Feedbacks[qnumber-1]) {
+			number_try[qnumber-1]=1/(Feedback[qnumber-1]-1);
+		}
+		answered_grade[qnumber-1]=(Feedbacks[qnumber-1].length-number_try[qnumber-1])/(Feedbacks[qnumber-1].length-1);
+	}
+	else {
+		number_try[qnumber-1]=number_try[qnumber-1]+1;
+		if (!checkingAll) 
+			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,0);
+		notAllCorrect = true;
+	}
+
+}
+
+function grade(msg,flag) {
+	var gr_per_question=100/(number-1);
+	var grade=0;
+	for (var i=0;i&lt;answered_grade.length;i++) {
+		console.log(answered_grade[i]);
+	}
+	for (i=0;i&lt;number;i++) {
+		grade=grade+gr_per_question*answered_grade[i];
+	}
+	showFeedback(msg+"&lt;BR>"+"Your grade is: "+Math.round(grade)+"%",300,300,300,300,flag);
+}
+/*needs to be part of the output script*/
+function showFeedback(feedback,position1,position2,size1,size2,flag)
+{
+	var modal = document.getElementById('myModal');
+	var span = document.getElementsByClassName("close")[0];
+	modal.style.display = "block";
+	$("#modal").css("display" , "block")
+	fb = document.getElementById('feedback_content');
+	feedback_content.innerHTML=
+	"&lt;br>&lt;center>&lt;table cellpadding=15>&lt;tr>&lt;td>"+feedback+"&lt;/tr>&lt;/td>&lt;/table>&lt;/center>&lt;br>";
+	if (flag==1) {
+		$(".modal-content").css({'background-color': 'green'});
+	}
+	else
+		$(".modal-content").css({'background-color': 'yellow'});
+	// When the user clicks on &lt;span> (x), close the modal
+	span.onclick = function() {
+	    modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
+}
+
+function sendData() {
+	var html = $("#clozeData").html();
+	var data = { 
+        "html": html,
+        "feedbacks": JSON.stringify(Feedbacks),
+        "correctanswers": JSON.stringify(CorrectAnswers),
+        "title" : $("#theTitle").text(),
+        "numOfQuestions": number,
+        "fileName": $("#fileName").val(),
+        "image": imageResult
+    };
+    console.log($("#theTitle").text());
+    js = JSON.stringify(CorrectAnswers);
+	$.post("http://0.0.0.0:4444/echoPost", data);
+}
+function deleteLastAddition() {
+	var s = $("#clozeData").children().last().prop("tagName");
+	if (s == "BUTTON") {
+		$("#clozeData").children().last().remove();
+		$("#clozeData").children().last().remove();
+		number--;
+	}
+	else
+		$("#clozeData").children().last().remove();
+}
+
+function checkAll() {
+
+	checkingAll = true;
+	for (i=0;i&lt;number-1;i++) {
+
+		checkOneAnswer(i+1);
+	}
+	checkingAll=false;
+	if (notAllCorrect) {
+		var msg = "Some of your answers are not correct. Try again.";
+		grade(msg,0);
+	}
+	else {
+		var msg = "Good job. You finished this exercise!";
+		grade(msg,1);
+	}
+	
+	notAllCorrect = false;
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addTextToPreview">addTextToPreview</a></li><li><a href="global.html#addtl">addtl</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jan 30 2018 17:23:05 GMT+0200 (IST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

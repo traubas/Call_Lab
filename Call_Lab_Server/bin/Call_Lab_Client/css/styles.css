@@ -1,0 +1,229 @@
+.sandbox-correct-pronounciation {
+				}
+				.heading-correct-pronounciation {
+				  margin: auto;
+				  text-align: center;
+				  position: relative;
+				}
+				h1 {
+				  color: #fff;
+				  font-family: 'Cardo', serif;
+				  font-size: 1.5em;
+				  font-weight: normal;
+				  font-style: italic;
+				  letter-spacing: 0.1em;
+				  line-height: 2.2em;
+				}
+				em {
+				  font-family: 'EB Garamond', serif;
+				  font-size: 3.5em;
+				  text-transform: uppercase;
+				  letter-spacing: 0.1em;
+				  display: block;
+				  font-style: normal;
+				  padding-top: 0.1em;
+				  text-shadow: 0.07em 0.07em 0 rgba(0, 0, 0, 0.1);
+				}
+				em::before,
+				em::after {
+				  content: "§";
+				  display: inline-block;
+				  -webkit-transform: rotate(90deg);
+				  -moz-transform: rotate(90deg);
+				  -o-transform: rotate(90deg);
+				  -ms-transform: rotate(90deg);
+				  transform: rotate(90deg);
+				  opacity: 0.2;
+				  margin: 0 0.6em;
+				  font-size: 0.5em;
+				}
+				.bottom {
+				  font-size: 1.5em;
+				  letter-spacing: 0.07em;
+				  font-size: 1em;
+				  display: block;
+				}
+
+			h2 {
+				color: white;
+				font-family: 'EB Garamond', serif;
+				font-weight: normal;
+				font-style: italic;
+				letter-spacing: 0.1em;
+			}
+			body {
+				background-color: #fac564;
+			}
+			.savefile {
+				font-size:16px;
+				width:100%;
+				text-align: center;
+			}
+			#clozeData {
+				text-align: left;
+				width: 50%;
+				min-height: 100px;
+			}
+			#tempdiv {
+				visibility: hidden;
+				z-index: -143;
+			}
+			#workingArea {
+				width:100%;
+				display:block;
+			}
+
+			#corrAns {
+				width: 20px;
+			}
+			.modal {
+			    display: none; /* Hidden by default */
+			    position: fixed; /* Stay in place */
+			    z-index: 1; /* Sit on top */
+			    padding-top: 100px; /* Location of the box */
+			    top: 0;
+				left: 0;
+			    width: 100%; /* Full width */
+			    height: 100%; /* Full height */
+			    overflow: auto; /* Enable scroll if needed */
+			    background-color: rgb(0,0,0); /* Fallback color */
+			    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+			}
+
+			/* Modal Content */
+			.modal-content {
+			    background-color: yellow;
+			    position: absolute;
+			    top:50%;
+			    left: 8%;
+			    margin: auto;
+			    padding: 20px;
+			    border: ridge 7px;
+			    width: 80%;
+			    font-weight: bold;
+			}
+
+			/* The Close Button */
+			.close {
+			    color: #aaaaaa;
+			    float: right;
+			    font-size: 28px;
+			    font-weight: bold;
+			}
+
+			.close:hover,
+			.close:focus {
+			    color: #000;
+			    text-decoration: none;
+			    cursor: pointer;
+			}
+
+			.correct {
+				color: green;
+				font-weight: bold;
+			}
+			h1.theTitle1 {
+				color: red;
+			}
+			h1.menuTitle {
+				margin:0;
+			}
+			#textInput {
+				width: 40%;
+			}
+			.check {
+				background-color: #ffceec;
+			}
+			.sidenav {
+			    height: 100%;
+			    width: 20%;
+			    position: fixed;
+			    z-index: 1;
+			    left: 0;
+
+			    background-color: #111;
+			    overflow-x: hidden;
+			    padding-top: 5px;
+			}
+
+			.sidenav a {
+			    padding: 6px 8px 6px 16px;
+			    text-decoration: none;
+			    font-size: 25px;
+			    color: #818181;
+			    display: block;
+			}
+
+			.sidenav a:hover {
+			    color: #f1f1f1;
+			}
+			.rightSide {
+				position: absolute;
+				right: 0px;
+				width: 80%;
+
+			}
+			.container {
+				display: table;
+				width: 100%;
+			}
+			.btn {
+				width:100%;
+				background-color: #111;
+				border: none;
+			}
+			hr.seperator {
+			    border: 0;
+			    border-bottom: 1px dashed #000;
+			    background: #999;
+			}
+			#menuTitle {
+				width:100%;
+				font-size:26px;
+			}
+			#fileName {
+				width:100%;
+			}
+			#sendData {
+				width:100%;
+			}
+			#bgColor {
+				width: 100%;
+			}
+
+
+			/*
+				THIS STYLES ARE FOR MOVABLE ITEMS
+			*/
+			.all-slides {
+				counter-reset: slides;
+				overflow: auto;
+			}
+			.slide {
+				user-select: none;
+			}
+			.ui-sortable-helper {
+			  transition: none !important;
+			  animation: pulse 0.4s alternate infinite;
+			}
+
+			.sortable-placeholder {
+			  height: 60px;
+			  width: 5px;
+			  border-left: 2px solid #4999DA;
+			  margin: 0 0 0.75rem 0;
+			  position: relative;
+			  z-index: 6;
+			}
+
+			@keyframes pulse {
+			  100% {
+			    transform: scale(1.1);
+			  }
+			}
+			.cloned-slides .slide {
+			  z-index: 1;
+			}
+			.cloned-slides .slide:before {
+			  content: attr(data-pos);
+			}

@@ -4,10 +4,12 @@ import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -115,10 +117,24 @@ public class Handlers {
 				else if (key.equals("bgcolor")) 
 					bgcolor+=parameters.get(key);
 			}
-			System.out.println("file name is: "+fileName);
-			thefunctions =readFile("src/functions.txt");
-			File htmlTemplateFile = new File("src/template.html");
-			String htmlString = FileUtils.readFileToString(htmlTemplateFile,"UTF-8");
+			InputStream in = getClass().getResourceAsStream("/functions.txt"); 
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			String functions="";
+			String line;
+		    while ((line = reader.readLine()) != null) {
+		        functions += line+"\n";
+		    }
+		    System.out.print(functions);
+			thefunctions =functions;
+			InputStream in1 = getClass().getResourceAsStream("/template.html"); 
+			BufferedReader reader1 = new BufferedReader(new InputStreamReader(in1));
+			String html="";
+			String line1;
+		    while ((line1 = reader1.readLine()) != null) {
+		        html += line1+"\n";
+		    }
+		    System.out.print(html);
+			String htmlString = html;
 			htmlString = htmlString.replace("$thebody", response);
 			htmlString = htmlString.replace("$correctanswersarray", theanswers);
 			htmlString = htmlString.replace("$feedbackarray", thefeedbacks);
@@ -126,7 +142,7 @@ public class Handlers {
 			htmlString = htmlString.replace("$theTitle", thetitle);
 			htmlString = htmlString.replace("$numOfQuestions", numberOfQuestions);
 			htmlString = htmlString.replace("$bgcolor", bgcolor);
-			System.out.println(thetitle);
+			System.out.println(htmlString);
 			File newHtmlFile = new File("path/"+fileName+".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
 			Desktop.getDesktop().open(new File("path"));

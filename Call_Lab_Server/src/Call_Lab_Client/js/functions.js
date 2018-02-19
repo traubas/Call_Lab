@@ -378,7 +378,7 @@ function sendData() {
     };
     console.log($("#theTitle").text());
     js = JSON.stringify(CorrectAnswers);
-	$.post("http://0.0.0.0:4444/echoPost", data);
+	$.post("http://localhost:8080/echoPost", data);
 }
 function deleteLastAddition() {
 	var s = $("#clozeData").children().last().prop("tagName");

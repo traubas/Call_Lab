@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application{
-	public static int port = 4444; 
+	public static int port = 8080; 
 	public static Stage stage;
 	public static SimpleServer httpServer = new SimpleServer();
 	public static void main(String[] args) {
