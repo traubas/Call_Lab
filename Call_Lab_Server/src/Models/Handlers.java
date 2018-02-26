@@ -133,7 +133,6 @@ public class Handlers {
 		    while ((line1 = reader1.readLine()) != null) {
 		        html += line1+"\n";
 		    }
-		    System.out.print(html);
 			String htmlString = html;
 			htmlString = htmlString.replace("$thebody", response);
 			htmlString = htmlString.replace("$correctanswersarray", theanswers);
@@ -142,7 +141,6 @@ public class Handlers {
 			htmlString = htmlString.replace("$theTitle", thetitle);
 			htmlString = htmlString.replace("$numOfQuestions", numberOfQuestions);
 			htmlString = htmlString.replace("$bgcolor", bgcolor);
-			System.out.println(htmlString);
 			File newHtmlFile = new File("path/"+fileName+".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
 			Desktop.getDesktop().open(new File("path"));

@@ -16,10 +16,13 @@ function checkOneAnswer(qnumber) {
 		$('<span class="correct">'+answer+'</span>').insertAfter("#check"+qnumber);
 		$("#check"+qnumber).remove();
 		$("#s"+qnumber).remove();
-		if (number_try[qnumber-1]>Feedbacks[qnumber-1]) {
-			number_try[qnumber-1]=1/(Feedback[qnumber-1]-1);
+		if (number_try[qnumber-1]>=Feedbacks[qnumber-1].length) {
+			number_try[qnumber-1]=Feedback[qnumber-1].length-1;
 		}
-		answered_grade[qnumber-1]=(Feedbacks[qnumber-1].length-1-number_try[qnumber-1])/(Feedbacks[qnumber-1].length-2);
+		if (number_try[qnumber-1]==1) 
+			answered_grade[qnumber-1]=1;
+		else
+			answered_grade[qnumber-1]=1-(number_try[qnumber-1]/(Feedbacks[qnumber-1].length-1));
 	}
 	else {
 		number_try[qnumber-1]=number_try[qnumber-1]+1;
@@ -48,7 +51,7 @@ function showFeedback(feedback,position1,position2,size1,size2,flag)
 	feedback_content.innerHTML=
 	"<br><center><table cellpadding=15><tr><td>"+feedback+"</tr></td></table></center><br>";
 	if (flag==1) {
-		$(".modal-content").css({'background-color': 'green'});
+		$(".modal-content").css({'background-color': '#00ff1d'});
 	}
 	else
 		$(".modal-content").css({'background-color': 'yellow'});

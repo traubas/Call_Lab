@@ -2,8 +2,8 @@ var number = 1;
 var tempnumber = 1;
 var Feedbacks = new Array(50);
 var CorrectAnswers = new Array(50);
-var answered_grade = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
-var number_try = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)	
+var answered_grade = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+var number_try = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
 var title = "";
 var checkingAll = false;
 var notAllCorrect = false;
@@ -214,10 +214,8 @@ function addChoices(btnId) {
 		addch();
 		word = s[i];	
 		if (i<s.length) {
-			word = word.substring(1);
 			$("#c"+(tempnumber-1)).val(word);
 		}
-		console.log(word);
 	}
 	var top = $("body").offset().top;
     $("html, body").animate({ scrollTop: top }, 1000);
@@ -344,7 +342,7 @@ function showFeedback(feedback,position1,position2,size1,size2,flag)
 	feedback_content.innerHTML=
 	"<br><center><table cellpadding=15><tr><td>"+feedback+"</tr></td></table></center><br>";
 	if (flag==1) {
-		$(".modal-content").css({'background-color': 'green'});
+		$(".modal-content").css({'background-color': '#00ff1d'});
 	}
 	else
 		$(".modal-content").css({'background-color': 'yellow'});
