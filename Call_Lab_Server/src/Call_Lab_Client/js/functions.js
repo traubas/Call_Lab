@@ -67,7 +67,11 @@ function addTextToPreview() {
 	$("#workingArea").empty();
 	
 }
-
+/**
+*Adds a button which on clicks open up the "Open Dialog"<br>
+*and the user can choose an image to add to the cloze data.<br
+*Disables all other buttons.
+**/
 function addImage() {
 	$("#workingArea").append('<input type="file" onchange="readURL(this);" /><br><button type="button" id="addImageToCloze" onclick="addImageToCloze()">Add To Preview</button>');
 	$("#addParagraphBtn").prop('disabled', true);
@@ -81,6 +85,13 @@ function addImage() {
 	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#editExisting");
 
 }
+/**
+*This function is called when user opens an image from file.<br>
+*It uses FileReader class and creates a Base64 representation of the image.<br>
+*The image doesn't have to be in the same folder as the html created now.<br>
+*Note that the size of the image is increased by about 20%. <br>
+*Since at most the user will use 1 or 2 images thats not so bad.
+**/
 function readURL(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
@@ -93,6 +104,11 @@ function readURL(input) {
 	}
 
 }
+/**
+*This adds the image as Base64 to the clozeData and is shown on the preview.<br>
+*Adds a border around the image and set basic height and width.<br>
+*Note that iamge will be resizable later.
+**/
 function addImageToCloze() {
 	$("#clozeData").append('<center><div id="theImage"><img id="clozeImage" class="slide" src="'+imageResult+'" width="100%" height="100%"></div></center>');
 	$("#theImage").css("width","500px");
@@ -109,6 +125,10 @@ function addImageToCloze() {
 	$(".cancel").remove();
 	$("#theImage").resizable();
 }
+/**
+*This function is called whenever a cancel button is clicked.<br>
+*It resets all buttons and remove unneccesary buttons on field.
+**/
 function cancel() {
 	$("#workingArea").empty();
 	$("#addParagraphBtn").prop('disabled', false);
@@ -125,7 +145,9 @@ function cancel() {
 		tempnumber=1;
 
 }
-
+/**
+*Function that adds an input text to the field and on click it changes the title of the cloze.
+**/
 function addEditTitle() {
 	$("#workingArea").append('<input type=text id="tempTitle"><button type="button" id="finishTitle" onclick="finishTitle()">Change Title</button>')
 	$("#addParagraphBtn").prop('disabled', true);
@@ -137,7 +159,9 @@ function addEditTitle() {
 	$("#editExisting").prop('disabled',true);
 	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#editExisting");
 }
-
+/**
+* This function adds the title edited to the cloze data.
+**/
 function finishTitle() {
 	title = $("#tempTitle").val();
 	$("#theTitle").empty();
@@ -153,6 +177,10 @@ function finishTitle() {
 	$(".cancel").remove();
 
 }
+/**
+* This function adds "blank" text input and "blank" feedback input to the working area.
+*@tempnumber - represents how many blank options will be. each option id will be c+"tempnumber" e.g. c1, c2...
+**/
 function addch() {
 	$("#addParagraphBtn").prop('disabled', true);
 	$("#addChoice").prop('disabled', true);
