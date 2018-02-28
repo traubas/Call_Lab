@@ -72,7 +72,7 @@ public class Handlers {
 
 	}
 
-	public static class EchoPostHandler implements HttpHandler {
+	public static class TextWithQuestionsPostHandler implements HttpHandler {
 
 		@Override
 		public void handle(HttpExchange he) throws IOException {
@@ -91,7 +91,86 @@ public class Handlers {
 		            he.sendResponseHeaders(204, -1);
 		            return;
 		        }
-			System.out.println("Served by /echoPost handler...");
+			System.out.println("Served by /ClozeCreationPostHandler");
+			// parse request
+			Map<String, Object> parameters = new HashMap<String, Object>();
+			InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
+			BufferedReader br = new BufferedReader(isr);
+			String query = br.readLine();
+			parseQuery(query, parameters);
+			// send response
+			String response = "";
+			for (String key : parameters.keySet()) {
+				//response += key + " = " + parameters.get(key) + "\n";
+				if (key.equals("html"))
+					response+=parameters.get(key);
+				else if (key.equals("feedbacks"))
+					thefeedbacks+=parameters.get(key);
+				else if (key.equals("correctanswers"))
+					theanswers+=parameters.get(key);
+				else if (key.equals("title"))
+					thetitle+=parameters.get(key);
+				else if (key.equals("numOfQuestions"))
+					numberOfQuestions+= parameters.get(key);
+				else if (key.equals("fileName"))
+					fileName+= parameters.get(key);
+				else if (key.equals("bgcolor")) 
+					bgcolor+=parameters.get(key);
+			}
+			InputStream in = getClass().getResourceAsStream("/functions.txt"); 
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			String functions="";
+			String line;
+		    while ((line = reader.readLine()) != null) {
+		        functions += line+"\n";
+		    }
+		    System.out.print(functions);
+			thefunctions =functions;
+			InputStream in1 = getClass().getResourceAsStream("/template.html"); 
+			BufferedReader reader1 = new BufferedReader(new InputStreamReader(in1));
+			String html="";
+			String line1;
+		    while ((line1 = reader1.readLine()) != null) {
+		        html += line1+"\n";
+		    }
+			String htmlString = html;
+			htmlString = htmlString.replace("$thebody", response);
+			htmlString = htmlString.replace("$correctanswersarray", theanswers);
+			htmlString = htmlString.replace("$feedbackarray", thefeedbacks);
+			htmlString = htmlString.replace("$thescript", thefunctions);
+			htmlString = htmlString.replace("$theTitle", thetitle);
+			htmlString = htmlString.replace("$numOfQuestions", numberOfQuestions);
+			htmlString = htmlString.replace("$bgcolor", bgcolor);
+			File newHtmlFile = new File("path/"+fileName+".html");
+			FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
+			Desktop.getDesktop().open(new File("path"));
+			he.sendResponseHeaders(200, response.length());
+			OutputStream os = he.getResponseBody();
+			os.write(response.toString().getBytes());
+			os.close();
+
+		}
+	}
+	public static class ClozeCreationPostHandler implements HttpHandler {
+
+		@Override
+		public void handle(HttpExchange he) throws IOException {
+			String thefunctions="";
+			String thefeedbacks="";
+			String theanswers="";
+			String thetitle="";
+			String numberOfQuestions = "";
+			String fileName = "";
+			String bgcolor = "";
+			he.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+
+		    if (he.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
+		            he.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, OPTIONS");
+		            he.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type,Authorization");
+		            he.sendResponseHeaders(204, -1);
+		            return;
+		        }
+			System.out.println("Served by /ClozeCreationPostHandler");
 			// parse request
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");

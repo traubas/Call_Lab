@@ -404,7 +404,7 @@ function sendData() {
     };
     console.log($("#theTitle").text());
     js = JSON.stringify(CorrectAnswers);
-	$.post("http://localhost:8080/echoPost", data);
+	$.post("http://localhost:8080/ClozeCreationPostHandler", data);
 }
 function deleteLastAddition() {
 	var s = $("#clozeData").children().last().prop("tagName");
