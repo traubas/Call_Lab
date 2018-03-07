@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<div id="upperBar">
-			asd
+			<h1 class="mainHeader">Comprehension Text</h1>
 		</div>
 		<div class="mainArea">
 			<div class="left">
@@ -26,10 +26,14 @@
 					<h1 class="title">
 						Add Questions here with feedbacks
 					</h1>
-					<button type="button" onclick="createTrueFalseQuestion()">Add True/False Question</button>
+					<button type="button" class="btn btn-primary addQuestionsMenu" onclick="createTrueFalseQuestion()" id="createTrueFalseQuestion">Add True/False Question</button>
+					<button type="button" class="btn btn-primary addQuestionsMenu" onclick="createMultipleChoiseQuestion()" id="createMultipleChoiseQuestion">Add Multiple Choise Question</button>
 					<div class="questions">
 					</div>
 				</div>
+			</div>
+			<div class="rightDownContent">
+				<legend>Browse Questions</legend>
 			</div>
 		</div>
 	</body>
