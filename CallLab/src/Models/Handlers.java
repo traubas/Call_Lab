@@ -174,7 +174,8 @@ public class Handlers {
 			InputStreamReader isr = new InputStreamReader(he.getRequestBody());
 			System.out.println("encoding is" +isr.getEncoding());
 			BufferedReader br = new BufferedReader(isr);
-			String query = new String((br.readLine()).getBytes("UTF-8"));
+			String query = new String((br.readLine()).getBytes(), isr.getEncoding());
+			query = new String(query.getBytes(),"UTF-8");
 			parseQuery(query, parameters);
 			// send response
 			String response = "";
