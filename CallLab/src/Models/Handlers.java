@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,7 +93,7 @@ public class Handlers {
 			System.out.println("Served by /ClozeCreationPostHandler");
 			// parse request
 			Map<String, Object> parameters = new HashMap<String, Object>();
-			InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
+			InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "UTF-8");
 			BufferedReader br = new BufferedReader(isr);
 			String query = br.readLine();
 			parseQuery(query, parameters);
@@ -172,7 +171,7 @@ public class Handlers {
 			System.out.println("Served by /ClozeCreationPostHandler");
 			// parse request
 			Map<String, Object> parameters = new HashMap<String, Object>();
-			InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
+			InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "UTF-8");
 			BufferedReader br = new BufferedReader(isr);
 			String query = br.readLine();
 			parseQuery(query, parameters);
