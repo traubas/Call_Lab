@@ -171,7 +171,7 @@ public class Handlers {
 			System.out.println("Served by /ClozeCreationPostHandler");
 			// parse request
 			Map<String, Object> parameters = new HashMap<String, Object>();
-			InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "UTF-8");
+			InputStreamReader isr = new InputStreamReader(he.getRequestBody());
 			BufferedReader br = new BufferedReader(isr);
 			String query = br.readLine();
 			parseQuery(query, parameters);
