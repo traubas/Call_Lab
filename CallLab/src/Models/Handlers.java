@@ -210,6 +210,7 @@ public class Handlers {
 		        html += line1+"\n";
 		    }
 			String htmlString = html;
+			System.out.print(htmlString);
 			htmlString = htmlString.replace("$thebody", response);
 			htmlString = htmlString.replace("$correctanswersarray", theanswers);
 			htmlString = htmlString.replace("$feedbackarray", thefeedbacks);
