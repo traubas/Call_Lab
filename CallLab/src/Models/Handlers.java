@@ -210,7 +210,7 @@ public class Handlers {
 		        html += line1+"\n";
 		    }
 			String htmlString = html;
-			System.out.print(htmlString);
+			
 			htmlString = htmlString.replace("$thebody", response);
 			htmlString = htmlString.replace("$correctanswersarray", theanswers);
 			htmlString = htmlString.replace("$feedbackarray", thefeedbacks);
@@ -218,6 +218,7 @@ public class Handlers {
 			htmlString = htmlString.replace("$theTitle", thetitle);
 			htmlString = htmlString.replace("$numOfQuestions", numberOfQuestions);
 			htmlString = htmlString.replace("$bgcolor", bgcolor);
+			System.out.print(htmlString);
 			File newHtmlFile = new File("path/"+fileName+".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
 			Desktop.getDesktop().open(new File("path/"));
