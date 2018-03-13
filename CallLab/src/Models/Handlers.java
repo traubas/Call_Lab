@@ -174,6 +174,7 @@ public class Handlers {
 			InputStreamReader isr = new InputStreamReader(he.getRequestBody());
 			BufferedReader br = new BufferedReader(isr);
 			String query = br.readLine();
+			System.out.println("data is " + query);
 			parseQuery(query, parameters);
 			// send response
 			String response = "";
