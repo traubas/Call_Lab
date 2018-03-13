@@ -172,6 +172,7 @@ public class Handlers {
 			// parse request
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			InputStreamReader isr = new InputStreamReader(he.getRequestBody());
+			System.out.println("encoding is" +isr.getEncoding());
 			BufferedReader br = new BufferedReader(isr);
 			String query = new String((br.readLine()).getBytes("UTF-8"));
 			parseQuery(query, parameters);
