@@ -222,7 +222,7 @@ public class Handlers {
 			htmlString = htmlString.replace("$bgcolor", bgcolor);
 			File newHtmlFile = new File("path/"+fileName+".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
-			Desktop.getDesktop().open(new File("path"));
+			Desktop.getDesktop().open(new File("path/"));
 			he.sendResponseHeaders(200, response.length());
 			OutputStream os = he.getResponseBody();
 			os.write(response.toString().getBytes());
