@@ -404,13 +404,7 @@ function sendData() {
     };
     console.log($("#theTitle").text());
     js = JSON.stringify(CorrectAnswers);
-	$.ajax({url: "http://localhost:8080/ClozeCreationPostHandler",
-			data: data,
-		contentType:"application/json; charset=utf-8",
-		dataType:"json",
-		success: function(){
-		  
-		  }});
+	$.post("http://localhost:8080/ClozeCreationPostHandler", data);
 }
 function deleteLastAddition() {
 	var s = $("#clozeData").children().last().prop("tagName");

@@ -173,7 +173,7 @@ public class Handlers {
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			InputStreamReader isr = new InputStreamReader(he.getRequestBody());
 			BufferedReader br = new BufferedReader(isr);
-			String query = new String((br.readLine()).getBytes ("iso-8859-1"), "UTF-8");
+			String query = new String((br.readLine()).getBytes("UTF-8"));
 			parseQuery(query, parameters);
 			// send response
 			String response = "";
