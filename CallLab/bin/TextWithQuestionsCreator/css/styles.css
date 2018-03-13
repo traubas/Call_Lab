@@ -1,0 +1,126 @@
+#theText {
+	width: 95%;
+	height: 400px;
+	margin-top: 10px;
+}
+#upperBar {
+	position: fixed;
+	width: 100%;
+	height: 100px;
+	z-index: 1;
+	background-color: #42474f;
+	overflow-x: hidden;
+	left:0;
+	top:0;
+	margin: 0;
+	padding: 0;
+	box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+.left {
+    float: left;
+    width:50%;
+    height: 100%;
+    border: 1px solid black;
+    padding-left: 10px;
+}
+
+.right {
+    float: left;
+    width:50%;
+    height: 70%;
+    border: 1px solid black;
+    padding-left: 10px;
+    overflow: auto;
+}
+.rightContent {
+	height: 100%;
+}
+.mainArea {
+	position: relative;
+	width:100%;
+}
+body,html{padding:0; margin:0;height:100%;width:100%;}
+
+#question_text {
+	width: 100%;
+	height:40px;
+
+}
+.questions {
+	margin-left: 10px;
+	max-height: 100%;
+}
+label {
+	margin-right: 10px;
+}
+ul,li {
+	list-style-type: none;
+	padding: 0;
+}
+
+.trueFalseInputs  { 
+  margin: 0; 
+  padding: 0; 
+  margin-left: 20px; 
+} 
+
+.trueFalseInputs { 
+  display: inline;
+  border: 1px transparent solid; 
+  width:200px;
+} 
+
+.trueFalseInputs:hover, 
+.trueFalseInputs.focus { 
+  background-color: lightyellow; 
+  border: 1px gray solid; 
+  width: 5em; 
+} 
+#trueFalseDiv {
+	margin-top: 10px;
+}
+.rightDownContent {
+	float: left;
+    height:30%;
+    border: 1px solid black;
+    width: 50%;
+
+
+}
+.mainHeader { 
+	color: #fff;
+  font-family: 'Cardo', serif;
+  font-size: 3em;
+  font-weight: normal;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  line-height: 2.2em;
+  margin: auto;
+				  text-align: center;
+				  position: relative;
+}
+
+em {
+  font-family: 'EB Garamond', serif;
+  font-size: 3.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  font-style: normal;
+  padding-top: 0.1em;
+  text-shadow: 0.07em 0.07em 0 rgba(0, 0, 0, 0.1);
+}
+em::before,
+em::after {
+  content: "§";
+  display: inline-block;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  opacity: 0.2;
+  margin: 0 0.6em;
+  font-size: 0.5em;
+}

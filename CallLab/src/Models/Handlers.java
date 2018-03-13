@@ -124,7 +124,6 @@ public class Handlers {
 		    while ((line = reader.readLine()) != null) {
 		        functions += line+"\n";
 		    }
-		    System.out.print(functions);
 			thefunctions =functions;
 			InputStream in1 = getClass().getResourceAsStream("/template.html"); 
 			BufferedReader reader1 = new BufferedReader(new InputStreamReader(in1));
@@ -203,7 +202,6 @@ public class Handlers {
 		    while ((line = reader.readLine()) != null) {
 		        functions += line+"\n";
 		    }
-		    System.out.print(functions);
 			thefunctions =functions;
 			InputStream in1 = getClass().getResourceAsStream("/template.html"); 
 			BufferedReader reader1 = new BufferedReader(new InputStreamReader(in1));
