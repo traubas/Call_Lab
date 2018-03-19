@@ -60,6 +60,7 @@
 				text-align: center;
 			}
 			#clozeData {
+				font-family: 'arial';
 				text-align: left;
 				width: 50%;
 				min-height: 100px;
@@ -123,7 +124,7 @@
 				font-weight: bold;
 			}
 			h1.theTitle1 {
-				color: red;
+				color: black;
 			}
 			h1.menuTitle {
 				margin:0;

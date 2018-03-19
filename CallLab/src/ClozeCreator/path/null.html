@@ -1,0 +1,307 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+  		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8" content="text/html; charset=UTF-8">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!-- Latest compiled and minified JavaScript -->
+		
+		<style type="text/css">
+			h1 {
+				color: black;
+			}
+			h2 {
+				color: green;
+			}
+			.nav-primary {
+				width: 50%;
+				padding:5px;
+				/*box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) inset;
+				-webkit-border-radius: 4px;
+				border: 1px solid #666;*/
+				text-align: left;
+			}
+			#clozeTitle {
+    			color: black;
+			}
+			#clozeData {
+    			font-family: 'arial';
+				font-size: 16px;
+				width: 70%;
+			}
+			#workingArea {
+				border: 1px solid red;
+				width:100%;
+				display:block;
+			}
+			#cancel {
+				visibility: hidden;
+			}
+
+			#corrAns {
+				width: 20px;
+			}
+
+			.modal {
+			    display: none; /* Hidden by default */
+			    position: fixed; /* Stay in place */
+			    z-index: 1; /* Sit on top */
+			    padding-top: 100px; /* Location of the box */
+			    top: 0;
+				left: 0;
+			    width: 100%; /* Full width */
+			    height: 100%; /* Full height */
+			    overflow: auto; /* Enable scroll if needed */
+			    background-color: rgb(0,0,0); /* Fallback color */
+			    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+			}
+
+			/* Modal Content */
+			.modal-content {
+			    background-color: yellow;
+			    position: absolute;
+			    top:50%;
+			    left: 8%;
+			    margin: auto;
+			    padding: 20px;
+			    border: ridge 7px;
+			    width: 80%;
+			    font-weight: bold;
+			}
+
+			/* The Close Button */
+			.close {
+			    color: #aaaaaa;
+			    float: right;
+			    font-size: 28px;
+			    font-weight: bold;
+			}
+
+			.close:hover,
+			.close:focus {
+			    color: #000;
+			    text-decoration: none;
+			    cursor: pointer;
+			}
+
+			.correct {
+				color: green;
+				font-weight: bold;
+			}
+			.check {
+				background-color: #ffceec;
+				padding:4px;
+			}
+			.howTo {
+				margin-left:10%;
+				text-align: center;
+				width:80%;
+
+				margin-top: 20px;
+				border: 4px ridge gray;
+			}
+			.imagediv, .clozeRight{
+				position: relative;
+				display: inline-block;
+				outline: 0;
+			}
+			.imagediv {
+				width:30%;
+			}
+			.clozeRight {
+				width:70%;
+			}
+		</style>
+		
+		<script>
+			var numberOfQuestions = 28;
+			var Feedbacks = new Array(50);
+			var CorrectAnswers = new Array(50);
+			var answered_grade=new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+			var number_try=    new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+			var checkingAll = false;
+			var notAllCorrect = false;
+			var bgc = "rgb(250, 197, 100)";
+			$(document).ready(function() {
+				$("p").each(function() {
+					$(this).prop('contenteditable', false);
+				});
+				$('clozeImage').on('dragstart', function(event) { event.preventDefault(); });
+				$("body").css("background-color",bgc);
+				Feedbacks = [["Great! After the verb to be we use adjectives, e.g., I am happy; she is tired, they are wrong. Adverbs can be used but only if they modify adjectives that follow, e.g., I am extremely tired.","Great! After the verb to be we use adjectives, e.g., I am happy; she is tired, they are wrong. Adverbs can be used but only if they modify adjectives that follow, e.g., I am extremely tired.",null],["Note that the previous sentence is in the past and this sentence begins with ``And then...``. So is it correct to switch over from the Past Simple to the Present Perfect?","Excellent! ","You have two mistakes here. First, the verb is wrong. When we perform an activity or carry out a task we us the verb do, e.g., to do cleaning, to do computations. The tense is also wrong. The previous sentence is in the past and this sentence begins with ``And then...`` So is it correct to switch over from the Past Simple to the Present Perfect?","You have chosen the right tense but the wrong verb. When we perform an activity or carry out a task we us the verb to do, e.g., to do cleaning, to do computations, and so on. ",null],["Note that in the main clause the form of the verb is would encounter. Is it a Real or a Hypothetical Conditional?","Note that in the main clause the form of the verb is would encounter. Is it an Unreal or a Hypothetical Conditional?","Very good! ",null],["Correct.","Remember that after pronouns every and each we use nouns in the singular.",null],["On is used before days of the week and dates (e.g., on Monday, on the 21st of June.)What preposition is used before names of the months and years?","At is used in telling the time (e.g., at 5 p.m., at 7 :30.) What preposition is used before names of the months and years?","Right.",null],["Perfect! You need a possessive pronoun here.","They`re is a shortened form of they are, but do we need a verb here? In this sentence we need a possessive pronoun, belonging to the same group as my, his, her, etc.","There is an adverb having many meanings. Most often it is used to say that something exists or happens (There is a good library in this school) or to point to a position in space (He spent a week there.) In this sentence we need a possessive pronoun, belonging to the same group as my, his, her, etc.",null],["No, ruling is a countable noun, so you cannot use it in the singular without an article.","No, ruling is a countable noun, so you cannot use it in the singular without an article.","Yes, ruling is a noun, and it is mentioned for the first time, so we need the indefinite article here.","Ruling is a noun mentioned for the first time, so do we need the definite article here?",null],["Note that the verb in the main clause is in the past (This prompted...), so we have to use the rule of ``sequence of tenses``, looking into the future from the position of the past.  ","Very good! ",null],["Are these two movements contrasted to each other? Try again.","Are these two movements contrasted to each other? Try again.","Yes, these two movements are similar in their goals.  ","Does this sentence express uncertainty? Re-read this and the previous sentence and you will see that these two movements have a lot in common.",null],["Excellent! Economic means related to activities or situations dealing with the use of money and resources and production of wealth.","Economical is not wasteful. Does this meaning suit the context?","You have chosen an adverb, but do we use adjectives or adverbs before nouns? ",null],["What preposition do we use after the verb to add and the noun addition?","What preposition do we use after the verb to add and the noun addition?","Correct! The verb to add and the noun addition are usually followed by the preposition to.",null],["Great! This is an active reduced relative.","This is a reduced relative. We can paraphrase it saying: ``...messages on banknotes which attacked...`` So do we need an active or a passive form of the reduced relative? ",null],["Is it general or specific? Note that the sentence specifies: use of money. You do need an article here but which one?","Is it general or specific? Note that the sentence specifies: use of money. You do need an article here but which one?","Is it general or specific? Note that the sentence specifies: use of money. When identity of a person, object or action is established after the noun, which of the two articles is required? ","Correct.",null],["Yes, you need the singular form medium.","Note the article a after as. So do you need a noun in the singular or in the plural?",null],["Let`s paraphrase this reduced relative: ...coins which were minted...  The verb in this relative clause is in the passive. So do you need an ׳’ג‚¬ג€�ING or an ׳’ג‚¬ג€�ED form in the reduced relative clause?","Well done! It`s a passive reduced relative.",null],["Note that the sentence mentions the time in the past: in the 7th century. Can we use the Present Perfect after this?","Great.","It`s a fact in the past, so there is no justification for the Past Perfect. Try again.",null],["No, all these words are related to writing, but they have different meanings. You need the one which means ``to write or cut onto something``.","Well done! To inscribe means to write or cut onto something","Although all these words are related to writing, they have different meanings. To prescribe is used when we talk about instructions provided by doctors giving medications or treatment to patients or instructions given by persons with authority. What you need is the verb which means ``write or cut onto something``.","Although all these words are related to writing, they have different meanings. To subscribe is to pay money to receive or use something (e.g., to subscribe to a journal.) You need a word which means ``write or cut onto something``.",null],["Variety is a noun, but we need an adjective here.","Variety is a noun, but we need an adjective here.","Excellent! Various is a synonym of different. ",null],["Very good! Efficient is used to denote actions, methods, persons doing things well and without waste of time.","You have chosen an adverb, but do we use adverbs or adjectives before nouns?","You are right in choosing an adjective but affective means connected with emotions (e.g., affective tone, affective disorder.)",null],["Correct. The adjective aware and the noun awareness are followed by the preposition of. ","This is wrong. Consult the dictionary to check which preposition follows the adjective aware and the noun awareness.","This is wrong. Consult the dictionary to check which preposition follows the adjective aware and the noun awareness.",null],["The missing word is a conjunction introducing a comment to what has been just said. But when like functions as a conjunction it means as if.  ","Great! As here is a conjunction used to add a comment to what has been just said.",null],["What preposition is used when we want to say that a book, article, or exhibit is  concerned with some subject? Consult your dictionary.","Yes, when we say books, movies, exhibits, ideas on some subject it means they are concerned with this subject.","consult your dictionary to find out what preposition is used when we want to say that a book, article, or exhibit is concerned with some subject?",null],["If a situation or an event involves something, that thing is an important result of it, but we want to say that the coins mentioned in this sentence are part of the exhibit. Try again.","Yes, these coins are part of the exhibit. ","We use the verb to consist with the preposition of and it means to be formed of the things or people mentioned, but we want to say that the coins mentioned in this sentence are part of the exhibit. Another attempt? ",null],["Instead of saying the head of an emperor we can use the noun emperor in a possessive case. Now you have to decide whether to put apostrophe before or after the letter ``s``.","Good work!  It means the head of an emperor. ","you are right in using the possessive case. But is the noun emperor in the singular or in the plural?",null],["Consult the dictionary to find out what preposition is used after the noun advertisement to indicate what is advertised.  ","Consult the dictionary to find out what preposition is used after the noun advertisement to indicate what is advertised.  ","Correct. The noun advertisement is followed by the preposition for to indicate what is advertised. ",null],["Good for you!","In passive constructions we need the preposition with before inanimate nouns used as instrument (e.g., painted with a brush). But suffragettes were women fighting for their social rights. So what preposition is used before the doer of the action in the passive?",null],["Terrific!","The noun that follows is in the singular, but other is used with nouns in the plural, e.g., other books, other students.","Are we talking about one more, or some additional incarnation or about some specific incarnation? The other is used to indicate the rest of a specific group. ",null],["When used as a conjunction (to join clauses) that cannot appear after prepositions. ","When used as a conjunction (to join clauses) which cannot appear between a preposition and a pronoun. ","Perfect choice! What is a conjunction used to introduce a relative clause and means the thing which.",null],null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+				CorrectAnswers = ["1","2","3","1","3","1","3","2","3","1","3","1","4","1","2","2","2","3","1","1","2","2","2","2","3","1","1","3",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+				$("#clozeImage").removeClass("slide");
+			});	
+			
+function checkOneAnswer(qnumber) {
+	
+	var answer = $("#s"+qnumber).prop('selectedIndex');
+	if (answer==null)
+		return;
+	if (answer==0) {
+		if (!checkingAll)
+			showFeedback("You must choose an answer",300,300,400,200,0);
+	}
+	else if (answer==CorrectAnswers[qnumber-1]){
+		number_try[qnumber-1]=number_try[qnumber-1]+1;
+		if (!checkingAll)
+			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,1);
+		var answer = $("#s"+qnumber+ " option:selected").text();
+		$('<span class="correct">'+answer+" "+'</span>').insertAfter("#check"+qnumber);
+		$("#check"+qnumber).remove();
+		$("#s"+qnumber).remove();
+		if (number_try[qnumber-1]>Feedbacks[qnumber-1]) {
+			number_try[qnumber-1]=1/(Feedback[qnumber-1]-1);
+		}
+		answered_grade[qnumber-1]=(Feedbacks[qnumber-1].length-number_try[qnumber-1])/(Feedbacks[qnumber-1].length-1);
+	}
+	else {
+		number_try[qnumber-1]=number_try[qnumber-1]+1;
+		if (!checkingAll) 
+			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,0);
+	}
+
+}
+
+function grade(msg,flag) {
+	var gr_per_question=100/(numberOfQuestions);
+	var grade=0;
+	for (var i=0;i<answered_grade.length;i++) {
+		console.log(answered_grade[i]);
+	}
+	for (i=0;i<numberOfQuestions;i++) {
+		if (answered_grade[i]>0)
+			grade=grade+gr_per_question*answered_grade[i];
+	}
+	showFeedback(msg+"<BR>"+"Your grade is: "+Math.round(grade)+"%",300,300,300,300,flag);
+}
+
+function showFeedback(feedback,position1,position2,size1,size2,flag)
+{
+	var modal = document.getElementById('myModal');
+	var span = document.getElementsByClassName("close")[0];
+	modal.style.display = "block";
+	fb = document.getElementById('feedback_content');
+	feedback_content.innerHTML=
+	"<br><center><table cellpadding=15><tr><td>"+feedback+"</tr></td></table></center><br>";
+	if (flag==1) {
+		$(".modal-content").css({'background-color': '#00ff1d'});
+	}
+	else
+		$(".modal-content").css({'background-color': 'yellow'});
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	    modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
+}
+
+function checkAll() {
+	notAllCorrect = false
+	checkingAll = true;
+	for (i=0;i<numberOfQuestions;i++) {
+
+		checkOneAnswer(i+1);
+		if (answered_grade[i]>0) {
+			notAllCorrect = true;
+		}
+	}
+	checkingAll=false;
+	if (notAllCorrect == true) {
+		var msg = "Some of your answers are not correct. Try again.";
+		grade(msg,0);
+	}
+	else {
+		var msg = "Good job. You finished this exercise!";
+		grade(msg,1);
+	}
+}
+
+		</script>	
+	</head>
+	<body>
+		<div class="howTo">For each blank in the text, choose one of the options listed. You can check each answer separately by pressing <i class="glyphicon glyphicon-search" ></i> or all of them at once when you finish the exercise by pressing the button Check all answers.</div>
+		<center><h1><div id="clozeTitle">Money talks: The use of money as social media goes back millennia</div></h1><BR></center>
+		
+			<div id="clozeData" class="nav-primary clozeRight">
+				<center><button type="button" id="checkAllButton" onclick="checkAll()">Check All Answers</button></center>
+				
+				<center></center>
+				
+				<center></center>
+				
+					<center></center>
+					
+					<center></center>
+					
+					<center></center>
+					
+			<center></center>
+			
+			<center></center>
+			
+			<center></center>
+			
+			<center></center>
+			
+			<center></center>
+			
+			<center></center>
+			
+			<center></center>
+			
+			<center></center>
+			<p class="slide" contenteditable="">Can money be used to spread messages? At first Alexei Navalny, a Russian opposition activist and noted blogger, was <select id="s1"><option></option><option value="sceptical">sceptical</option><option value="sceptically">sceptically</option></select> <button type="button" id="check1" class="check" onclick="checkOneAnswer(1)"><i class="glyphicon glyphicon-search"></i></button>. But then he <select id="s2"><option></option><option value="has done">has done</option><option value="did">did</option><option value="has made">has made</option><option value="made">made</option></select> <button type="button" id="check2" class="check" onclick="checkOneAnswer(2)"><i class="glyphicon glyphicon-search">`</i></button> the maths: if 5,000 Russians <select id="s3"><option></option><option value="stamp">stamp</option><option value="will stamp">will stamp</option><option value="stamped">stamped</option></select> <button type="button" id="check3" class="check" onclick="checkOneAnswer(3)"><i class="glyphicon glyphicon-search"></i></button> 100 bills each, every <select id="s4"><option></option><option>citizen</option><option>citizens</option></select> <button type="button" id="check4" class="check" onclick="checkOneAnswer(4)"><i class="glyphicon glyphicon-search"></i></button> would encounter at least one of the altered notes as they passed from person to person. </p><p class="slide" contenteditable="">Members of Iran`s Green Movement used this tactic <select id="s5"><option></option><option>on</option><option>at</option><option>in</option></select> <button type="button" id="check5" class="check" onclick="checkOneAnswer(5)"><i class="glyphicon glyphicon-search"></i></button> 2009, writing slogans on banknotes during <select id="s6"><option></option><option>their</option><option>they`re</option><option>there</option></select> <button type="button" id="check6" class="check" onclick="checkOneAnswer(6)"><i class="glyphicon glyphicon-search"></i></button> anti-government protests. This prompted <select id="s7"><option></option><option></option><option></option><option>a</option><option>the</option></select> <button type="button" id="check7" class="check" onclick="checkOneAnswer(7)"><i class="glyphicon glyphicon-search"></i></button> ruling that defaced notes <select id="s8"><option></option><option value="will">will</option><option value="would">would</option></select> <button type="button" id="check8" class="check" onclick="checkOneAnswer(8)"><i class="glyphicon glyphicon-search"></i></button> no longer be accepted by banks. <select id="s9"><option></option><option>However</option><option>Consequently</option><option>Similarly</option><option>Presumably</option></select> <button type="button" id="check9" class="check" onclick="checkOneAnswer(9)"><i class="glyphicon glyphicon-search"></i></button>, supporters of the Occupy movement protesting against social and <select id="s10"><option></option><option>economic</option><option>economical</option><option>economically</option></select> <button type="button" id="check10" class="check" onclick="checkOneAnswer(10)"><i class="glyphicon glyphicon-search"></i></button> inequality have added slogans and infographics about income inequality <select id="s11"><option></option><option>on</option><option>at</option><option>to</option></select> <button type="button" id="check11" class="check" onclick="checkOneAnswer(11)"><i class="glyphicon glyphicon-search"></i></button> dollar bills. And members of China`s Falun Gong movement wrote messages on banknotes <select id="s12"><option></option><option value="attacking">attacking</option><option value="attacked">attacked</option></select> <button type="button" id="check12" class="check" onclick="checkOneAnswer(12)"><i class="glyphicon glyphicon-search"></i></button> government persecution. </p><p class="slide" contenteditable=""><select id="s13"><option></option><option></option><option></option><option>A</option><option>The</option></select> <button type="button" id="check13" class="check" onclick="checkOneAnswer(13)"><i class="glyphicon glyphicon-search"></i></button> use of money as a communications <select id="s14"><option></option><option>medium</option><option>media</option></select> <button type="button" id="check14" class="check" onclick="checkOneAnswer(14)"><i class="glyphicon glyphicon-search"></i></button>, distributing words  and images as it passes from hand to hand, is ancient. The earliest coins, <select id="s15"><option></option><option value="minting">minting</option><option value="minted">minted</option></select> <button type="button" id="check15" class="check" onclick="checkOneAnswer(15)"><i class="glyphicon glyphicon-search"></i></button> in Lydia (now part of Turkey) in the 7th century BC, <select id="s16"><option></option><option>have depicted</option><option>depicted</option><option>had depicted</option></select> <button type="button" id="check16" class="check" onclick="checkOneAnswer(16)"><i class="glyphicon glyphicon-search"></i></button> the head of a lion, thought to have been a royal symbol. Later rulers had their names and images <select id="s17"><option></option><option>described</option><option>inscribed</option><option>prescribed</option><option>subscribed</option></select> <button type="button" id="check17" class="check" onclick="checkOneAnswer(17)"><i class="glyphicon glyphicon-search"></i></button> on coins, along with symbolic images of <select id="s18"><option></option><option>variety</option><option>variable</option><option>various</option></select> <button type="button" id="check18" class="check" onclick="checkOneAnswer(18)"><i class="glyphicon glyphicon-search"></i></button> kinds. In the era before printing, this was a very <select id="s19"><option></option><option>efficient</option><option>efficiently</option><option>affective</option></select> <button type="button" id="check19" class="check" onclick="checkOneAnswer(19)"><i class="glyphicon glyphicon-search"></i></button> way to project their image directly to the people. </p><p class="slide" contenteditable="">But their subjects were also aware <select id="s20"><option></option><option>of</option><option>to</option><option>from</option></select> <button type="button" id="check20" class="check" onclick="checkOneAnswer(20)"><i class="glyphicon glyphicon-search"></i></button> the messaging power of money, <select id="s21"><option></option><option>like</option><option>as</option></select> <button type="button" id="check21" class="check" onclick="checkOneAnswer(21)"><i class="glyphicon glyphicon-search"></i></button> the exhibit <select id="s22"><option></option><option>of</option><option>on</option><option>for</option></select> <button type="button" id="check22" class="check" onclick="checkOneAnswer(22)"><i class="glyphicon glyphicon-search"></i></button> the history of money at the British Museum in London reveals. It <select id="s23"><option></option><option>involves</option><option>includes</option><option>consists</option></select> <button type="button" id="check23" class="check" onclick="checkOneAnswer(23)"><i class="glyphicon glyphicon-search"></i></button> a Roman coin from 215AD, on which the Christian ``chi-rho`` symbol has been scratched behind the <select id="s24"><option></option><option>emperors</option><option>emperor`s</option><option>emperors`</option></select> <button type="button" id="check24" class="check" onclick="checkOneAnswer(24)"><i class="glyphicon glyphicon-search"></i></button> head; a French coin from 1855 overstamped with an advertisement <select id="s25"><option></option><option>from</option><option>on</option><option>for</option></select> <button type="button" id="check25" class="check" onclick="checkOneAnswer(25)"><i class="glyphicon glyphicon-search"></i></button> Pears Soap; and a 1903 British penny on which Edward VII`s face has been stamped with ``Votes for women`` <select id="s26"><option></option><option>by</option><option>with</option></select> <button type="button" id="check26" class="check" onclick="checkOneAnswer(26)"><i class="glyphicon glyphicon-search"></i></button> suffragettes. Mr. Navalny`s call for Russians to stamp messages on banknotes was just <select id="s27"><option></option><option>another</option><option>other</option><option>the other</option></select> <button type="button" id="check27" class="check" onclick="checkOneAnswer(27)"><i class="glyphicon glyphicon-search"></i></button> incarnation of a centuries-old idea - a pioneering example of <select id="s28"><option></option><option>that</option><option>which</option><option>what</option></select> <button type="button" id="check28" class="check" onclick="checkOneAnswer(28)"><i class="glyphicon glyphicon-search"></i></button> we now call social media. </p>
+			<center></center>
+		
+			<center></center>
+		
+			<center></center>
+		
+			<center></center>
+		
+			<center></center>
+		
+			<center></center>
+		
+			<center></center>
+		
+			<center></center>
+		
+					<center></center>
+				
+					<center></center>
+				
+					<center></center>
+				
+				<center></center>
+			
+				<center></center>
+			
+				<center><button type="button" id="checkAllButton2" onclick="checkAll()">Check All Answers</button></center>
+			</div>
+			<div class="imagediv">$theimage</div>
+		
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+
+		  <!-- Modal content -->
+		  <div class="modal-content">
+		    <span class="close">&times;</span>
+		    <p id="feedback_content">
+		    	
+		  </div>
+
+		</div>
+	</body>
+</html>
+
+

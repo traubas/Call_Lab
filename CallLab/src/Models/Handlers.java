@@ -160,6 +160,7 @@ public class Handlers {
 			String numberOfQuestions = "";
 			String fileName = "";
 			String bgcolor = "";
+			String theimage = "";
 			he.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
 		    if (he.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
@@ -168,7 +169,7 @@ public class Handlers {
 		            he.sendResponseHeaders(204, -1);
 		            return;
 		        }
-			System.out.println("Served by /ClozeCreationPostHandler");
+			System.out.println("Served you by /ClozeCreationPostHandler");
 			// parse request
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			InputStreamReader isr = new InputStreamReader(he.getRequestBody());
@@ -195,6 +196,8 @@ public class Handlers {
 					fileName+= parameters.get(key);
 				else if (key.equals("bgcolor")) 
 					bgcolor+=parameters.get(key);
+				else if (key.equals("image")) 
+					theimage+=parameters.get(key);
 			}
 			InputStream in = getClass().getResourceAsStream("/functions.txt"); 
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -220,7 +223,9 @@ public class Handlers {
 			htmlString = htmlString.replace("$theTitle", thetitle);
 			htmlString = htmlString.replace("$numOfQuestions", numberOfQuestions);
 			htmlString = htmlString.replace("$bgcolor", bgcolor);
-			System.out.print(htmlString);
+			htmlString = htmlString.replace("$theimage", theimage);
+
+			System.out.print("and the image is:" +theimage);
 			File newHtmlFile = new File("path/"+fileName+".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
 			Desktop.getDesktop().open(new File("path/"));

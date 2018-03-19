@@ -110,7 +110,7 @@ function readURL(input) {
 *Note that iamge will be resizable later.
 **/
 function addImageToCloze() {
-	$("#clozeData").append('<center><div id="theImage"><img id="clozeImage" class="slide" src="'+imageResult+'" width="100%" height="100%"></div></center>');
+	$("#imagediv").append('<center><div id="theImage"><img id="clozeImage" class="slide" src="'+imageResult+'" width="100%" height="100%"></div></center>');
 	$("#theImage").css("width","500px");
 	$("#theImage").css("height","400px");
 	$("#theImage").css("border","1px solid black");
@@ -355,7 +355,8 @@ function grade(msg,flag) {
 		console.log(answered_grade[i]);
 	}
 	for (i=0;i<number;i++) {
-		grade=grade+gr_per_question*answered_grade[i];
+		if (answered_grade[i]>0)
+			grade=grade+gr_per_question*answered_grade[i];
 	}
 	showFeedback(msg+"<BR>"+"Your grade is: "+Math.round(grade)+"%",300,300,300,300,flag);
 }
@@ -388,6 +389,7 @@ function showFeedback(feedback,position1,position2,size1,size2,flag)
 }
 
 function sendData() {
+	number = $("select").length;
 	for (i=1;i<50;i++) {
 			$("#check"+i).attr("onclick","checkOneAnswer("+i+")");
 		}
@@ -519,20 +521,3 @@ function uploadFile() {
 
 
 
-
-/*
-
-THIS CODE IS FOR MAKING PARAGRAPHS MOVABLE
-
-*/
-$("document").ready(function() {
-	$(".all-slides").sortable({
-  
-	  axis: "y",
-	  revert: true,
-	  scroll: false,
-	  placeholder: "sortable-placeholder",
-	  cursor: "move"
-
-	});
-});

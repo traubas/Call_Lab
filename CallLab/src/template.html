@@ -10,7 +10,7 @@
 		
 		<style type="text/css">
 			h1 {
-				color: red;
+				color: black;
 			}
 			h2 {
 				color: green;
@@ -24,11 +24,12 @@
 				text-align: left;
 			}
 			#clozeTitle {
-    			
+    			color: black;
 			}
 			#clozeData {
-				font-family: Liberation Serif;
+    			font-family: 'arial';
 				font-size: 16px;
+				width: 70%;
 			}
 			#workingArea {
 				border: 1px solid red;
@@ -101,6 +102,17 @@
 				margin-top: 20px;
 				border: 4px ridge gray;
 			}
+			.imagediv, .clozeRight{
+				position: relative;
+				display: inline-block;
+				outline: 0;
+			}
+			.imagediv {
+				width:30%;
+			}
+			.clozeRight {
+				width:70%;
+			}
 		</style>
 		
 		<script>
@@ -128,12 +140,14 @@
 	<body>
 		<div class="howTo">For each blank in the text, choose one of the options listed. You can check each answer separately by pressing <i class="glyphicon glyphicon-search" ></i> or all of them at once when you finish the exercise by pressing the button Check all answers.</div>
 		<center><h1><div id="clozeTitle">$theTitle</div></h1><BR></center>
-		<center><div id="clozeData" class="nav-primary">
-			<center><button type="button" id="checkAllButton" onclick="checkAll()">Check All Answers</button></center>
-			$thebody
-			<center><button type="button" id="checkAllButton2" onclick="checkAll()">Check All Answers</button></center>
-		</div>
-		</center>
+		
+			<div id="clozeData" class="nav-primary clozeRight">
+				<center><button type="button" id="checkAllButton" onclick="checkAll()">Check All Answers</button></center>
+				$thebody
+				<center><button type="button" id="checkAllButton2" onclick="checkAll()">Check All Answers</button></center>
+			</div>
+			<div class="imagediv">$theimage</div>
+		
 		<!-- The Modal -->
 		<div id="myModal" class="modal">
 
