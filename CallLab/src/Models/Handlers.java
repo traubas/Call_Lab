@@ -225,7 +225,7 @@ public class Handlers {
 			htmlString = htmlString.replace("$bgcolor", bgcolor);
 			htmlString = htmlString.replace("$theimage", theimage);
 
-			System.out.print("and the image is:" +theimage);
+			System.out.print("html is: \n" + htmlString);
 			File newHtmlFile = new File("path/"+fileName+".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
 			Desktop.getDesktop().open(new File("path/"));
