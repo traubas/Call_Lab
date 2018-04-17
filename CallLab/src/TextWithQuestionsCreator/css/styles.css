@@ -124,3 +124,9 @@ em::after {
   margin: 0 0.6em;
   font-size: 0.5em;
 }
+
+#bottomMenu {
+  position: absolute;
+  bottom: 0;
+
+}

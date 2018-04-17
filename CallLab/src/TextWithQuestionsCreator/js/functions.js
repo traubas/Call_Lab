@@ -71,7 +71,7 @@ function saveTrueFalseQuestion() {
 	feedbacks[questionNumber]=qFeedback;
 	questionNumber+=1;
 	cancelTrueFalse();
-	$(".rightDownContent").append('<button type="button" id="question('+(questionNumber-1)+')" onclick="showQuestion('+(questionNumber-1)+')" >'+(questionNumber)+'</button>');
+	$('<button type="button" id="question('+(questionNumber-1)+')" onclick="showQuestion('+(questionNumber-1)+')" >'+(questionNumber)+'</button>').insertBefore("#bottomMenu");
 }
 
 function showQuestion(number) {
@@ -84,4 +84,15 @@ function showQuestion(number) {
 		$("#feedback1").val(feedbacks[number][0]);
 		$("#feedback2").val(feedbacks[number][1]);
 	}
+}
+function saveToFile() {
+	var data = { 
+        "text": question_text,
+        "feedbacks": JSON.stringify(feedbacks),
+        "questions": JSON.stringify(questions),
+        "title" : $(".title").text(),
+        "numOfQuestions": questionNumber,
+        "fileName": $("#fileName").val(),
+    };
+    $.post("http://localhost:8080/TextWithQuestionsPostHandler", data);
 }
