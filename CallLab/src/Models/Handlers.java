@@ -227,7 +227,7 @@ public class Handlers {
 			htmlString.replaceAll("’", "'");
 			System.out.print("html is: \n" + htmlString);
 			File newHtmlFile = new File("path/"+fileName+".html");
-			FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
+			FileUtils.writeStringToFile(newHtmlFile, htmlString);
 			Desktop.getDesktop().open(new File("path/"));
 			he.sendResponseHeaders(200, response.length());
 			OutputStream os = he.getResponseBody();
