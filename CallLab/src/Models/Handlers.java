@@ -2,12 +2,16 @@ package Models;
 
 import java.awt.Desktop;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.net.URI;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -227,7 +231,14 @@ public class Handlers {
 			htmlString.replaceAll("’", "'");
 			System.out.print("html is: \n" + htmlString);
 			File newHtmlFile = new File("path/"+fileName+".html");
-			FileUtils.writeStringToFile(newHtmlFile, htmlString);
+			//FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
+			Writer out = new BufferedWriter(new OutputStreamWriter(
+				    new FileOutputStream(newHtmlFile), "UTF-8"));
+				try {
+				    out.write(htmlString);
+				} finally {
+				    out.close();
+				}
 			Desktop.getDesktop().open(new File("path/"));
 			he.sendResponseHeaders(200, response.length());
 			OutputStream os = he.getResponseBody();
