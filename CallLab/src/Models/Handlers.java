@@ -238,6 +238,7 @@ public class Handlers {
 					}
 				}
 			}
+			System.out.println(response);
 			htmlString = htmlString.replace("$thebody", response);
 			htmlString = htmlString.replace("$correctanswersarray", theanswers);
 			htmlString = htmlString.replace("$feedbackarray", thefeedbacks);
