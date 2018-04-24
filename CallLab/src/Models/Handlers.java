@@ -226,6 +226,7 @@ public class Handlers {
 			//htmlString = htmlString.replace("’", "'");
 			for (int i=0; i< response.length();i++) {
 				int s = (int) response.charAt(i);
+				System.out.println((int) response.charAt(i));
 				if (s == 1490) {
 					if (!((int)response.charAt(i+2) == 65533))
 						response = response.substring(0, i)+'\''+response.substring(i+3);
