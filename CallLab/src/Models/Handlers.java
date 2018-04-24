@@ -228,7 +228,7 @@ public class Handlers {
 			htmlString = htmlString.replace("$numOfQuestions", numberOfQuestions);
 			htmlString = htmlString.replace("$bgcolor", bgcolor);
 			htmlString = htmlString.replace("$theimage", theimage);
-			htmlString.replaceAll("’", "'");
+			htmlString.replace("’", "'");
 			System.out.print("html is: \n" + htmlString);
 			File newHtmlFile = new File("path/"+fileName+".html");
 			//FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
