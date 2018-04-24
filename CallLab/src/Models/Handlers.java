@@ -257,10 +257,10 @@ public class Handlers {
 				} finally {
 				    out.close();
 				}
-			Desktop.getDesktop().open(new File("path/"));
-			he.sendResponseHeaders(200, response.length());
-			OutputStream os = he.getResponseBody();
 			String finished = "Finished";
+			Desktop.getDesktop().open(new File("path/"));
+			he.sendResponseHeaders(200, finished.length());
+			OutputStream os = he.getResponseBody();
 			os.write(finished.getBytes());
 			os.close();
 
