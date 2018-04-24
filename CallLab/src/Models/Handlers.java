@@ -228,7 +228,7 @@ public class Handlers {
 				System.out.println((int)x+" "+(int)response.charAt(i));
 				int s = (int) response.charAt(i);
 				if (s == 1490) {
-					response = response.substring(0, i-1)+'\''+response.substring(i+3);
+					response = response.substring(0, i)+'\''+response.substring(i+3);
 				}
 			}
 			htmlString = htmlString.replace("$thebody", response);
