@@ -228,8 +228,7 @@ public class Handlers {
 				System.out.println((int)x+" "+(int)response.charAt(i));
 				int s = (int) response.charAt(i);
 				if (s == 1490) {
-					System.out.println("next is: "+ (int)response.charAt(i+1)+ "after its it's: "+(int)response.charAt(i+2));
-					if ((int)response.charAt(i+1)>1000)
+					if (!((int)response.charAt(i+2) == 65533))
 						response = response.substring(0, i)+'\''+response.substring(i+3);
 					else {
 						response = response.substring(0, i)+'\"'+response.substring(i+3);
