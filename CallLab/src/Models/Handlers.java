@@ -233,7 +233,7 @@ public class Handlers {
 						response = response.substring(0, i)+'\"'+response.substring(i+3);
 					}
 					else if ((int)response.charAt(i+2) == 8221 || (int)response.charAt(i+2) == 8220) {
-						response = response.substring(0, i)+'-'+response.substring(i+3);
+						response = response.substring(0, i)+" "+'-'+" "+response.substring(i+3);
 					}
 				}
 			}
