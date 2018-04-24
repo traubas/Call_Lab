@@ -226,9 +226,9 @@ public class Handlers {
 			//htmlString = htmlString.replace("’", "'");
 			for (int i=0; i< response.length();i++) {
 				System.out.println((int)x+" "+(int)response.charAt(i));
-				if ((int)x == (int)response.charAt(i)) {
-					
-					response = response.substring(0, i-1)+'\''+response.substring(i+1);
+				int s = (int) response.charAt(i);
+				if (s == 1490) {
+					response = response.substring(0, i-1)+'\''+response.substring(i+3);
 				}
 			}
 			htmlString = htmlString.replace("$thebody", response);
