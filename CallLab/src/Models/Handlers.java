@@ -219,7 +219,18 @@ public class Handlers {
 		        html += line1+"\n";
 		    }
 			String htmlString = html;
-			
+			//testing
+			System.out.println(response);
+			char x = '’';
+			System.out.println((int)(x)+" "+ (int)('\''));
+			//htmlString = htmlString.replace("’", "'");
+			for (int i=0; i< response.length();i++) {
+				System.out.println((int)x+" "+(int)response.charAt(i));
+				if ((int)x == (int)response.charAt(i)) {
+					
+					response = response.substring(0, i-1)+'\''+response.substring(i+1);
+				}
+			}
 			htmlString = htmlString.replace("$thebody", response);
 			htmlString = htmlString.replace("$correctanswersarray", theanswers);
 			htmlString = htmlString.replace("$feedbackarray", thefeedbacks);
@@ -228,17 +239,7 @@ public class Handlers {
 			htmlString = htmlString.replace("$numOfQuestions", numberOfQuestions);
 			htmlString = htmlString.replace("$bgcolor", bgcolor);
 			htmlString = htmlString.replace("$theimage", theimage);
-			System.out.println(htmlString);
-			char x = '’';
-			System.out.println((int)(x)+" "+ (int)('\''));
-			htmlString = htmlString.replace("’", "'");
-			for (int i=0; i< htmlString.length();i++) {
-				System.out.println((int)x+" "+(int)htmlString.charAt(i));
-				if ((int)x == (int)htmlString.charAt(i)) {
-					
-					htmlString = htmlString.substring(0, i-1)+'\''+htmlString.substring(i+1);
-				}
-			}
+			
 			//System.out.print("html is: \n" + htmlString);
 			File newHtmlFile = new File("path/"+fileName+".html");
 			//FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
