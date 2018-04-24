@@ -233,7 +233,9 @@ public class Handlers {
 			System.out.println((int)(x)+" "+ (int)('\''));
 			htmlString = htmlString.replace("’", "'");
 			for (int i=0; i< htmlString.length();i++) {
+				System.out.println((int)x+" "+(int)htmlString.charAt(i));
 				if ((int)x == (int)htmlString.charAt(i)) {
+					
 					htmlString = htmlString.substring(0, i-1)+'\''+htmlString.substring(i+1);
 				}
 			}
