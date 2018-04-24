@@ -225,9 +225,7 @@ public class Handlers {
 			System.out.println((int)(x)+" "+ (int)('\''));
 			//htmlString = htmlString.replace("’", "'");
 			for (int i=0; i< response.length();i++) {
-				System.out.println((int)x+" "+(int)response.charAt(i));
 				int s = (int) response.charAt(i);
-				System.out.println((int)response.charAt(i+2));
 				if (s == 1490) {
 					if (!((int)response.charAt(i+2) == 65533))
 						response = response.substring(0, i)+'\''+response.substring(i+3);
@@ -259,7 +257,8 @@ public class Handlers {
 			Desktop.getDesktop().open(new File("path/"));
 			he.sendResponseHeaders(200, response.length());
 			OutputStream os = he.getResponseBody();
-			os.write(response.toString().getBytes());
+			String finished = "Finished";
+			os.write(finished.getBytes());
 			os.close();
 
 		}
