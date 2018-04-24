@@ -1,8 +1,8 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
+  		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8" content="text/html; charset=UTF-8">
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -10,7 +10,7 @@
 		
 		<style type="text/css">
 			h1 {
-				color: red;
+				color: black;
 			}
 			h2 {
 				color: green;
@@ -24,11 +24,12 @@
 				text-align: left;
 			}
 			#clozeTitle {
-    			
+    			color: black;
 			}
 			#clozeData {
-				font-family: Liberation Serif;
+    			font-family: 'arial';
 				font-size: 16px;
+				width: 70%;
 			}
 			#workingArea {
 				border: 1px solid red;
@@ -101,10 +102,21 @@
 				margin-top: 20px;
 				border: 4px ridge gray;
 			}
+			.imagediv, .clozeRight{
+				position: relative;
+				display: inline-block;
+				outline: 0;
+			}
+			.imagediv {
+				width:30%;
+			}
+			.clozeRight {
+				width:70%;
+			}
 		</style>
 		
 		<script>
-			var numberOfQuestions = 1;
+			var numberOfQuestions = 0;
 			var Feedbacks = new Array(50);
 			var CorrectAnswers = new Array(50);
 			var answered_grade=new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
@@ -124,41 +136,44 @@
 			});	
 			
 function checkOneAnswer(qnumber) {
+	
 	var answer = $("#s"+qnumber).prop('selectedIndex');
 	if (answer==null)
 		return;
 	if (answer==0) {
 		if (!checkingAll)
 			showFeedback("You must choose an answer",300,300,400,200,0);
-		notAllCorrect = true;
 	}
 	else if (answer==CorrectAnswers[qnumber-1]){
 		number_try[qnumber-1]=number_try[qnumber-1]+1;
 		if (!checkingAll)
 			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,1);
 		var answer = $("#s"+qnumber+ " option:selected").text();
-		$('<span class="correct">'+answer+'</span>').insertAfter("#check"+qnumber);
+		$('<span class="correct">'+answer+" "+'</span>').insertAfter("#check"+qnumber);
 		$("#check"+qnumber).remove();
 		$("#s"+qnumber).remove();
 		if (number_try[qnumber-1]>Feedbacks[qnumber-1]) {
 			number_try[qnumber-1]=1/(Feedback[qnumber-1]-1);
 		}
-		answered_grade[qnumber-1]=(Feedbacks[qnumber-1].length-1-number_try[qnumber-1])/(Feedbacks[qnumber-1].length-2);
+		answered_grade[qnumber-1]=(Feedbacks[qnumber-1].length-number_try[qnumber-1])/(Feedbacks[qnumber-1].length-1);
 	}
 	else {
 		number_try[qnumber-1]=number_try[qnumber-1]+1;
-		if (!checkingAll)
+		if (!checkingAll) 
 			showFeedback(Feedbacks[qnumber-1][answer-1],300,300,400,200,0);
-		notAllCorrect = true;
 	}
 
 }
 
 function grade(msg,flag) {
-	var gr_per_question=100/(numberOfQuestions-1);
+	var gr_per_question=100/(numberOfQuestions);
 	var grade=0;
+	for (var i=0;i<answered_grade.length;i++) {
+		console.log(answered_grade[i]);
+	}
 	for (i=0;i<numberOfQuestions;i++) {
-		grade=grade+gr_per_question*answered_grade[i];
+		if (answered_grade[i]>0)
+			grade=grade+gr_per_question*answered_grade[i];
 	}
 	showFeedback(msg+"<BR>"+"Your grade is: "+Math.round(grade)+"%",300,300,300,300,flag);
 }
@@ -172,7 +187,7 @@ function showFeedback(feedback,position1,position2,size1,size2,flag)
 	feedback_content.innerHTML=
 	"<br><center><table cellpadding=15><tr><td>"+feedback+"</tr></td></table></center><br>";
 	if (flag==1) {
-		$(".modal-content").css({'background-color': 'green'});
+		$(".modal-content").css({'background-color': '#00ff1d'});
 	}
 	else
 		$(".modal-content").css({'background-color': 'yellow'});
@@ -190,14 +205,17 @@ function showFeedback(feedback,position1,position2,size1,size2,flag)
 }
 
 function checkAll() {
-
+	notAllCorrect = false
 	checkingAll = true;
-	for (i=0;i<numberOfQuestions-1;i++) {
+	for (i=0;i<numberOfQuestions;i++) {
 
 		checkOneAnswer(i+1);
+		if (answered_grade[i]>0) {
+			notAllCorrect = true;
+		}
 	}
 	checkingAll=false;
-	if (notAllCorrect) {
+	if (notAllCorrect == true) {
 		var msg = "Some of your answers are not correct. Try again.";
 		grade(msg,0);
 	}
@@ -205,8 +223,6 @@ function checkAll() {
 		var msg = "Good job. You finished this exercise!";
 		grade(msg,1);
 	}
-	
-	notAllCorrect = false;
 }
 
 		</script>	
@@ -214,12 +230,14 @@ function checkAll() {
 	<body>
 		<div class="howTo">For each blank in the text, choose one of the options listed. You can check each answer separately by pressing <i class="glyphicon glyphicon-search" ></i> or all of them at once when you finish the exercise by pressing the button Check all answers.</div>
 		<center><h1><div id="clozeTitle">null</div></h1><BR></center>
-		<center><div id="clozeData" class="nav-primary">
-			<center><button type="button" id="checkAllButton" onclick="checkAll()">Check All Answers</button></center>
-			<p class="slide" contenteditable="">the real test </p>
-			<center><button type="button" id="checkAllButton2" onclick="checkAll()">Check All Answers</button></center>
-		</div>
-		</center>
+		
+			<div id="clozeData" class="nav-primary clozeRight">
+				<center><button type="button" id="checkAllButton" onclick="checkAll()">Check All Answers</button></center>
+				<div id="acutalText"><p class="slide" contenteditable="">Members of Iran’ </p></div>
+				<center><button type="button" id="checkAllButton2" onclick="checkAll()">Check All Answers</button></center>
+			</div>
+			<div class="imagediv">$theimage</div>
+		
 		<!-- The Modal -->
 		<div id="myModal" class="modal">
 
