@@ -225,13 +225,16 @@ public class Handlers {
 			System.out.println((int)(x)+" "+ (int)('\''));
 			//htmlString = htmlString.replace("’", "'");
 			for (int i=0; i< response.length();i++) {
-				System.out.println((int)x+" "+(int)response.charAt(i));
+				System.out.print((int)x+" "+(int)response.charAt(i));
 				int s = (int) response.charAt(i);
 				if (s == 1490) {
+					System.out.println("next is: "+ (int)response.charAt(i+1));
 					if ((int)response.charAt(i+1)>1000)
 						response = response.substring(0, i)+'\''+response.substring(i+3);
-					else
-						response = response.substring(0,i)+'\"'+response.substring(i+3);
+					else {
+						response = response.substring(0, i)+'\"'+response.substring(i+3);
+					
+					}
 				}
 			}
 			htmlString = htmlString.replace("$thebody", response);
