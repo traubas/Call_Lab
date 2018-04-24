@@ -232,6 +232,11 @@ public class Handlers {
 			char x = '’';
 			System.out.println((int)(x)+" "+ (int)('\''));
 			htmlString = htmlString.replace("’", "'");
+			for (int i=0; i< htmlString.length();i++) {
+				if ((int)x == (int)htmlString.charAt(i)) {
+					htmlString = htmlString.substring(0, i-1)+'\''+htmlString.substring(i+1);
+				}
+			}
 			//System.out.print("html is: \n" + htmlString);
 			File newHtmlFile = new File("path/"+fileName+".html");
 			//FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
