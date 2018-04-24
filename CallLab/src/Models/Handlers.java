@@ -228,6 +228,7 @@ public class Handlers {
 			htmlString = htmlString.replace("$numOfQuestions", numberOfQuestions);
 			htmlString = htmlString.replace("$bgcolor", bgcolor);
 			htmlString = htmlString.replace("$theimage", theimage);
+			System.out.println(htmlString);
 			System.out.println(htmlString.indexOf("’"));
 			htmlString = htmlString.replace("’", "'");
 			//System.out.print("html is: \n" + htmlString);
