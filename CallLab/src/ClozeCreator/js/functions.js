@@ -390,7 +390,7 @@ function showFeedback(feedback,position1,position2,size1,size2,flag)
 
 function sendData() {
 	number = $("select").length;
-	for (i=1;i<50;i++) {
+	for (i=0;i<50;i++) {
 			$("#check"+i).attr("onclick","checkOneAnswer("+i+")");
 		}
 	var html = $("#clozeData").html();
@@ -509,7 +509,7 @@ function uploadFile() {
 		
 		$("#checkAllButton").remove(); //don't need those buttons. they are added in the template.
 		$("#checkAllButton2").remove();
-		for (i=1;i<50;i++) {
+		for (i=0;i<50;i++) {
 			$("#check"+i).attr("onclick","editBlank("+i+")");
 		}
 		cancel();
