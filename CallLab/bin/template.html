@@ -133,10 +133,13 @@
 				Feedbacks = $feedbackarray;
 				CorrectAnswers = $correctanswersarray;
 				$("#clozeImage").removeClass("slide");
+				var x = $theimage;
+				if (x==null)
+					x="";
+				$(".imagediv").append(x);
 			});	
 			$thescript
-			if ($theimage==null)
-				$theimage="";
+
 		</script>	
 	</head>
 	<body>
@@ -148,7 +151,7 @@
 				<div id="acutalText">$thebody</div>
 				<center><button type="button" id="checkAllButton2" onclick="checkAll()">Check All Answers</button></center>
 			</div>
-			<div class="imagediv">$theimage</div>
+			<div class="imagediv"></div>
 		<center>
 		<!-- The Modal -->
 		<div id="myModal" class="modal">
