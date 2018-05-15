@@ -133,6 +133,8 @@
 				Feedbacks = $feedbackarray;
 				CorrectAnswers = $correctanswersarray;
 				$("#clozeImage").removeClass("slide");
+				var d = $("#clozeImage").attr('src');
+				console.log(d);
 				if($("#clozeImage").attr('src') == null) {
 					$("#clozeImage").remove();
 				}
