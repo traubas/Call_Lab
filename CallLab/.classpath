@@ -6,6 +6,6 @@
 		</accessrules>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="lib" path="/home/ofir/java/commons-io-2.6.jar"/>
+	<classpathentry kind="lib" path="/home/ofir/java/commons-io-2.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
