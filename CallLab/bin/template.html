@@ -133,7 +133,9 @@
 				Feedbacks = $feedbackarray;
 				CorrectAnswers = $correctanswersarray;
 				$("#clozeImage").removeClass("slide");
-				//$(".imagediv").append('<img id="clozeImage" class="slide" src="'+$theimage+'" width="100%" height="100%">');
+				if($("#clozeImage").attr('src') == null) {
+					$("#clozeImage").remove();
+				}
 			});	
 			$thescript
 

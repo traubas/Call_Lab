@@ -74,7 +74,7 @@ function checkAll() {
 	for (i=0;i<numberOfQuestions;i++) {
 
 		checkOneAnswer(i+1);
-		if (answered_grade[i]>0) {
+		if (answered_grade[i+1]>0) {
 			notAllCorrect = true;
 		}
 	}
