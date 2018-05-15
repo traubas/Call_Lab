@@ -390,7 +390,7 @@ function showFeedback(feedback,position1,position2,size1,size2,flag)
 
 function sendData() {
 	number = $("select").length;
-	for (i=0;i<50;i++) {
+	for (i=1;i<50;i++) {
 			$("#check"+i).attr("onclick","checkOneAnswer("+i+")");
 		}
 	var html = $("#clozeData").html();
