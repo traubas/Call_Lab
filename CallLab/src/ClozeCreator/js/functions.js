@@ -191,8 +191,9 @@ function addch() {
 	$("#editExisting").prop('disabled',true);
 	if ($("#cancel").length == 0)
 		$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#editExisting");
-	$("#workingArea").append('choice '+tempnumber+'<input type="text" id="c'+tempnumber+'">');
-	$("#workingArea").append('feedback <input type="text" id="f'+tempnumber+'"><BR>');
+	$("#workingArea").append('<div id="choice'+tempnumber+'""></div>')
+	$("#choice"+tempnumber).append('choice '+tempnumber+'<input type="text" id="c'+tempnumber+'">');
+	$("#choice"+tempnumber).append('feedback <input type="text" id="f'+tempnumber+'"><BR>');
 	tempnumber++;
 	$(".cancel").css('visibility', 'visible');
 	/*will enter if only once*/
@@ -221,33 +222,49 @@ function openSaveOptions() {
 	$('<button type="button" id="cancel" class="cancel btn btn-danger Call_Button" onclick="cancel()">Cancel <i class="glyphicon glyphicon-remove-circle"></button>').insertAfter("#saveDiv");
 }
 function addChoices(btnId) {
-	selectedString = $("#"+btnId.id).text();
-	current_button=btnId.id;
-	
-	var s = selectedString.split(/[^a-zA-Z]\s/);
-	s.shift();
-	if (s.length==1) {
-		var word = s[0];
-		word = word.split(/\s[^a-zA-Z]/);
-		s=word;
-	}
-	var s2 = s[s.length-1];
-	s2 = s2.substring(0,(s2.length)-1);
-	s[s.length-1]=s2;
-	for (var i = 0; i < s.length;i++) {
-		s[i] = s[i].trim();
-	}
-	var word;
-	for (i=0;i<s.length;i++) {
-		addch();
-		word = s[i];	
-		if (i<s.length) {
-			$("#c"+(tempnumber-1)).val(word);
+	console.log($("#workingArea").is(':empty'));
+	if ($("#workingArea").is(':empty')) {
+		selectedString = $("#"+btnId.id).text();
+		current_button=btnId.id;
+		
+		var s = selectedString.split(/[^a-zA-Z]\s/);
+		s.shift();
+		if (s.length==1) {
+			var word = s[0];
+			word = word.split(/\s[^a-zA-Z]/);
+			s=word;
 		}
+		var s2 = s[s.length-1];
+		s2 = s2.substring(0,(s2.length)-1);
+		s[s.length-1]=s2;
+		for (var i = 0; i < s.length;i++) {
+			s[i] = s[i].trim();
+		}
+		var word;
+		for (i=0;i<s.length;i++) {
+			addch();
+			word = s[i];	
+			if (i<s.length) {
+				$("#c"+(tempnumber-1)).val(word);
+			}
+		}
+		$("#workingArea").append('<button type="button" id="removeChoiceButton" onclick="removeChoiceButton()">Remove last choice</button>');
+		var top = $("body").offset().top;
+	    $("html, body").animate({ scrollTop: top }, 1000);
 	}
-	var top = $("body").offset().top;
-    $("html, body").animate({ scrollTop: top }, 1000);
+	
 
+}
+function removeChoiceButton() {
+	console.log(tempnumber);
+		tempnumber--;
+	if (tempnumber>1) {
+		$("#choice"+tempnumber).remove();
+		$("#s"+blankToEdit+" option:last").remove();
+	}
+	if (tempnumber == 1)
+		tempnumber++;
+	
 }
 function addOptionsToPreview() {
 	var feedback = new Array(tempnumber);
@@ -314,6 +331,7 @@ function editBlank(blankNumber) {
 		i++;
 
 	});
+	$("#workingArea").append('<button type="button" id="removeChoiceButton" onclick="removeChoiceButton()">Remove last choice</button>');
 }
 /*needs to be part of the output script*/
 function checkOneAnswer(qnumber) {
