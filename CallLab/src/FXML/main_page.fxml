@@ -14,5 +14,6 @@
       </ImageView>
       <Button id="record-sales" fx:id="startServerBtn" layoutX="140.0" layoutY="155.0" mnemonicParsing="false" onAction="#startServer" text="Create Cloze" />
       <Button id="record-sales" fx:id="closeServerBtn" layoutX="20.0" layoutY="421.0" mnemonicParsing="false" onAction="#closeServer" text="Close Server" />
+      <Button id="record-sales" fx:id="textWithQuestionsBtn" layoutX="276.0" layoutY="155.0" mnemonicParsing="false" onAction="#startTextWithQuestions" text="Create Text With Questions" />
    </children>
 </AnchorPane>

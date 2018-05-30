@@ -79,13 +79,11 @@ public class Handlers {
 
 		@Override
 		public void handle(HttpExchange he) throws IOException {
-			String thefunctions="";
 			String thefeedbacks="";
-			String theanswers="";
+			String thequestions="";
 			String thetitle="";
-			String numberOfQuestions = "";
-			String fileName = "";
-			String bgcolor = "";
+			String thetext="";
+			String filename="";
 			he.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
 		    if (he.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
@@ -94,7 +92,7 @@ public class Handlers {
 		            he.sendResponseHeaders(204, -1);
 		            return;
 		        }
-			System.out.println("Served by /ClozeCreationPostHandler");
+			System.out.println("Served by /TextWithQuestionsPostHandler");
 			// parse request
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "UTF-8");
@@ -105,30 +103,19 @@ public class Handlers {
 			String response = "";
 			for (String key : parameters.keySet()) {
 				//response += key + " = " + parameters.get(key) + "\n";
-				if (key.equals("html"))
-					response+=parameters.get(key);
-				else if (key.equals("feedbacks"))
-					thefeedbacks+=parameters.get(key);
-				else if (key.equals("correctanswers"))
-					theanswers+=parameters.get(key);
-				else if (key.equals("title"))
+				if (key.equals("title"))
 					thetitle+=parameters.get(key);
-				else if (key.equals("numOfQuestions"))
-					numberOfQuestions+= parameters.get(key);
+				else if (key.equals("text"))
+					thetext+= parameters.get(key);
 				else if (key.equals("fileName"))
-					fileName+= parameters.get(key);
-				else if (key.equals("bgcolor")) 
-					bgcolor+=parameters.get(key);
+					filename+= parameters.get(key);
+				else if (key.equals("questions"))
+					thequestions+= parameters.get(key);
+				else if (key.equals("feedbacks"))
+					thefeedbacks+= parameters.get(key);
+					
 			}
-			InputStream in = getClass().getResourceAsStream("/functions.txt"); 
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			String functions="";
-			String line;
-		    while ((line = reader.readLine()) != null) {
-		        functions += line+"\n";
-		    }
-			thefunctions =functions;
-			InputStream in1 = getClass().getResourceAsStream("/template.html"); 
+			InputStream in1 = getClass().getResourceAsStream("/templateTWQT.html"); 
 			BufferedReader reader1 = new BufferedReader(new InputStreamReader(in1));
 			String html="";
 			String line1;
@@ -136,14 +123,11 @@ public class Handlers {
 		        html += line1+"\n";
 		    }
 			String htmlString = html;
-			htmlString = htmlString.replace("$thebody", response);
-			htmlString = htmlString.replace("$correctanswersarray", theanswers);
-			htmlString = htmlString.replace("$feedbackarray", thefeedbacks);
-			htmlString = htmlString.replace("$thescript", thefunctions);
 			htmlString = htmlString.replace("$theTitle", thetitle);
-			htmlString = htmlString.replace("$numOfQuestions", numberOfQuestions);
-			htmlString = htmlString.replace("$bgcolor", bgcolor);
-			File newHtmlFile = new File("path/"+fileName+".html");
+			htmlString = htmlString.replace("$theText", thetext);
+			htmlString = htmlString.replace("$thequestions", thequestions);
+			htmlString = htmlString.replace("$thefeedbacks", thefeedbacks);
+			File newHtmlFile = new File("path/"+filename+".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
 			Desktop.getDesktop().open(new File("path"));
 			he.sendResponseHeaders(200, response.length());

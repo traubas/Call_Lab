@@ -19,6 +19,8 @@ public class SimpleServer {
 			server.createContext("/echoHeader", new Handlers.EchoHeaderHandler());
 			server.createContext("/echoGet", new Handlers.EchoGetHandler());
 			server.createContext("/ClozeCreationPostHandler", new Handlers.ClozeCreationPostHandler());
+			server.createContext("/TextWithQuestionsPostHandler", new Handlers.TextWithQuestionsPostHandler());
+			
 			server.setExecutor(null);
 			server.start();
 		} catch (IOException e) {

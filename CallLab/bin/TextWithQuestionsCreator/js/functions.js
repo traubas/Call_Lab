@@ -86,11 +86,13 @@ function showQuestion(number) {
 	}
 }
 function saveToFile() {
+	var theText = $("#theText").val();
+	theText = theText.replace(/\n\r?/g, '<br />');
 	var data = { 
-        "text": question_text,
+        "text": theText,
         "feedbacks": JSON.stringify(feedbacks),
         "questions": JSON.stringify(questions),
-        "title" : $(".title").text(),
+        "title" : $("#theTitle").val(),
         "numOfQuestions": questionNumber,
         "fileName": $("#fileName").val(),
     };

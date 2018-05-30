@@ -25,6 +25,9 @@ public class MainController {
     private Button closeServerBtn;
 
     @FXML
+    private Button textWithQuestionsBtn;
+    
+    @FXML
     void closeServer(ActionEvent event) {
     	if (Main.httpServer != null)
     		Main.httpServer.Stop();
@@ -48,7 +51,7 @@ public class MainController {
 				}
 			}).start();
 		}
-		 
+	
 //		Process proc;
 //		try {
 //			String os = System.getProperty("os.name").toLowerCase();
@@ -68,6 +71,22 @@ public class MainController {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+    }
+    
+    @FXML
+    void startTextWithQuestions(ActionEvent event) {
+    	if (Desktop.isDesktopSupported()) {
+			new Thread(() -> {
+				try {
+					File file = new File("../TextWithQuestionsCreator/index.html");
+					Desktop.getDesktop().browse(file.toURI());
+					}
+				catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}).start();
+    	}
     }
     
 }
