@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+  		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8" content="text/html; charset=UTF-8">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script>
+			var numberOfQuestions = $numOfQuestions;
+			var Feedbacks = new Array(30);
+			var questions = new Array(30);
+			$(document).ready(function() {
+				
+				Feedbacks = [["sdgsd",""],null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+				questions = [[1,"asfda","True"],null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+				console.log(questions[0][1]);
+				if (questions[0][0] == 1) {
+					$("#questionText").text(questions[0][1]);
+				}
+			});	
+		</script>
+		<style type="text/css">
+			#bottom {
+				position: fixed;
+
+				left: 0;
+				bottom: 0;
+				background-color: #fcd39f;
+				height: 30%;
+				width:100%;
+			}
+
+			#top {
+				position: fixed;
+			    top: 0;
+			    height:70%;
+			    width:100%;
+			    background-color: lightgrey;
+			    border-bottom: 3px solid black;
+			    overflow:auto;
+			}
+
+			#theTitle {
+			}
+
+			#theText {
+			}
+			#insideDiv {
+				width:80%;
+				text-align: left;
+			}
+			#theQuestionsDiv {
+				width:60%;
+			}
+			.inbl {
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top">
+			<h1 id="theTitle"><center>null</center></h1>
+			<br>
+			<div id="theText">
+				<center><div id="insideDiv">null</div></center>
+			</div>
+		</div>
+		<div id="bottom">
+			<center>
+				<div id="leftArrow" class="inbl"><<</div>
+				<div id="theQuestionsDiv" class="inbl">
+					<div id="questionText" class="inbl"></div><br>
+					<div id="questionAnswers" class="inbl"></div><br>
+				</div>
+				<div id="rightArrow" class="inbl">>></div>
+			</center>
+		</div>
+	</body>
+</html>

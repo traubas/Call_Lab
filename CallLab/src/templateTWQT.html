@@ -13,15 +13,21 @@
 			var questions = new Array(30);
 			$(document).ready(function() {
 				
-				Feedbacks = $feedbackarray;
+				Feedbacks = $thefeedbacks;
 				questions = $thequestions;
 
+				if (questions[0][0] == 1) {
+					$("#questionText").text(questions[0][1]);
+					$("#questionAnswers").append('<input type="radio" value="True" name="trueFalse" id="true"/><label for="true">True</label>');
+					$("#questionAnswers").append('<input type="radio" value="False" name="trueFalse" id="false"/><label for="false">False</label>');
+
+				}
 			});	
 		</script>
 		<style type="text/css">
 			#bottom {
 				position: fixed;
-				display: inline-block;
+
 				left: 0;
 				bottom: 0;
 				background-color: #fcd39f;
@@ -51,6 +57,9 @@
 			#theQuestionsDiv {
 				width:60%;
 			}
+			.inbl {
+				display: inline-block;
+			}
 		</style>
 	</head>
 	<body>
@@ -62,15 +71,13 @@
 			</div>
 		</div>
 		<div id="bottom">
-			<div id="leftArrow"><<</div>
 			<center>
-			<div id="theQuestionsDiv">
-				<center>
-					<div id="questionText"></div><br>
-					<div id="questionAnswers"></div><br>
-				</center>
-			</div>
-			<div id="rightArrow">>></div>
+				<div id="leftArrow" class="inbl"><<</div>
+				<div id="theQuestionsDiv" class="inbl">
+					<div id="questionText" class="inbl"></div><br>
+					<div id="questionAnswers" class="inbl"></div><br>
+				</div>
+				<div id="rightArrow" class="inbl">>></div>
 			</center>
 		</div>
 	</body>

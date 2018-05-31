@@ -84,6 +84,7 @@ public class Handlers {
 			String thetitle="";
 			String thetext="";
 			String filename="";
+			String number="";
 			he.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
 		    if (he.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
@@ -113,6 +114,8 @@ public class Handlers {
 					thequestions+= parameters.get(key);
 				else if (key.equals("feedbacks"))
 					thefeedbacks+= parameters.get(key);
+				else if (key.equals("numOfQuestions"))
+					number+= parameters.get(key);
 					
 			}
 			InputStream in1 = getClass().getResourceAsStream("/templateTWQT.html"); 
@@ -127,6 +130,7 @@ public class Handlers {
 			htmlString = htmlString.replace("$theText", thetext);
 			htmlString = htmlString.replace("$thequestions", thequestions);
 			htmlString = htmlString.replace("$thefeedbacks", thefeedbacks);
+			htmlString = htmlString.replace("$numOfQuestions", number);
 			File newHtmlFile = new File("path/"+filename+".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
 			Desktop.getDesktop().open(new File("path"));
