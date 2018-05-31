@@ -83,7 +83,7 @@ public class MainController {
 					file = new File(path);
 					file = new File(file.getParent());
 					file = new File(file.getParent());
-					file = new File(file.getAbsolutePath()+"/src/TextWithQuestionsCreator/index.html");
+					file = new File(file.getAbsolutePath()+"/TextWithQuestionsCreator/index.html");
 					System.out.println(file.getAbsolutePath());
 					Desktop.getDesktop().browse(file.toURI());
 					}
