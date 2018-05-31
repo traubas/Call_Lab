@@ -84,7 +84,7 @@ public class MainController {
 					String path = file.getAbsolutePath();
 					file = new File(path);
 					file = new File(file.getParent()+"/src/TextWithQuestionsCreator/index.html");
-					
+					System.out.println(file.getAbsolutePath());
 					Desktop.getDesktop().browse(file.toURI());
 					}
 				catch (IOException e1) {
