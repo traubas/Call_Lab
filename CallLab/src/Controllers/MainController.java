@@ -78,7 +78,13 @@ public class MainController {
     	if (Desktop.isDesktopSupported()) {
 			new Thread(() -> {
 				try {
-					File file = new File("../TextWithQuestionsCreator/index.html");
+					File file = new File("index.html");
+					String parentPath = file.getParent();
+					System.out.println(file.getAbsolutePath());
+					String path = file.getAbsolutePath();
+					file = new File(path);
+					file = new File(file.getParent()+"/src/TextWithQuestionsCreator/index.html");
+					
 					Desktop.getDesktop().browse(file.toURI());
 					}
 				catch (IOException e1) {
