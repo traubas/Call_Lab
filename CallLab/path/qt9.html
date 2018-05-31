@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+  		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8" content="text/html; charset=UTF-8">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script>
+			var numberOfQuestions = 1;
+			var Feedbacks = new Array(30);
+			var questions = new Array(30);
+			$(document).ready(function() {
+				
+				Feedbacks = [["",""],null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+				questions = [[1,"i am good","True"],null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+
+				if (questions[0][0] == 1) {
+					$("#questionText").text(questions[0][1]);
+					$("#questionAnswers").append('<input type="radio" value="True" name="trueFalse" id="true"/><label for="true">True</label>');
+					$("#questionAnswers").append('<input type="radio" value="False" name="trueFalse" id="false"/><label for="false">False</label>');
+
+				}
+			});	
+		</script>
+		<style type="text/css">
+			#bottom {
+				position: fixed;
+
+				left: 0;
+				bottom: 0;
+				background-color: #fcd39f;
+				height: 30%;
+				width:100%;
+			}
+
+			#top {
+				position: fixed;
+			    top: 0;
+			    height:70%;
+			    width:100%;
+			    background-color: lightgrey;
+			    border-bottom: 3px solid black;
+			    overflow:auto;
+			    padding-top: 40px;
+			}
+
+			#theTitle {
+			}
+
+			#theText {
+			}
+			#insideDiv {
+				width:80%;
+				text-align: left;
+			}
+			#theQuestionsDiv {
+				width:60%;
+			}
+			.inbl {
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top">
+			<h1 id="theTitle"><center>Lorem Ipsum</center></h1>
+			<br>
+			<div id="theText">
+				<center><div id="insideDiv">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu consequat velit, quis pulvinar elit. Morbi sollicitudin eget magna eu consectetur. Donec tristique nunc non fringilla luctus. Praesent tortor urna, rutrum sit amet nulla quis, elementum egestas justo. Vivamus ultrices laoreet diam feugiat aliquam. Suspendisse efficitur quam a ipsum tristique, a aliquet nisl accumsan. Integer dignissim rhoncus justo.<br /><br />In non lorem nec mi efficitur fringilla. Ut dapibus sed turpis nec tincidunt. Fusce malesuada ante sit amet mi eleifend, rutrum feugiat enim vestibulum. In suscipit ultrices elit, lacinia vulputate metus ullamcorper vitae. Pellentesque vel felis tellus. Donec sollicitudin quam sed lectus faucibus eleifend. Sed convallis fermentum nibh, vitae placerat justo pharetra sed.<br /><br />Nunc tempor ex et ornare aliquet. Nullam pellentesque pretium sapien eu vehicula. Duis dignissim efficitur tellus sit amet volutpat. Proin feugiat metus tortor, in cursus justo feugiat eget. Etiam tincidunt, tortor at tempus malesuada, massa ante laoreet nisl, sit amet semper mi diam sed nunc. Donec ut nulla libero. Etiam porta tempor leo, quis rutrum velit sodales a. Quisque feugiat tortor in dapibus ultricies. Sed condimentum vel velit ac condimentum. Vivamus non arcu hendrerit, convallis augue ac, hendrerit nisl. Donec a felis suscipit, semper eros eu, pellentesque turpis. Donec mattis ut lectus sit amet pretium. Etiam consectetur rutrum cursus.<br /><br />Etiam gravida orci et imperdiet pellentesque. Etiam consectetur nulla enim, id posuere leo mattis ac. Etiam et interdum augue. Aenean euismod porta sem quis sodales. Aenean semper vestibulum ante in lacinia. Nullam sed tristique tortor, a pulvinar enim. Sed eget neque velit. Nullam ultrices mauris ac sapien convallis tempor. Fusce ultricies nec dui sed consequat. Nam quis sollicitudin sapien. Donec eleifend eros ante, sit amet auctor sapien laoreet et. Nulla vitae metus accumsan, mollis diam sit amet, ullamcorper mi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.<br /><br />Nam ut efficitur tortor. Fusce ut eros lorem. Sed eget consectetur neque. Morbi pulvinar in turpis a varius. Etiam sit amet quam in magna pulvinar porta in quis est. Cras malesuada, enim vel feugiat pharetra, neque nulla iaculis nibh, sit amet pretium sapien lectus eget metus. In sit amet orci tincidunt, molestie tellus at, placerat nisi. Fusce at arcu suscipit, pulvinar tortor sit amet, porta lorem. Sed tristique neque quis leo consectetur pretium quis quis odio. Pellentesque lorem lorem, mattis et dolor vitae, elementum dapibus elit. In sed tortor luctus, pretium orci vitae, cursus libero.</div></center>
+			</div>
+		</div>
+		<div id="bottom">
+			<center>
+				<div id="leftArrow" class="inbl"><<</div>
+				<div id="theQuestionsDiv" class="inbl">
+					<div id="questionText" class="inbl"></div><br>
+					<div id="questionAnswers" class="inbl"></div><br>
+				</div>
+				<div id="rightArrow" class="inbl">>></div>
+			</center>
+		</div>
+	</body>
+</html>

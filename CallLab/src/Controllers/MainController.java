@@ -14,7 +14,6 @@ import Models.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import utils.ResourceExtractor;
 
 public class MainController {
 	
@@ -79,16 +78,16 @@ public class MainController {
 			new Thread(() -> {
 				try {
 					//--------- THIS PART IS FOR WINDOWS --------------
-					File file = new File("index.html");
+					/*File file = new File("index.html");
 					String path = file.getAbsolutePath();
 					file = new File(path);
 					file = new File(file.getParent());
 					file = new File(file.getParent());
 					file = new File(file.getAbsolutePath()+"/TextWithQuestionsCreator/index.html");
-					System.out.println(file.getAbsolutePath());
+					System.out.println(file.getAbsolutePath());*/
 					
 					//--------- THIS PART IS FOR LINUX ----------------
-					/*File file = new File("src/TextWithQuestionsCreator/index.html");*/
+					File file = new File("src/TextWithQuestionsCreator/index.html");
 					Desktop.getDesktop().browse(file.toURI());
 					}
 				catch (IOException e1) {
