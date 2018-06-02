@@ -1,6 +1,8 @@
 var questions = new Array(30);
 var feedbacks = new Array(30);
 var questionNumber=0;
+var editingFlag = false;
+var questionEdited = 0;
 $(document).ready(function () {
 
 	var height = $(document).height();
@@ -57,6 +59,11 @@ function cancelTrueFalse() {
 *and saves as a question array with size 2.
 */
 function saveTrueFalseQuestion() {
+	var temp = questionNumber;
+	if (editingFlag == true) {
+		questionNumber = questionEdited;
+	}
+
 	var question_text = $("#question_text").val();
 	var answer = $('input[name="trueFalse"]:checked', "#group1").val();
 	var question = new Array(3);
@@ -69,12 +76,20 @@ function saveTrueFalseQuestion() {
 	question[2] = answer;
 	questions[questionNumber]=question;
 	feedbacks[questionNumber]=qFeedback;
-	questionNumber+=1;
+	
 	cancelTrueFalse();
-	$('<button type="button" id="question('+(questionNumber-1)+')" onclick="showQuestion('+(questionNumber-1)+')" >'+(questionNumber)+'</button>').insertBefore("#bottomMenu");
+	if (editingFlag == false) {
+		questionNumber+=1;
+		$('<button type="button" id="question('+(questionNumber-1)+')" onclick="showQuestion('+(questionNumber-1)+')" >'+(questionNumber)+'</button>').insertBefore("#bottomMenu");
+	}
+	questionNumber = temp+1;
+	editingFlag = false;
+
 }
 
 function showQuestion(number) {
+	editingFlag = true;
+	questionEdited = number;
 	if (questions[number][0] == 1) {
 		cancelTrueFalse();
 		createTrueFalseQuestion();
