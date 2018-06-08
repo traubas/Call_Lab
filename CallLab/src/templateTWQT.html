@@ -27,8 +27,16 @@
 					$("#trueFalseField").append('<input type="radio" value="True" name="trueFalse" id="true"/><label for="true">True</label>');
 					$("#trueFalseField").append('<input type="radio" value="False" name="trueFalse" id="false"/><label for="false">False</label>');
 				}
-				else {
-
+				else if (questions[currentQuestion-1][0] == 2) {
+					$("#questionAnswers").append('<fieldset id="singleAnswers"></fieldset>');
+					var num = Feedbacks[currentQuestion-1].length;
+					var answers = questions[currentQuestion-1][3];
+					for (var i=0;i<num;i++){
+						$("#singleAnswers").append('<div class="focusInputs" id="answer'+(i+1)+'">'+
+														(i+1) + '. <input type="radio" name="answersOfSingle" value="a'+(i+1)+'" />'+
+														'<label for="a'+(i+1)+'" id="a'+(i+1)+'a">'+answers[i]+'</label>'+
+													'</div>');
+					}
 				}
 			}
 			function nextQuestion() {
@@ -52,41 +60,55 @@
 				}
 			}
 			function answerQuestion() {
+				var answer;
 				if (questions[currentQuestion-1][0] == 1) {
-					var answer = $("#trueFalseField :radio:checked").val();
-					console.log(answer);
-					if (answer == questions[currentQuestion-1][2]) {
-						$("body").append('<div class="correct">'
-						+'<div class="modalbox success col-sm-8 col-md-6 col-lg-5 center animate">'+
-							'<div class="icon">'+
-								'<span class="glyphicon glyphicon-ok"></span>'+
-							'</div>'+
-							'<!--/.icon-->'+
-							'<h1>Correct!</h1>'+
-							'<p>Good Job! You answered correctly.'+
-							'<button type="button" class="redo btn" onclick="closeModal()">Ok</button>'+
-						'</div>'+
-						'<!--/.success-->'+
-					'</div>');
-						$(".correct").css("visibility","visible");
-						$(".wrong").css("visibility","hidden");
-					}
-					else {
-						$("body").append('<div class="wrong">'
-						+'<div class="modalbox error col-sm-8 col-md-6 col-lg-5 center animate"">'
-							+'<div class="icon">'
-								+'<span class="glyphicon glyphicon-thumbs-down"></span>'
-							+'</div>'
-							+'<!--/.icon-->'
-							+'<h1>Oh no!</h1>'
-							+'<p>That was Wrong,'
-							+'<br> you should try again.</p>'
-							+'<button type="button" class="redo btn" onclick="closeModal()">Try again</button>'
-						+'</div></div>');
-						$(".wrong").css("visibility","visible");
-						$(".correct").css("visibility","hidden");
-					}
+					answer = $("#trueFalseField :radio:checked").val();
 				}
+				else if (questions[currentQuestion-1][0] ==2) {
+					answer = $("#singleAnswers :radio:checked").val();
+				}
+				var indexStr = answer.charAt(1);
+				var index = parseInt(indexStr)-1;
+
+				console.log(answer);
+				if (answer == questions[currentQuestion-1][2]) {
+					if (questions[currentQuestion-1][0] == 1) {
+						index = 0;
+					}
+					$("body").append('<div class="correct">'
+					+'<div class="modalbox success col-sm-8 col-md-6 col-lg-5 center animate">'+
+						'<div class="icon">'+
+							'<span class="glyphicon glyphicon-ok"></span>'+
+						'</div>'+
+						'<!--/.icon-->'+
+						'<h1>Correct!</h1>'+
+						'<p>Good Job! '+Feedbacks[currentQuestion-1][index]+
+						'<button type="button" class="redo btn" onclick="closeModal()">Ok</button>'+
+					'</div>'+
+					'<!--/.success-->'+
+				'</div>');
+					$(".correct").css("visibility","visible");
+					$(".wrong").css("visibility","hidden");
+				}
+				else {
+					if (questions[currentQuestion-1][0] == 1) {
+						index = 1;
+					}
+					$("body").append('<div class="wrong">'
+					+'<div class="modalbox error col-sm-8 col-md-6 col-lg-5 center animate"">'
+						+'<div class="icon">'
+							+'<span class="glyphicon glyphicon-thumbs-down"></span>'
+						+'</div>'
+						+'<!--/.icon-->'
+						+'<h1>Oh no!</h1>'
+						+'<p>That was Wrong, '
+						+'<br>'+Feedbacks[currentQuestion-1][index]+'</p>'
+						+'<button type="button" class="redo btn" onclick="closeModal()">Try again</button>'
+					+'</div></div>');
+					$(".wrong").css("visibility","visible");
+					$(".correct").css("visibility","hidden");
+				}
+				
 				
 			}
 			function closeModal() {
@@ -95,6 +117,9 @@
 			}
 		</script>
 		<style type="text/css">
+			#singleAnswers {
+				text-align: left;
+			}
 			#bottom {
 				position: fixed;
 
@@ -124,6 +149,7 @@
 			#insideDiv {
 				width:80%;
 				text-align: left;
+				counter-reset: paragraph;
 			}
 			#theQuestionsDiv {
 				margin-top:20px;
@@ -146,6 +172,15 @@
 			#rightArrow {
 				width:30px;
 				height:30px;
+			}
+			.insideDiv p {
+				margin-bottom: 5px;
+			}
+			.insideDiv p:before {
+				position: absolute;
+				content: counter(paragraph);
+    			counter-increment: paragraph;
+    			margin-left: -20px;
 			}
 
 			/*STYLING THAT ARE PART OF THE ANIMATION AFTER SUBMIT IS CLICKED*/
@@ -526,7 +561,7 @@
 			<h1 id="theTitle"><center>$theTitle</center></h1>
 			<br>
 			<div id="theText">
-				<center><div id="insideDiv">$theText</div></center>
+				<center><div id="insideDiv" class="insideDiv">$theText</div></center>
 			</div>
 		</div>
 		<div id="bottom">
