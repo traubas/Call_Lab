@@ -9,15 +9,15 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<script>
 			var currentQuestion = 1;
-			var numberOfQuestions = $numOfQuestions;
+			var numberOfQuestions = 1;
 			var Feedbacks = new Array(30);
 			var questions = new Array(30);
 			var feedbacks = "";
 			var correct = true;
 			$(document).ready(function() {
 				
-				Feedbacks = $thefeedbacks;
-				questions = $thequestions;
+				Feedbacks = [["nice","bad choice","good"],null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+				questions = [[3,"what is a good food?",["a1","a3"],["pizza","onion","ice cream"]],null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
 				showQuestion();
 				
 			});
@@ -666,10 +666,10 @@
 	</head>
 	<body>
 		<div id="top">
-			<h1 id="theTitle"><center>$theTitle</center></h1>
+			<h1 id="theTitle"><center>null</center></h1>
 			<br>
 			<div id="theText">
-				<center><div id="insideDiv" class="insideDiv">$theText</div></center>
+				<center><div id="insideDiv" class="insideDiv"><p></p></div></center>
 			</div>
 		</div>
 		<div id="bottom">

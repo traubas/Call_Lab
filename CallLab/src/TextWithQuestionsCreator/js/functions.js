@@ -5,6 +5,7 @@ var editingFlag = false;
 var questionEdited = 0;
 var answerNumber = 1;
 var triggerNumber = 0;
+var multipleQ = false;
 $(document).ready(function () {
 
 	var height = $(document).height();
@@ -16,10 +17,10 @@ $(document).ready(function () {
 
 });
 
-
-function createMultipleChoiseQuestion() {
+function createSingleAnswerQuestion() {
+	multipleQ = false;
 	answerNumber=1;
-	$(".questions").append('<div id="mcQuestionDiv"'+
+	$(".questions").append('<div id="saQuestionDiv"'+
 								'<ul class="callLabUl">'+
 									'<li>Enter Question:</li>'+
 									'<li><textarea type="text" id="question_text" /></li>'+
@@ -34,10 +35,16 @@ function createMultipleChoiseQuestion() {
 									
 									'</li>' +
 									'<li>' +
-										'<button type="button" class="btn btn-success" onclick="saveMCQuestion()">Save</button>' +
+										'<button type="button" class="btn btn-success" onclick="saveSAQuestion()">Save</button>' +
 										'<button type="button" class="btn btn-warning" onclick="cancelTrueFalse()">Cancel</button>' +
 								'</ul>' +
 							'</div>');
+	$('label[for="single"]').click(function(e) { 
+        e.preventDefault();
+    });
+    $('label[for="multiple"]').click(function(e) { 
+        e.preventDefault();
+    });
 	$("#typeOfQuestion input").change(function() {
 		triggerNumber++;
 		if (triggerNumber>1) return;
@@ -57,7 +64,18 @@ function createMultipleChoiseQuestion() {
 			answerNumber++;
 		}
 		else {
-
+			multipleQ = true;
+			$("#singleQuestionDiv").append('<legend>Add Answer Options</legend>' +
+											'<fieldset id="multiAnswers">' +
+												'<div class="focusInputs" id="answer'+answerNumber+'">'+
+													answerNumber + '. <input type="checkbox" name="answersOfMulti" value="a'+answerNumber+'" />'+
+													'<input type="text" id="a'+answerNumber+'a">'+
+													'<input type="text" placeholder="enter feedback" id="feedback'+answerNumber+'"><br>' +
+												'</div>' +
+											'</fieldset>');
+			$('<button type="button" id="addMoreBtn" onclick="addMoreAnswersMulti()">Add more answers</button>').insertAfter("#singleQuestionDiv");
+			$('<button type="button" onclick="removeOneQuestion()">Remove 1 answer</button>').insertAfter("#addMoreBtn");
+			answerNumber++;
 		}
 	});
 }
@@ -68,6 +86,14 @@ function removeOneQuestion() {
 function addMoreAnswers() {
 	$("#singleQuestionDiv").append('<div class="focusInputs" id="answer'+answerNumber+'">'+
 										answerNumber + '. <input type="radio" name="answersOfSingle" value="a'+answerNumber+'" />'+
+										'<input type="text" id="a'+answerNumber+'a">'+
+										'<input type="text" placeholder="enter feedback" id="feedback'+answerNumber+'"><br>' +
+									'</div>');
+	answerNumber++;
+}
+function addMoreAnswersMulti() {
+	$("#singleQuestionDiv").append('<div class="focusInputs" id="answer'+answerNumber+'">'+
+										answerNumber + '. <input type="checkbox" name="answersOfMulti" value="a'+answerNumber+'" />'+
 										'<input type="text" id="a'+answerNumber+'a">'+
 										'<input type="text" placeholder="enter feedback" id="feedback'+answerNumber+'"><br>' +
 									'</div>');
@@ -110,9 +136,9 @@ function createTrueFalseQuestion() {
 }
 function cancelTrueFalse() {
 	triggerNumber=0;
-	editingFlag=false;
+	//editingFlag=false;
 	$("#trueFalseDiv").remove();
-	$("#mcQuestionDiv").remove();
+	$("#saQuestionDiv").remove();
 	$(".addQuestionsMenu").prop("disabled",false);
 }
 /**
@@ -148,7 +174,11 @@ function saveTrueFalseQuestion() {
 	editingFlag = false;
 }
 
-function saveMCQuestion() {
+function saveSAQuestion() {
+	if (multipleQ == true)  {
+		saveMAQuestion()
+		return;
+	};
 	var temp = questionNumber;
 	if (editingFlag == true) {
 		questionNumber = questionEdited;
@@ -182,12 +212,50 @@ function saveMCQuestion() {
 	}
 	editingFlag = false;
 }
+function saveMAQuestion() {
+	console.log(editingFlag);
+	var temp = questionNumber;
+	if (editingFlag == true) {
+		questionNumber = questionEdited;
+	}
+	var question_text = $("#question_text").val();
+	var answer = [];
+	$('input[type=checkbox]:checked').each(function () {
+    	answer.push($(this).val());
+	});
+	console.log(answer);
+	var question = new Array(3);
+	var qFeedback = new Array(answerNumber-1);
+	for (var i = 0; i<answerNumber-1; i++) {
+		qFeedback[i] = $("#feedback"+(i+1)).val();
+	}
+	question[0] = 3;
+	question[1] = question_text;
+	question[2] = answer;
+	question[3] = new Array(answerNumber-1);
+	for (var i=0;i<answerNumber-1;i++) {
+		question[3][i] = $("#a"+(i+1)+"a").val();
+	}
+	console.log(question[3]);
+	questions[questionNumber] = question;
+	feedbacks[questionNumber] = qFeedback;
 
+	cancelTrueFalse();
+	if (editingFlag == false) {
+		questionNumber = temp+1;
+		$('<button type="button" id="question('+(questionNumber-1)+')" onclick="showQuestion('+(questionNumber-1)+')" >'+(questionNumber)+'</button>').insertBefore("#bottomMenu");
+	}
+	else {
+		questionNumber=temp;
+	}
+	editingFlag = false;
+}
 function showQuestion(number) {
 	answerNumber = 1;
 	triggerNumber=0;
 	editingFlag = true;
 	questionEdited = number;
+	console.log("editing "+ editingFlag);
 	if (questions[number][0] == 1) {
 		cancelTrueFalse();
 		createTrueFalseQuestion();
@@ -199,7 +267,7 @@ function showQuestion(number) {
 	}
 	else if (questions[number][0] == 2){
 		cancelTrueFalse();
-		createMultipleChoiseQuestion();
+		createSingleAnswerQuestion();
 		$("#question_text").val(questions[number][1]);
 		var $radio = $("input:radio[name=singleOrMultiple]");
 		$radio.filter("[value=single]").prop("checked" , true);
@@ -215,7 +283,28 @@ function showQuestion(number) {
 		}
 		var $answerito = $("input:radio[name=answersOfSingle]");
 		$answerito.filter("[value="+questions[number][2]+"]").prop("checked" , true);
-
+	}
+	else if (questions[number][0] == 3) {
+		cancelTrueFalse();
+		createSingleAnswerQuestion();
+		$("#question_text").val(questions[number][1]);
+		var $radio = $("input:radio[name=singleOrMultiple]");
+		$radio.filter("[value=multiple]").prop("checked" , true);
+		$("#typeOfQuestion input").trigger("change");
+		var array = questions[number][3];
+		$("#a1a").val(array[0]);
+		for (var i=0;i<(questions[number][3].length)-1;i++) {
+			$("#addMoreBtn").trigger("click");
+			$("#a"+(i+2)+"a").val(array[i+1]);
+		}
+		for (var i=0;i<(feedbacks[number].length);i++) {
+			$("#feedback"+(i+1)).val(feedbacks[number][i]);
+		}
+		var $answerito = $("input:radio[name=answersOfMulti]");
+		array = questions[number][2];
+		for (var i=0;i<questions[number][2].length;i++) {
+			$("input:checkbox[value="+array[i]+"]").prop("checked", true);
+		}
 	}
 }
 

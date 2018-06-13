@@ -12,6 +12,8 @@
 			var numberOfQuestions = $numOfQuestions;
 			var Feedbacks = new Array(30);
 			var questions = new Array(30);
+			var feedbacks = "";
+			var correct = true;
 			$(document).ready(function() {
 				
 				Feedbacks = $thefeedbacks;
@@ -38,6 +40,19 @@
 													'</div>');
 					}
 				}
+				else if (questions[currentQuestion-1][0] == 3) {
+					$("#questionAnswers").append('<fieldset id="multiAnswers"></fieldset>');
+					var num = Feedbacks[currentQuestion-1].length;
+					var answers = questions[currentQuestion-1][3];
+					console.log(answers);
+					console.log(num);
+					for (var i=0;i<num;i++){
+						$("#multiAnswers").append('<div class="focusInputs" id="answer'+(i+1)+'">'+
+														(i+1) + '. <input type="checkbox" name="answersOfMulti" value="a'+(i+1)+'" />'+
+														'<label for="a'+(i+1)+'" id="a'+(i+1)+'a">'+answers[i]+'</label>'+
+													'</div>');
+					}
+				}
 			}
 			function nextQuestion() {
 				currentQuestion++;
@@ -48,6 +63,24 @@
 				else {
 					showQuestion();
 				}
+			}
+			function createFeedBacksParagraphs() {
+				feedbacks = "";
+				var answers = questions[currentQuestion-1][3];
+				$('input[type=checkbox]:checked').each(function () {
+					var index = ($(this).val()).charAt(1)
+					var answers = questions[currentQuestion-1][2];
+					var color = "red";
+					for (var i = 0; i< answers.length; i++) {
+						if ($(this).val() == answers[i])
+							color = "green";
+					}
+					if (questions[currentQuestion-1][2].includes($(this).val()))
+				    	feedbacks+='<p>'+ index +". <font color="+color+">"+Feedbacks[currentQuestion-1][index-1]+'</font></p>';
+				    else
+				    	feedbacks+='<p>'+ index +". <font color="+color+">"+Feedbacks[currentQuestion-1][index-1]+'</font></p>';
+				});
+				console.log("feedbacks are" +feedbacks);
 			}
 			function previousQuestion() {
 				currentQuestion--;
@@ -61,53 +94,128 @@
 			}
 			function answerQuestion() {
 				var answer;
+				
 				if (questions[currentQuestion-1][0] == 1) {
 					answer = $("#trueFalseField :radio:checked").val();
 				}
-				else if (questions[currentQuestion-1][0] ==2) {
+				else if (questions[currentQuestion-1][0] == 2) {
 					answer = $("#singleAnswers :radio:checked").val();
 				}
-				var indexStr = answer.charAt(1);
-				var index = parseInt(indexStr)-1;
+				else if (questions[currentQuestion-1][0] == 3) {
+					answer = [];
+					$('input[type=checkbox]:checked').each(function () {
+				    	answer.push($(this).val());
+					});
+				}
+				if (answer == null || answer == undefined) {
+					$("body").append('<div class="wrong">'
+						+'<div class="modalbox error col-sm-8 col-md-6 col-lg-5 center animate"">'
+							+'<div class="icon">'
+								+'<span class="glyphicon glyphicon-thumbs-down"></span>'
+							+'</div>'
+							+'<!--/.icon-->'
+							+'<h1>Oh no!</h1>'
+							+'<p>That is a problem</p>'
+							+'<br>You have to choose an answer!</p>'
+							+'<button type="button" class="redo btn" onclick="closeModal()">Try again</button>'
+						+'</div></div>');
+						$(".wrong").css("visibility","visible");
+						$(".correct").css("visibility","hidden");
+					return;
+				}
+				if (questions[currentQuestion-1][0] == 3) {
+					var flag = false;
+					correct = true;
+					var answers = questions[currentQuestion-1][2]
+					for (var i = 0; i<answers.length; i++) {
 
-				console.log(answer);
-				if (answer == questions[currentQuestion-1][2]) {
-					if (questions[currentQuestion-1][0] == 1) {
-						index = 0;
+						console.log(answer[i]+" "+answers[i]);
+						if (answer[i] !== answers[i]) {
+							correct = false;
+						}
+						else 
+							flag = true;
+
 					}
-					$("body").append('<div class="correct">'
-					+'<div class="modalbox success col-sm-8 col-md-6 col-lg-5 center animate">'+
-						'<div class="icon">'+
-							'<span class="glyphicon glyphicon-ok"></span>'+
+					createFeedBacksParagraphs();
+					if ((flag == true) && (correct == false)) {
+						feedbacks+= "<p>Some of your answers are not correct or you haven't chosen <b>ALL</b> correct answers.</p>"
+					}
+					console.log(feedbacks);
+					if (correct == true) {
+						$("body").append('<div class="correct">'
+						+'<div class="modalbox success col-sm-8 col-md-6 col-lg-5 center animate">'+
+							'<div class="icon">'+
+								'<span class="glyphicon glyphicon-ok"></span>'+
+							'</div>'+
+							'<!--/.icon-->'+
+							'<h1>Correct!</h1>'+
+							'<p>Good Job! '+feedbacks+
+							'<button type="button" class="redo btn" onclick="closeModal()">Ok</button>'+
 						'</div>'+
-						'<!--/.icon-->'+
-						'<h1>Correct!</h1>'+
-						'<p>Good Job! '+Feedbacks[currentQuestion-1][index]+
-						'<button type="button" class="redo btn" onclick="closeModal()">Ok</button>'+
-					'</div>'+
-					'<!--/.success-->'+
-				'</div>');
-					$(".correct").css("visibility","visible");
-					$(".wrong").css("visibility","hidden");
+						'<!--/.success-->'+
+					'</div>');
+						$(".correct").css("visibility","visible");
+						$(".wrong").css("visibility","hidden");
+					}
+					else {
+						$("body").append('<div class="wrong">'
+						+'<div class="modalbox error col-sm-8 col-md-6 col-lg-5 center animate"">'
+							+'<div class="icon">'
+								+'<span class="glyphicon glyphicon-thumbs-down"></span>'
+							+'</div>'
+							+'<!--/.icon-->'
+							+'<h1>Oh no!</h1>'
+							+'<p>That was Wrong, '
+							+'<br>'+feedbacks+'</p>'
+							+'<button type="button" class="redo btn" onclick="closeModal()">Try again</button>'
+						+'</div></div>');
+						$(".wrong").css("visibility","visible");
+						$(".correct").css("visibility","hidden");
+					}
 				}
 				else {
-					if (questions[currentQuestion-1][0] == 1) {
-						index = 1;
+					var indexStr = answer.charAt(1);
+					var index = parseInt(indexStr)-1;
+					if (answer == questions[currentQuestion-1][2]) {
+						if (questions[currentQuestion-1][0] == 1) {
+							index = 0;
+						}
+						$("body").append('<div class="correct">'
+						+'<div class="modalbox success col-sm-8 col-md-6 col-lg-5 center animate">'+
+							'<div class="icon">'+
+								'<span class="glyphicon glyphicon-ok"></span>'+
+							'</div>'+
+							'<!--/.icon-->'+
+							'<h1>Correct!</h1>'+
+							'<p>Good Job! '+Feedbacks[currentQuestion-1][index]+
+							'<button type="button" class="redo btn" onclick="closeModal()">Ok</button>'+
+						'</div>'+
+						'<!--/.success-->'+
+					'</div>');
+						$(".correct").css("visibility","visible");
+						$(".wrong").css("visibility","hidden");
 					}
-					$("body").append('<div class="wrong">'
-					+'<div class="modalbox error col-sm-8 col-md-6 col-lg-5 center animate"">'
-						+'<div class="icon">'
-							+'<span class="glyphicon glyphicon-thumbs-down"></span>'
-						+'</div>'
-						+'<!--/.icon-->'
-						+'<h1>Oh no!</h1>'
-						+'<p>That was Wrong, '
-						+'<br>'+Feedbacks[currentQuestion-1][index]+'</p>'
-						+'<button type="button" class="redo btn" onclick="closeModal()">Try again</button>'
-					+'</div></div>');
-					$(".wrong").css("visibility","visible");
-					$(".correct").css("visibility","hidden");
+					else {
+						if (questions[currentQuestion-1][0] == 1) {
+							index = 1;
+						}
+						$("body").append('<div class="wrong">'
+						+'<div class="modalbox error col-sm-8 col-md-6 col-lg-5 center animate"">'
+							+'<div class="icon">'
+								+'<span class="glyphicon glyphicon-thumbs-down"></span>'
+							+'</div>'
+							+'<!--/.icon-->'
+							+'<h1>Oh no!</h1>'
+							+'<p>That was Wrong, '
+							+'<br>'+Feedbacks[currentQuestion-1][index]+'</p>'
+							+'<button type="button" class="redo btn" onclick="closeModal()">Try again</button>'
+						+'</div></div>');
+						$(".wrong").css("visibility","visible");
+						$(".correct").css("visibility","hidden");
+					}
 				}
+				
 				
 				
 			}
@@ -192,7 +300,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height:300px;
     margin: auto;
 }
 .wrong {
@@ -203,7 +310,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height:300px;
     margin: auto;
 }
 .background {
@@ -226,6 +332,8 @@
   background: #fff;
   padding: 25px 25px 15px;
   text-align: center;
+  margin: auto;
+  display: table;
 }
 .modalbox.success.animate .icon,
 .modalbox.error.animate .icon {
