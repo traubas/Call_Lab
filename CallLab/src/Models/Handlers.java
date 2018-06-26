@@ -85,6 +85,9 @@ public class Handlers {
 			String thetext="";
 			String filename="";
 			String number="";
+			String theimage = "";
+			String parNum = "";
+			String imageName = "";
 			he.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
 		    if (he.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
@@ -116,6 +119,12 @@ public class Handlers {
 					thefeedbacks+= parameters.get(key);
 				else if (key.equals("numOfQuestions"))
 					number+= parameters.get(key);
+				else if (key.equals("image"))
+					theimage+= parameters.get(key);
+				else if (key.equals("parNum")) 
+					parNum+= parameters.get(key);
+				else if (key.equals("imageName"))
+					imageName += parameters.get(key);
 					
 			}
 			InputStream in1 = getClass().getResourceAsStream("/templateTWQT.html"); 
@@ -131,6 +140,9 @@ public class Handlers {
 			htmlString = htmlString.replace("$thequestions", thequestions);
 			htmlString = htmlString.replace("$thefeedbacks", thefeedbacks);
 			htmlString = htmlString.replace("$numOfQuestions", number);
+			htmlString = htmlString.replace("$theimage", theimage);
+			htmlString = htmlString.replace("$parNum", parNum);
+			htmlString = htmlString.replace("$imageName", imageName);
 			File newHtmlFile = new File("path/"+filename+".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString,"UTF-8");
 			Desktop.getDesktop().open(new File("path"));

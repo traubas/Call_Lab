@@ -107,7 +107,7 @@
 				    	answer.push($(this).val());
 					});
 				}
-				if (answer == null || answer == undefined) {
+				if (answer == null || answer == undefined || answer.length == 0) {
 					$("body").append('<div class="wrong">'
 						+'<div class="modalbox error col-sm-8 col-md-6 col-lg-5 center animate"">'
 							+'<div class="icon">'
@@ -666,10 +666,10 @@
 	</head>
 	<body>
 		<div id="top">
-			<h1 id="theTitle"><center>null</center></h1>
+			<h1 id="theTitle"><center>Lorem Ipsum</center></h1>
 			<br>
 			<div id="theText">
-				<center><div id="insideDiv" class="insideDiv"><p></p></div></center>
+				<center><div id="insideDiv" class="insideDiv"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi posuere ligula a risus congue aliquam. Praesent luctus eu nisi et bibendum. Proin vehicula neque a porta consectetur. Aliquam sed blandit velit. Sed vitae odio arcu. Fusce finibus lectus eu lobortis venenatis. Etiam ullamcorper, turpis vel vulputate tincidunt, ligula felis elementum enim, consectetur eleifend ante lacus at dolor. Vivamus in ultrices quam. Mauris arcu tortor, viverra a justo ac, aliquet vulputate lectus. Nulla sollicitudin fringilla tortor ac eleifend. Sed eget nulla at libero malesuada porttitor at sed augue. Aenean suscipit eleifend magna quis venenatis. Duis eu ligula quam. Aliquam cursus enim in lacinia sodales. Nunc pellentesque, leo non aliquam vulputate, nisi ipsum pulvinar metus, nec tincidunt ex dolor sed eros.</p><p>Nam efficitur augue eget porta sagittis. Proin semper ullamcorper lacus at consectetur. Sed in orci et quam dictum facilisis. Duis molestie, erat ac luctus gravida, lacus risus suscipit nunc, rhoncus dapibus arcu enim sit amet eros. Praesent luctus dapibus enim ut congue. Duis rhoncus iaculis posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer molestie hendrerit quam, eget dignissim nibh porta sed. Donec fringilla urna in finibus congue. Nullam sagittis volutpat magna, non sagittis diam eleifend sit amet. Suspendisse potenti. Sed rhoncus tortor vel justo consequat tempus. Nam felis leo, sodales eget blandit quis, cursus facilisis nisl.</p><p>Nulla viverra, metus quis placerat consequat, dolor urna porttitor diam, eu blandit lectus massa in lectus. Nullam dictum congue laoreet. Phasellus in pretium velit. Suspendisse non elementum lorem, eu tempus nisi. Vestibulum et nibh non lacus pharetra tincidunt eu nec sapien. Mauris elementum ante id risus cursus aliquam at eget ipsum. Curabitur velit mauris, laoreet id nisl ac, dapibus rhoncus neque.</p><p>Fusce lacinia, est ac convallis mattis, dolor ipsum porttitor enim, eu volutpat orci magna quis lorem. Curabitur suscipit ullamcorper mauris, vitae placerat sapien porttitor ac. Maecenas ligula augue, iaculis vitae euismod eget, ultrices eget velit. Donec quis arcu vel mauris volutpat tempus. Fusce a interdum purus. Nullam fringilla felis cursus facilisis molestie. Maecenas non neque in nisi convallis sagittis. Etiam non lectus a nulla tempor tempus. Quisque convallis, quam sed dapibus maximus, nisl dui maximus magna, sollicitudin cursus felis quam non libero. Pellentesque et augue in ligula dignissim eleifend et id dui. Aenean viverra lacus sit amet lectus facilisis, vel porttitor diam consequat. Aenean vestibulum lacus sollicitudin, vulputate sapien nec, finibus augue.</p><p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In eu urna ut sem efficitur gravida ut non eros. Nulla accumsan consequat erat tempor bibendum. In sem turpis, blandit eget ornare vitae, eleifend sit amet erat. Morbi sed finibus eros. Quisque quis tincidunt est, eget egestas nulla. Nullam eget augue ut tortor auctor tincidunt et sed dui. Aenean non mattis lectus.</p></div></center>
 			</div>
 		</div>
 		<div id="bottom">

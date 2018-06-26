@@ -6,6 +6,8 @@ var questionEdited = 0;
 var answerNumber = 1;
 var triggerNumber = 0;
 var multipleQ = false;
+var imageResult="";
+var imageName="";
 $(document).ready(function () {
 
 	var height = $(document).height();
@@ -308,6 +310,86 @@ function showQuestion(number) {
 	}
 }
 
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function (e) {
+			imageResult = e.target.result;
+			imageName = (input.files[0]).name;
+
+		};
+		reader.readAsDataURL(input.files[0]);
+		$("#addImageToCloze").prop('disabled',false);
+	}
+
+}
+
+function uploadFile() {
+	var myFile = $('#fileToUpload').prop('files')[0];
+	var fr = new FileReader();
+
+	fr.onload = function(e) {
+
+		var x = e.target.result;
+		// set the text of the file
+		var y = ($('<div />').append(x).find('#insideDiv').html()).replace(/<p>/g,"").replace(/<\/p>/g,"\n\n");
+		y = y.substring(0,y.length -2);
+		$("#theText").val(y);
+
+		// set the the name to save as the name of the file.
+		$("#fileName").val((myFile.name).substring(0,(myFile.name).length-5));
+		
+		// set the title of the file
+		var title = ($('<div />').append(x).find('#theTitle').html()).replace(/<center>/,"").replace(/<\/center>/,"");
+		$("#theTitle").val(title);
+
+		// set the feedbacks
+		var z = ""+x.match(/Feedbacks.*\]/);
+		z = z.split(/\=\s/);
+		var w = JSON.parse(z[1]);
+		feedbacks = w;
+
+		// set image name and image result 
+		if (z != null) {
+			z = ""+x.match(/imageName.*\"/).toString();
+			z = z.match(/\".*\"/).toString();
+			z = z.substring(1,z.length-1);
+		}
+		imageName = z;
+		imageResult = x.match(/<img id="theimage".*\/>/).toString();
+		imageResult = imageResult.match(/src.*\"/).toString();
+		imageResult = imageResult.substring(5,imageResult.length-1);
+		if (imageName.length >1 && imageResult.length >1) {
+			$("#imageHeader").text("image already added. would you like to change it to another one?");
+		}
+		
+		// set the paragraph number to insert the image in
+		var z = (""+x.match(/nth-child\(.*\)\"/)).toString();
+		z = z.substring(10,z.length-2);
+		$("#parNum").val(z);
+		// set the questions
+		z = ""+x.match(/questions.*\]/);
+		z = z.split(/\=\s/);
+		var w = JSON.parse(z[1]);
+		questions = w;
+		for (var i = 0; questions[i] != null; i++) {
+			
+			showQuestion(i);
+			editingFlag = false;
+			if (questions[i][0] == 1) 
+				saveTrueFalseQuestion();
+			else if (questions[i][0] == 2) 
+				saveSAQuestion();
+			else 
+				saveMAQuestion();
+		}
+
+
+	}
+	fr.readAsText(myFile);
+}
+
 function saveToFile() {
 	var temp = $("#theText").val();
 	var theText = $("#theText").val().split("\n");
@@ -325,8 +407,11 @@ function saveToFile() {
         "feedbacks": JSON.stringify(feedbacks),
         "questions": JSON.stringify(questions),
         "title" : $("#theTitle").val(),
+        "image" : imageResult,
+        "parNum" : $("#parNum").val(),
         "numOfQuestions": questionNumber,
         "fileName": $("#fileName").val(),
+        "imageName": imageName
     };
     $.post("http://localhost:8080/TextWithQuestionsPostHandler", data);
     $("#theText").val(temp);

@@ -420,6 +420,7 @@ function sendData() {
         "numOfQuestions": number,
         "fileName": $("#fileName").val(),
         "image": imageResult,
+        "parNum" : $("#parNum").text(),
         "bgcolor": $("body").css("background-color")
     };
     console.log($("#theTitle").text());

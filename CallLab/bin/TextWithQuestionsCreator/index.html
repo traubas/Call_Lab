@@ -17,7 +17,10 @@
 						Enter Text Bellow
 					</h1>
 					<input type="text" placeholder="Enter Title" id="theTitle">
-					<textarea id="theText" placeholder="Enter Text"></textarea>
+					<textarea id="theText" placeholder="Enter Text"></textarea><br>
+					<h4 id="imageHeader">Add an Image to the text:</h3><br>
+					<input type="file" id="imageToAdd" onchange="readURL(this);" /><br>
+					Insert this image before paragraph number: <input type="text" id="parNum">
 				</div>
 				
 			</div>
@@ -37,7 +40,10 @@
 				<div id="bottomMenu">
 					file name:
 					<input type="text" id="fileName">
-					<button type="button" onclick="saveToFile()">save</button>
+					<button type="button" onclick="saveToFile()">save</button><br>
+					Open Existing:
+					<input type="file" id="fileToUpload" onchange="uploadFile()" />
+
 				</div>
 			</div>
 		</div>
