@@ -15,15 +15,24 @@
 			var feedbacks = "";
 			var correct = true;
 			var imageName = "$imageName";
+			var grades = new Array(30);
+			var GRADE_PER_QUESTION = 100/numberOfQuestions;
+			var try_number = 0;
+			var completed = false;
 			$(document).ready(function() {
 				
 				Feedbacks = $thefeedbacks;
 				questions = $thequestions;
+				for (var i = 0; i < numberOfQuestions; i++) {
+					grades[i] = 0;
+				}
 				showQuestion();
 				$('<center><img id="theimage" src="$theimage"/></center>').insertBefore("#insideDiv p:nth-child($parNum)");
 				
 			});
 			function showQuestion() {
+				try_number = 0;
+				completed = false;
 				$("#questionText").text(questions[currentQuestion-1][1]);
 				$("#questionAnswers").empty();
 				if (questions[currentQuestion-1][0] == 1) {
@@ -96,7 +105,8 @@
 			}
 			function answerQuestion() {
 				var answer;
-				
+				try_number+=1;
+
 				if (questions[currentQuestion-1][0] == 1) {
 					answer = $("#trueFalseField :radio:checked").val();
 				}
@@ -128,6 +138,7 @@
 				if (questions[currentQuestion-1][0] == 3) {
 					var flag = false;
 					correct = true;
+
 					var answers = questions[currentQuestion-1][2]
 					for (var i = 0; i<answers.length; i++) {
 
@@ -145,6 +156,8 @@
 					}
 					console.log(feedbacks);
 					if (correct == true) {
+						completed = true;
+						grades[currentQuestion-1] = GRADE_PER_QUESTION/try_number;
 						$("body").append('<div class="correct">'
 						+'<div class="modalbox success col-sm-8 col-md-6 col-lg-5 center animate">'+
 							'<div class="icon">'+
@@ -183,6 +196,8 @@
 						if (questions[currentQuestion-1][0] == 1) {
 							index = 0;
 						}
+						completed = true;
+						grades[currentQuestion-1] = GRADE_PER_QUESTION/try_number;
 						$("body").append('<div class="correct">'
 						+'<div class="modalbox success col-sm-8 col-md-6 col-lg-5 center animate">'+
 							'<div class="icon">'+
@@ -224,6 +239,29 @@
 			function closeModal() {
 				$(".correct").remove();
 				$(".wrong").remove();
+				var num = currentQuestion;
+				if (completed) {
+					nextQuestion();
+					if (currentQuestion == num) {
+						var grade = 0;
+						for (var i = 0; i< numberOfQuestions; i++) {
+							grade+=grades[i];
+						}
+						$("body").append('<div class="correct">'
+						+'<div class="modalbox success col-sm-8 col-md-6 col-lg-5 center animate">'+
+							'<div class="icon">'+
+								'<span class="glyphicon glyphicon-ok"></span>'+
+							'</div>'+
+							'<!--/.icon-->'+
+							'<h1>Correct!</h1>'+
+							'<p>Good Job! Your grade is: '+grade+'</p>'+
+						'</div>'+
+						'<!--/.success-->'+
+					'</div>');
+						$(".correct").css("visibility","visible");
+						$(".wrong").css("visibility","hidden");
+					}
+				}
 			}
 		</script>
 		<style type="text/css">
@@ -281,11 +319,13 @@
 			#leftArrow {
 				width:30px;
 				height:30px;
+				visibility: hidden;
 
 			}
 			#rightArrow {
 				width:30px;
 				height:30px;
+				visibility: hidden;
 			}
 			.insideDiv p {
 				margin-bottom: 5px;
