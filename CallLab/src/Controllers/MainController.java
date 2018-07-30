@@ -50,26 +50,32 @@ public class MainController {
 				}
 			}).start();
 		}
-	
-//		Process proc;
-//		try {
-//			String os = System.getProperty("os.name").toLowerCase();
-//			if (os.contains("win")){
-//			    //Operating system is based on Windows
-//			}
-//			else if (os.contains("osx")){
-//			    //Operating system is Apple OSX based
-//			}      
-//			else if (os.contains("nix") || os.contains("aix") || os.contains("nux")){
-//			    //Operating system is based on Linux/Unix/*AIX
-//				proc = new ProcessBuilder("google-chrome","index.html").start();
-//				int result = proc.waitFor();
-//			}
-//			
-//		} catch (IOException | InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+    }
+    
+    @FXML
+    void startMatchingExercise(ActionEvent event) {
+    	if (Desktop.isDesktopSupported()) {
+			new Thread(() -> {
+				try {
+					//--------- THIS PART IS FOR WINDOWS --------------
+					File file = new File("index.html");
+					String path = file.getAbsolutePath();
+					file = new File(path);
+					file = new File(file.getParent());
+					file = new File(file.getParent());
+					file = new File(file.getAbsolutePath()+"/MatchingExercise/index.html");
+					System.out.println(file.getAbsolutePath());
+					
+					//--------- THIS PART IS FOR LINUX ----------------
+					//File file = new File("src/TextWithQuestionsCreator/index.html");
+					Desktop.getDesktop().browse(file.toURI());
+					}
+				catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}).start();
+    	}
     }
     
     @FXML

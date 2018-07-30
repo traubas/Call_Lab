@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="js/functions.js"></script>
+		<link href="css/styles.css" rel="stylesheet" />
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="form-style-6">
+		<h1>Call Lab - Sign In </h1>
+		<form>
+			Name:
+			<input type="text" id="name" placeholder="Student Name" />
+			I.D.:
+			<input type="email" id="s_id" placeholder="Student Id" />
+			Course:
+			<select id = "course">
+				<option value = "EnglishS">English-Scientific</option>
+				<option value = "AdvA">English - Advanced A</option>
+				<option value = "AdvB">English - Advanced B</option>
+				<option value = "Grads">English - Graduates</option>
+				<option value = "German">German</option>
+				<option value = "French">French</option>
+				<option value = "Italian">Italian</option>
+				<option value = "Russian">Russian</option>
+				<option value = "Chinese">Chinese</option>
+			</select>
+			Lecturer's Name:
+			<select id=lec_name>
+				<option value = "Arlette">Arlette</option>
+				<option value = "Michal">Michal</option>
+				<option value = "Maria">Maria</option>
+				<option value = "Aliza">Aliza</option>
+				<option value = "Brigitte">Brigitte</option>
+			</select>
+			<input type="submit" value="Sign In" onclick=signIn()/>
+		</form>
+		</div>
+	</body>
+</html>
