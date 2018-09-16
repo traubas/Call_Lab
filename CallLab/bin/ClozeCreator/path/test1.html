@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+  		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8" content="text/html; charset=UTF-8">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script>
+			var numberOfQuestions = $numOfQuestions;
+			var Feedbacks = new Array(30);
+			var questions = new Array(30);
+			$(document).ready(function() {
+				
+				Feedbacks = $feedbackarray;
+				questions = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+
+			});	
+		</script>
+		<style type="text/css">
+			#bottom {
+				position: fixed;
+				display: inline-block;
+				left: 0;
+				bottom: 0;
+				background-color: #fcd39f;
+				height: 30%;
+				width:100%;
+			}
+
+			#top {
+				position: fixed;
+			    top: 0;
+			    height:70%;
+			    width:100%;
+			    background-color: lightgrey;
+			    border-bottom: 3px solid black;
+			    overflow:auto;
+			}
+
+			#theTitle {
+			}
+
+			#theText {
+			}
+			#insideDiv {
+				width:80%;
+				text-align: left;
+			}
+			#theQuestionsDiv {
+				width:60%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="top">
+			<h1 id="theTitle"><center>wow</center></h1>
+			<br>
+			<div id="theText">
+				<center><div id="insideDiv">What is Lorem Ipsum?<br />Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<br /><br />Why do we use it?<br />It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).<br /><br /><br />Where does it come from?<br />Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</div></center>
+			</div>
+		</div>
+		<div id="bottom">
+			<div id="leftArrow"><<</div>
+			<center>
+			<div id="theQuestionsDiv">
+				<center>
+					<div id="questionText"></div><br>
+					<div id="questionAnswers"></div><br>
+				</center>
+			</div>
+			<div id="rightArrow">>></div>
+			</center>
+		</div>
+	</body>
+</html>

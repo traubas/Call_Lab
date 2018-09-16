@@ -12,8 +12,10 @@
             <Image url="@appbg.jpg" />
          </image>
       </ImageView>
-      <Button id="record-sales" fx:id="startServerBtn" layoutX="140.0" layoutY="155.0" mnemonicParsing="false" onAction="#startServer" text="Create Cloze" />
+      <Button id="record-sales" fx:id="startServerBtn" layoutX="240.0" layoutY="150.0" mnemonicParsing="false" onAction="#startServer" text="Create Cloze" />
       <Button id="record-sales" fx:id="closeServerBtn" layoutX="20.0" layoutY="421.0" mnemonicParsing="false" onAction="#closeServer" text="Close Server" />
-      <Button id="record-sales" fx:id="textWithQuestionsBtn" layoutX="276.0" layoutY="155.0" mnemonicParsing="false" onAction="#startTextWithQuestions" text="Create Text With Questions" />
+      <Button id="record-sales" fx:id="textWithQuestionsBtn" layoutX="193.0" layoutY="286.0" mnemonicParsing="false" onAction="#startTextWithQuestions" text="Create Text With Questions" />
+      <Button id="record-sales" fx:id="startMatchingBtn" layoutX="222.0" layoutY="350.0" mnemonicParsing="false" onAction="#startMatchingExercise" text="Matching Exercise" />
+      <Button id="record-sales" fx:id="sentencesBtn" layoutX="250.0" layoutY="214.0" mnemonicParsing="false" onAction="#startSentences" text="Sentences" />
    </children>
 </AnchorPane>
