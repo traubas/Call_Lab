@@ -148,7 +148,7 @@ function readURL(input) {
 *Note that iamge will be resizable later.
 **/
 function addImageToCloze() {
-	$("#imagediv").append('<center><div id="theImage"><img id="clozeImage" class="slide" src="'+imageResult+'" width="100%" height="100%"></div></center>');
+	$("#clozeData").append('<center><p class="slide"><div id="theImage" class="slide"><img id="clozeImage" class="slide" src="'+imageResult+'" width="100%" height="100%"></div></p></center>');
 	$("#theImage").css("width","500px");
 	$("#theImage").css("height","400px");
 	$("#theImage").css("border","1px solid black");
