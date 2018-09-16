@@ -17,75 +17,39 @@ var blankToEdit=-1;
 *Disables all other buttons except cancel and submit.
 **/
 function updateSort() {
-	$(".slide").each(function(i) {
-  var item = $(this);
-  var item_clone = item.clone();
-  item.data("clone", item_clone);
-  var position = item.position();
-  item_clone
-  .css({
-    left: position.left,
-    top: position.top,
-    visibility: "hidden"
-  })
-    .attr("data-pos", i+1);
-  
-  $("#cloned-slides").append(item_clone);
-});
-
-$(".all-slides").sortable({
-  
-  axis: "y",
-  revert: true,
-  scroll: false,
-  placeholder: "sortable-placeholder",
-  cursor: "move",
-
-  start: function(e, ui) {
-    ui.helper.addClass("exclude-me");
-    $(".all-slides .slide:not(.exclude-me)")
-      .css("visibility", "hidden");
-    ui.helper.data("clone").hide();
-    $(".cloned-slides .slide").css("visibility", "visible");
-  },
-
-  stop: function(e, ui) {
-    $(".all-slides .slide.exclude-me").each(function() {
-      var item = $(this);
-      var clone = item.data("clone");
-      var position = item.position();
-
-      clone.css("left", position.left);
-      clone.css("top", position.top);
-      clone.show();
-
-      item.removeClass("exclude-me");
-    });
+	$(".slides").sortable({
+     placeholder: 'slide-placeholder',
+    axis: "y",
+    revert: 150,
+    start: function(e, ui){
+        
+        placeholderHeight = ui.item.outerHeight();
+        ui.placeholder.height(placeholderHeight + 15);
+        $('<div class="slide-placeholder-animator" data-height="' + placeholderHeight + '"></div>').insertAfter(ui.placeholder);
     
-    $(".all-slides .slide").each(function() {
-      var item = $(this);
-      var clone = item.data("clone");
-      
-      clone.attr("data-pos", item.index());
-    });
-
-    $(".all-slides .slide").css("visibility", "visible");
-    $(".cloned-slides .slide").css("visibility", "hidden");
-  },
-
-  change: function(e, ui) {
-    $(".all-slides .slide:not(.exclude-me)").each(function() {
-      var item = $(this);
-      var clone = item.data("clone");
-      clone.stop(true, false);
-      var position = item.position();
-      clone.animate({
-        left: position.left,
-        top: position.top
-      }, 200);
-    });
-  }
-  
+    },
+    change: function(event, ui) {
+        
+        ui.placeholder.stop().height(0).animate({
+            height: ui.item.outerHeight() + 15
+        }, 300);
+        
+        placeholderAnimatorHeight = parseInt($(".slide-placeholder-animator").attr("data-height"));
+        
+        $(".slide-placeholder-animator").stop().height(placeholderAnimatorHeight + 15).animate({
+            height: 0
+        }, 300, function() {
+            $(this).remove();
+            placeholderHeight = ui.item.outerHeight();
+            $('<div class="slide-placeholder-animator" data-height="' + placeholderHeight + '"></div>').insertAfter(ui.placeholder);
+        });
+        
+    },
+    stop: function(e, ui) {
+        
+        $(".slide-placeholder-animator").remove();
+        
+    },
 });
 }
 
