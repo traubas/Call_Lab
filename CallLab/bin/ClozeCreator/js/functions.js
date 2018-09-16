@@ -578,6 +578,7 @@ function uploadFile() {
 		if ( pTags.parent().is( "#acutalText" ) ) {
 		    pTags.unwrap();
 		}
+		var dim = $("#theImage").wrap('<p class="slide ui-sortable-handle"></p>')
 		updateSort();
 		
 	}
