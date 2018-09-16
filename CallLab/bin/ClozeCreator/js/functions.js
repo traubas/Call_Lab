@@ -574,9 +574,11 @@ function uploadFile() {
 			$("#check"+i).attr("onclick","editBlank("+i+")");
 		}
 		cancel();
+		updateSort();
 		
 	}
 	fr.readAsText(myFile);
+
 }
 
 
