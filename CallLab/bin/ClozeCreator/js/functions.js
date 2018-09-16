@@ -575,7 +575,7 @@ function uploadFile() {
 		}
 		cancel();
 		var pTags = $( "center" );
-		if ( pTags.parent().is( "#actualText" ) ) {
+		if ( pTags.parent().is( "#acutalText" ) ) {
 		    pTags.unwrap();
 		}
 		updateSort();
