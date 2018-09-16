@@ -16,8 +16,8 @@ var blankToEdit=-1;
 *Add a textarea field to the working area with a submit button.<br>
 *Disables all other buttons except cancel and submit.
 **/
-
-$(".slide").each(function(i) {
+function updateSort() {
+	$(".slide").each(function(i) {
   var item = $(this);
   var item_clone = item.clone();
   item.data("clone", item_clone);
@@ -87,6 +87,8 @@ $(".all-slides").sortable({
   }
   
 });
+}
+
 function addtl() {
 	$("#workingArea").append('<textarea type="text" id="textInput"></textarea><br><button type="button" onclick=addTextToPreview()>add</button>');
 	$("#addParagraphBtn").prop('disabled', true);
@@ -136,6 +138,7 @@ function addTextToPreview() {
 	$("#chooseBgColor").prop('disabled',false);
 	$(".cancel").remove();
 	$("#workingArea").empty();
+	updateSort();
 	
 }
 /**
@@ -195,6 +198,7 @@ function addImageToCloze() {
 	$("#editExisting").prop('disabled',false);
 	$(".cancel").remove();
 	$("#theImage").resizable();
+	updateSort();
 }
 /**
 *This function is called whenever a cancel button is clicked.<br>
