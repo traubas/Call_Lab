@@ -2,13 +2,8 @@ package Controllers;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
 
-import org.apache.commons.io.FileUtils;
 
 import Models.Main;
 import javafx.event.ActionEvent;
@@ -64,9 +59,9 @@ public class MainController {
     
     @FXML
     void startServer(ActionEvent event) {
-    	File resFile = null;
+    	//File resFile = null;
 		//resFile = new File(Main.class.getResource(File.separator+"Call_Lab_Client").toURI());
-		final File fileToCopy = resFile;
+
 		if (Desktop.isDesktopSupported()) {
 			new Thread(() -> {
 				try {
