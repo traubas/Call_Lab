@@ -574,7 +574,7 @@ function uploadFile() {
 			$("#check"+i).attr("onclick","editBlank("+i+")");
 		}
 		cancel();
-		var pTags = $( "center" );
+		var pTags = $( "p" );
 		if ( pTags.parent().is( "#acutalText" ) ) {
 		    pTags.unwrap();
 		}
