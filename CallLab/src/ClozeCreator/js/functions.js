@@ -578,7 +578,6 @@ function uploadFile() {
 		if ( pTags.parent().is( "#acutalText" ) ) {
 		    pTags.unwrap();
 		}
-		$("#theImage").unwrap();
 		$("#theImage").wrap('<p class="slide"></p>');
 		$("#theImage").resizable();
 		updateSort();
