@@ -27,7 +27,7 @@
 					grades[i] = 0;
 				}
 				showQuestion();
-				$('<center><img id="theimage" src="$theimage"/></center>').insertBefore("#insideDiv p:nth-child($parNum)");
+				$('<center><img id="theimage" width="$imageWidth" height="$imageHeight" src="$theimage"/></center>').insertBefore("#insideDiv p:nth-child($parNum)");
 				
 			});
 			function showQuestion() {
@@ -270,8 +270,8 @@
 		</script>
 		<style type="text/css">
 			#theimage {
-				max-width: 200px;
-				max-height:150px;
+				max-width: 600px;
+				max-height:500px;
 			}
 			#singleAnswers {
 				text-align: left;

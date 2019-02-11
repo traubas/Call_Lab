@@ -165,6 +165,8 @@ public class Handlers {
 			String fileName = "";
 			String bgcolor = "";
 			String theimage = "";
+			String imageWidth = "";
+			String imageHeight = "";
 			he.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
 		    if (he.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
@@ -202,6 +204,10 @@ public class Handlers {
 					bgcolor+=parameters.get(key);
 				else if (key.equals("image")) 
 					theimage+=parameters.get(key);
+				else if (key.equals("imageWidth"))
+					imageWidth+=parameters.get(key);
+				else if (key.equals("imageHeight"))
+					imageHeight+=parameters.get(key);
 			}
 			InputStream in = getClass().getResourceAsStream("/functions.txt"); 
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -246,6 +252,8 @@ public class Handlers {
 			htmlString = htmlString.replace("$numOfQuestions", numberOfQuestions);
 			htmlString = htmlString.replace("$bgcolor", bgcolor);
 			htmlString = htmlString.replace("$theimage", theimage);
+			htmlString = htmlString.replace("$imageWidth", imageWidth);
+			htmlString = htmlString.replace("$imageHeight", imageHeight);
 			
 			//System.out.print("html is: \n" + htmlString);
 			File newHtmlFile = new File("path/"+fileName+".html");

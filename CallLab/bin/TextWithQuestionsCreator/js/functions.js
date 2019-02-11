@@ -422,7 +422,9 @@ function saveToFile() {
         "parNum" : $("#parNum").val(),
         "numOfQuestions": questionNumber,
         "fileName": $("#fileName").val(),
-        "imageName": imageName
+        "imageName": imageName,
+        "imageWidth" : $("#imageWidth").val(),
+        "imageHeight" : $("#imageHeight").val()
     };
     $.post("http://localhost:8080/TextWithQuestionsPostHandler", data);
     $("#theText").val(temp);
