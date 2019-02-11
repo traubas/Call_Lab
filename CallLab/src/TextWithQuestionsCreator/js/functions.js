@@ -426,6 +426,7 @@ function saveToFile() {
         "imageWidth" : $("#imageWidth").val(),
         "imageHeight" : $("#imageHeight").val()
     };
+	console.log(data)
     $.post("http://localhost:8080/TextWithQuestionsPostHandler", data);
     $("#theText").val(temp);
 }

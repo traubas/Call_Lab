@@ -15,6 +15,8 @@
 			var feedbacks = "";
 			var correct = true;
 			var imageName = "$imageName";
+			var imageWidth = "$imageWidth";
+			var imageHeight = "$imageHeight";
 			var grades = new Array(30);
 			var GRADE_PER_QUESTION = 100/numberOfQuestions;
 			var try_number = 0;
@@ -27,12 +29,12 @@
 					grades[i] = 0;
 				}
 				showQuestion();
-				$('<center><img id="theimage" width="$imageWidth" height="$imageHeight" src="$theimage"/></center>').insertBefore("#insideDiv p:nth-child($parNum)");
+				$('<img id="theimage" width='+imageWidth+' height='+imageHeight+' src="$theimage"/>').insertBefore("#insideDiv p:nth-child($parNum)");
 				
 			});
 			function showQuestion() {
 				try_number = 0;
-				completed = false;
+				completed = false; 
 				$("#questionText").text(questions[currentQuestion-1][1]);
 				$("#questionAnswers").empty();
 				if (questions[currentQuestion-1][0] == 1) {
