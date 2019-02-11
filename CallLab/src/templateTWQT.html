@@ -217,7 +217,9 @@
 					}
 					else {
 						if (questions[currentQuestion-1][0] == 1) {
-							index = 1;
+							console.log(answer == "False")
+							if (answer == "False") index = 1;
+							else index = 0;
 						}
 						$("body").append('<div class="wrong">'
 						+'<div class="modalbox error col-sm-8 col-md-6 col-lg-5 center animate"">'
