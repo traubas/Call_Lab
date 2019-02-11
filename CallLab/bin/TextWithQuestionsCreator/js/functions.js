@@ -392,15 +392,26 @@ function uploadFile() {
 
 function saveToFile() {
 	var temp = $("#theText").val();
-	var theText = $("#theText").val().split("\n");
-	console.log(theText);
+	
+	var theText = $("#theText").val().split("\n\n");
 	for (var i=0;i<theText.length;i++) {
+		console.log("text now is:")
+		console.log(theText)
 		if (theText[i].length < 2) {
-			theText.splice(i,1);
+			var start = theText.slice(0,i);
+			console.log(start)
+			var end = theText.slice(i+1,theText.length);
+			console.log(end)
+			theText = start.concat(end);
+			console.log(theText)
+			i=i-1;
 		}
+		
 	}
+	console.log(theText);
 	$("#theText").val("<p>"+theText.join("</p><p>")+"</p>");
 	theText = $("#theText").val();
+	
 	//theText = theText.replace(/\n\r?/g, '<br />');
 	var data = { 
         "text": theText,

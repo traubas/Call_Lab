@@ -9,25 +9,25 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<script>
 			var currentQuestion = 1;
-			var numberOfQuestions = $numOfQuestions;
+			var numberOfQuestions = 0;
 			var Feedbacks = new Array(30);
 			var questions = new Array(30);
 			var feedbacks = "";
 			var correct = true;
-			var imageName = "$imageName";
+			var imageName = "null";
 			var grades = new Array(30);
 			var GRADE_PER_QUESTION = 100/numberOfQuestions;
 			var try_number = 0;
 			var completed = false;
 			$(document).ready(function() {
 				
-				Feedbacks = $thefeedbacks;
-				questions = $thequestions;
+				Feedbacks = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+				questions = [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
 				for (var i = 0; i < numberOfQuestions; i++) {
 					grades[i] = 0;
 				}
 				showQuestion();
-				$('<center><img id="theimage" src="$theimage"/></center>').insertBefore("#insideDiv p:nth-child($parNum)");
+				$('<center><img id="theimage" src="null"/></center>').insertBefore("#insideDiv p:nth-child(null)");
 				
 			});
 			function showQuestion() {
@@ -716,10 +716,35 @@
 	</head>
 	<body>
 		<div id="top">
-			<h1 id="theTitle"><center>$theTitle</center></h1>
+			<h1 id="theTitle"><center>null</center></h1>
 			<br>
 			<div id="theText">
-				<center><div id="insideDiv" class="insideDiv">$theText</div></center>
+				<center><div id="insideDiv" class="insideDiv"><p>sdfsedfsdfsdfsdfsd
+fds
+fdsfsdfdsgssdfgdfgh
+dsfhdshdfh
+fdsdgd
+fgs
+gf
+sgdf
+g
+sdfgdsfg
+dsfg
+dsfg
+sdffffffffffffffffffffffffffffffgdfgdf gdf gdfg dfg dfg df
+g dfg fdgdfg dfg dfgdsfg 
+sfg 
+dfs g
+sdfg sdfg
+d sg
+df gsdfgdsf g dsf
+g sdfg sdfgsdf
+sdfsdgsdfgdsfgfds
+gsd
+gfds
+g
+sdg
+sd</p></div></center>
 			</div>
 		</div>
 		<div id="bottom">
