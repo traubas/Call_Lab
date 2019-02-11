@@ -46,7 +46,7 @@ public class MainController {
 					System.out.println(file.getAbsolutePath());
 					
 					//--------- THIS PART IS FOR LINUX ----------------
-					//file = new File("src/Sentences/index.html");
+					file = new File("src/Sentences/index.html");
 					Desktop.getDesktop().browse(file.toURI());
 					}
 				catch (IOException e1) {
@@ -91,7 +91,7 @@ public class MainController {
 					System.out.println(file.getAbsolutePath());
 					
 					//--------- THIS PART IS FOR LINUX ----------------
-					//File file = new File("src/TextWithQuestionsCreator/index.html");
+					file = new File("src/TextWithQuestionsCreator/index.html");
 					Desktop.getDesktop().browse(file.toURI());
 					}
 				catch (IOException e1) {
@@ -117,7 +117,7 @@ public class MainController {
 					System.out.println(file.getAbsolutePath());
 					
 					//--------- THIS PART IS FOR LINUX ----------------
-					//File file = new File("src/TextWithQuestionsCreator/index.html");
+					file = new File("src/TextWithQuestionsCreator/index.html");
 					Desktop.getDesktop().browse(file.toURI());
 					}
 				catch (IOException e1) {
