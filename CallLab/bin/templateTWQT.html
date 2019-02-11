@@ -194,9 +194,9 @@
 					var index = parseInt(indexStr)-1;
 					if (answer == questions[currentQuestion-1][2]) {
 						if (questions[currentQuestion-1][0] == 1) {
-							console.log(answer)
-							if (answer.localCompare("False")) index = 1;
-							else index = 0
+							console.log(answer == "False")
+							if (answer == "False") index = 1;
+							else index = 0;
 						}
 						completed = true;
 						grades[currentQuestion-1] = GRADE_PER_QUESTION/try_number;
